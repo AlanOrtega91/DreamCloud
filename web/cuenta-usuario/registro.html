@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <!--  This site was created in Webflow. http://www.webflow.com -->
-<!--  Last Published: Sat Mar 11 2017 18:40:05 GMT+0000 (UTC)  -->
+<!--  Last Published: Thu May 04 2017 21:10:39 GMT+0000 (UTC)  -->
 <html data-wf-page="58c2f2e2d0997b47336ac5ae" data-wf-site="58ab5c2f4cb75faf155e5221">
 <head>
   <meta charset="utf-8">
@@ -8,9 +8,9 @@
   <meta content="Registro" property="og:title">
   <meta content="width=device-width, initial-scale=1" name="viewport">
   <meta content="Webflow" name="generator">
-  <link href="css/normalize.css" rel="stylesheet" type="text/css">
-  <link href="css/webflow.css" rel="stylesheet" type="text/css">
-  <link href="css/dreamcloud.webflow.css" rel="stylesheet" type="text/css">
+  <link href="../css/normalize.css" rel="stylesheet" type="text/css">
+  <link href="../css/webflow.css" rel="stylesheet" type="text/css">
+  <link href="../css/dreamcloud.webflow.css" rel="stylesheet" type="text/css">
   <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js"></script>
   <script type="text/javascript">
     WebFont.load({
@@ -19,17 +19,17 @@
       }
     });
   </script>
-  <script src="js/modernizr.js" type="text/javascript"></script>
-  <link href="images/New-icon.ico" rel="shortcut icon" type="image/x-icon">
-  <link href="images/metric-webclip.png" rel="apple-touch-icon">
+  <script src="../js/modernizr.js" type="text/javascript"></script>
+  <link href="../images/New-icon.ico" rel="shortcut icon" type="image/x-icon">
+  <link href="../images/metric-webclip.png" rel="apple-touch-icon">
 </head>
 <body>
   <div class="navigation w-nav" data-animation="default" data-collapse="medium" data-duration="400">
     <div class="w-container">
-      <a class="brand-link w-nav-brand" href="index.html">
+      <a class="brand-link w-nav-brand" href="../index.html">
         <div class="logo-text">DreamCloud</div>
       </a>
-      <nav class="nav-menu w-nav-menu" role="navigation"><a class="nav-link w-nav-link" href="index.html">Inicio</a><a class="nav-link w-nav-link" href="index.html">Como Funciona</a><a class="nav-link w-nav-link" href="index.html">Beneficios</a><a class="nav-link w-nav-link" href="registro.html">Registrarse</a><a class="nav-link w-nav-link" href="#">Iniciar Sesion</a>
+      <nav class="nav-menu w-nav-menu" role="navigation"><a class="nav-link w-nav-link" href="../index.html">Inicio</a><a class="nav-link w-nav-link" href="../index.html">Como Funciona</a><a class="nav-link w-nav-link" href="../index.html">Beneficios</a><a class="nav-link w-nav-link" href="../cuenta-usuario/registro.html">Registrarse</a><a class="nav-link w-nav-link" href="../cuenta-usuario/iniciar-sesion.html">Iniciar Sesion</a>
       </nav>
       <div class="menu nav-link w-nav-button">
         <div class="w-icon-nav-menu"></div>
@@ -42,14 +42,16 @@
         <form data-name="Email Form" id="email-form" name="email-form">
           <label for="name">Nombre de Usuario</label>
           <input class="w-input" data-name="Name 5" id="name-5" maxlength="256" name="name-5" required="required" type="text">
-          <label for="name-2">Nombre</label>
+          <label for="Name-7">Email</label>
+          <input class="w-input" data-name="Name 6" id="Name-7" maxlength="256" name="Name-6" required="required" type="email">
+          <label for="email-2">Contraseña</label>
+          <input class="w-input" data-name="Email 2" id="email-2" maxlength="256" name="email" required="required" type="password">
+          <label for="email-2">Repetir Contraseña</label>
+          <input class="w-input" data-name="Email 2" id="email-2" maxlength="256" name="email" required="required" type="password">
+          <label for="name-2">Nombre (s)</label>
           <input class="w-input" data-name="Name 2" id="name-2" maxlength="256" name="name-2" required="required" type="text">
-          <label for="name-3">Apellidos</label>
-          <input class="w-input" data-name="Name 3" id="name-3" maxlength="256" name="name-3" required="required" type="text">
-          <label for="name-4">Teléfono</label>
-          <input class="w-input" data-name="Name 4" id="name-4" maxlength="256" name="name-4" required="required" type="text">
-          <label for="name">Celular</label>
-          <input class="w-input" data-name="Name" id="name" maxlength="256" name="name" required="required" type="text">
+          <label for="name-8">Apellidos</label>
+          <input class="w-input" data-name="Name 8" id="name-8" maxlength="256" name="name-8" required="required" type="text">
           <label for="field">Fecha de Nacimiento</label>
           <div class="w-clearfix">
             <select class="date-dropdown w-select" id="field" name="field">
@@ -71,10 +73,11 @@
               <option value="Third">1992</option>
             </select>
           </div>
-          <label for="Name-7">Email</label>
-          <input class="w-input" data-name="Name 6" id="Name-7" maxlength="256" name="Name-6" required="required" type="email">
-          <label for="email-2">Contraseña</label>
-          <input class="w-input" data-name="Email 2" id="email-2" maxlength="256" name="email" required="required" type="password">
+          <div class="w-checkbox">
+            <input class="w-checkbox-input" data-name="Checkbox 2" id="checkbox-2" name="checkbox-2" type="checkbox">
+            <label class="w-form-label" for="checkbox-2">Acepto los <a href="#">Términos y Condiciones</a> y la <a href="#">Política de Privacidad</a>
+            </label>
+          </div>
           <input class="w-button" data-wait="Please wait..." type="submit" value="Registrarse">
         </form>
         <div class="w-form-done">
@@ -105,13 +108,13 @@
             </div>
           </div>
           <div class="social-icon-group">
-            <a class="social-icon w-inline-block" href="#"><img src="images/facebook-icon.svg">
+            <a class="social-icon w-inline-block" href="#"><img src="../images/facebook-icon.svg">
             </a>
-            <a class="social-icon w-inline-block" href="#"><img src="images/twitter-icon.svg">
+            <a class="social-icon w-inline-block" href="#"><img src="../images/twitter-icon.svg">
             </a>
-            <a class="social-icon w-inline-block" href="#"><img src="images/linkdin-icon-white.svg">
+            <a class="social-icon w-inline-block" href="#"><img src="../images/linkdin-icon-white.svg">
             </a>
-            <a class="social-icon w-inline-block" href="#"><img src="images/email-icon-white.svg">
+            <a class="social-icon w-inline-block" href="#"><img src="../images/email-icon-white.svg">
             </a>
           </div>
         </div>
@@ -128,7 +131,7 @@
     </div>
   </div>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js" type="text/javascript"></script>
-  <script src="js/webflow.js" type="text/javascript"></script>
+  <script src="../js/webflow.js" type="text/javascript"></script>
   <!-- [if lte IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/placeholders/3.0.2/placeholders.min.js"></script><![endif] -->
 </body>
 </html>

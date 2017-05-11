@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <!--  This site was created in Webflow. http://www.webflow.com -->
-<!--  Last Published: Sat Mar 11 2017 18:40:05 GMT+0000 (UTC)  -->
-<html data-wf-page="58b9b6992cef619e6673e783" data-wf-site="58ab5c2f4cb75faf155e5221">
+<!--  Last Published: Thu May 04 2017 21:10:39 GMT+0000 (UTC)  -->
+<html data-wf-page="5906908b04a93610a48ceb75" data-wf-site="58ab5c2f4cb75faf155e5221">
 <head>
   <meta charset="utf-8">
-  <title>Subir</title>
-  <meta content="Subir" property="og:title">
+  <title>Subir Convocatoria</title>
+  <meta content="Subir Convocatoria" property="og:title">
   <meta content="width=device-width, initial-scale=1" name="viewport">
   <meta content="Webflow" name="generator">
-  <link href="css/normalize.css" rel="stylesheet" type="text/css">
-  <link href="css/webflow.css" rel="stylesheet" type="text/css">
-  <link href="css/dreamcloud.webflow.css" rel="stylesheet" type="text/css">
+  <link href="../css/normalize.css" rel="stylesheet" type="text/css">
+  <link href="../css/webflow.css" rel="stylesheet" type="text/css">
+  <link href="../css/dreamcloud.webflow.css" rel="stylesheet" type="text/css">
   <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js"></script>
   <script type="text/javascript">
     WebFont.load({
@@ -19,18 +19,18 @@
       }
     });
   </script>
-  <script src="js/modernizr.js" type="text/javascript"></script>
-  <link href="images/New-icon.ico" rel="shortcut icon" type="image/x-icon">
-  <link href="images/metric-webclip.png" rel="apple-touch-icon">
+  <script src="../js/modernizr.js" type="text/javascript"></script>
+  <link href="../images/New-icon.ico" rel="shortcut icon" type="image/x-icon">
+  <link href="../images/metric-webclip.png" rel="apple-touch-icon">
 </head>
 <body>
   <div class="main-container">
     <div class="navigation w-nav" data-animation="default" data-collapse="medium" data-duration="400">
       <div class="w-container">
-        <a class="brand-link w-nav-brand" href="index.html">
+        <a class="brand-link w-nav-brand" href="../index.html">
           <div class="logo-text">DreamCloud</div>
         </a>
-        <nav class="nav-menu w-nav-menu" role="navigation"><a class="nav-link w-nav-link" href="#pricing">Guiones</a><a class="nav-link w-nav-link" href="subir.html">Literatura</a><a class="nav-link w-nav-link" href="buscar.html">Periodismo</a><a class="nav-link w-nav-link" href="#">Cuenta</a>
+        <nav class="nav-menu w-nav-menu" role="navigation"><a class="nav-link w-nav-link" href="/buscar">comunidad</a><a class="nav-link w-nav-link" href="#pricing">Guiones</a><a class="nav-link w-nav-link" href="#">Literatura</a><a class="nav-link w-nav-link" href="/buscar">Periodismo</a><a class="nav-link w-nav-link" href="#">Cuenta</a>
         </nav>
         <div class="menu nav-link w-nav-button">
           <div class="w-icon-nav-menu"></div>
@@ -40,9 +40,20 @@
     <div class="section">
       <div class="w-container">
         <div class="w-form">
-          <form class="w-clearfix" data-name="Email Form" id="email-form" name="email-form">
-            <label for="field">Subcategoria</label>
+          <form data-name="Email Form" id="email-form" name="email-form">
+            <label for="field-10">Nombre de Convocatoria</label>
+            <input class="w-input" id="field-10" maxlength="256" name="field-10" required="required" type="text">
+            <label for="field-11">Tema</label>
+            <textarea class="w-input" id="field-11" maxlength="5000" name="field-11"></textarea>
+            <label for="field">Categoria</label>
             <select class="w-select" id="field" name="field">
+              <option value="">Select one...</option>
+              <option value="First">First Choice</option>
+              <option value="Second">Second Choice</option>
+              <option value="Third">Third Choice</option>
+            </select>
+            <label for="field">Subcategoria</label>
+            <select class="w-select" data-name="Field 13" id="field-13" name="field-13">
               <option value="">Select one...</option>
               <option value="First">First Choice</option>
               <option value="Second">Second Choice</option>
@@ -55,35 +66,45 @@
               <option value="Second">Second Choice</option>
               <option value="Third">Third Choice</option>
             </select>
-            <label for="field-10">Titulo</label>
-            <input class="w-input" id="field-10" maxlength="256" name="field-10" required="required" type="text">
-            <label for="field-11">Sinopsis</label>
-            <textarea class="w-input" id="field-11" maxlength="5000" name="field-11"></textarea>
-            <label for="field-12">Propósito del autor</label>
-            <textarea class="w-input" data-name="Field 12" id="field-12" maxlength="5000" name="field-12"></textarea>
-            <label for="field-2">Estado</label>
-            <select class="w-select" data-name="Field 4" id="field-4" name="field-4">
-              <option value="">Select one...</option>
-              <option value="First">Idea</option>
-              <option value="Second">Draft</option>
-              <option value="Third">Trabajo Final</option>
-            </select>
-            <label for="field-9">Trabajo</label>
-            <div class="dream-upload-filename">Sube tu trabajo en forma de pdf.</div><a class="w-button" href="#">Explorar</a>
-            <label for="field-3">Certificado de Derechos de autor</label>
-            <div class="dream-upload-filename">Sube tu certificado en forma de pdf.</div><a class="w-button" href="#">Explorar</a>
+            <label for="field-14">Fecha Limite</label>
+            <div class="w-clearfix">
+              <select class="date-dropdown w-select" data-name="Field 14" id="field-14" name="field-14">
+                <option value="">Día</option>
+                <option value="First">01</option>
+                <option value="Second">Second Choice</option>
+                <option value="Third">Third Choice</option>
+              </select>
+              <div class="date-division">/</div>
+              <select class="date-dropdown w-select" data-name="Field 16" id="field-16" name="field-16">
+                <option value="">Mes</option>
+                <option value="First">First Choice</option>
+                <option value="Second">Second Choice</option>
+                <option value="Third">Third Choice</option>
+              </select>
+              <div class="date-division">/</div>
+              <select class="date-dropdown w-select" data-name="Field 15" id="field-15" name="field-15">
+                <option value="">Año</option>
+                <option value="First">First Choice</option>
+                <option value="Second">Second Choice</option>
+                <option value="Third">Third Choice</option>
+              </select>
+            </div>
+            <div class="w-clearfix">
+              <label for="field-14">Imagen de la Convocatoria</label>
+              <div class="upload-filename">Sube tu imagen.</div><a class="w-button" href="#">Explorar</a>
+            </div>
             <div class="w-checkbox">
               <input class="w-checkbox-input" data-name="Checkbox" id="checkbox" name="checkbox" type="checkbox">
-              <label class="w-form-label" for="checkbox">Acepto los <a href="#">Términos y Condiciones</a> y la <a>Política de Privacidad</a>
+              <label class="w-form-label" for="checkbox">Acepto los <a href="#">Términos y Condiciones</a> y la <a href="#">Política de Privacidad</a>
               </label>
             </div>
-            <input class="w-button" data-wait="Please wait..." type="submit" value="Subir">
+            <input class="submit-button w-button" data-wait="Subiendo..." type="submit" value="Subir Convocatoria">
           </form>
           <div class="w-form-done">
-            <div>Thank you! Your submission has been received!</div>
+            <div>Tu Dream ha sido subido. Espera a que nuestro equipo lo autorice.</div>
           </div>
           <div class="w-form-fail">
-            <div>Oops! Something went wrong while submitting the form</div>
+            <div>Error subiendo el Dream. Revisa tus datos</div>
           </div>
         </div>
       </div>
@@ -107,13 +128,13 @@
               </div>
             </div>
             <div class="social-icon-group">
-              <a class="social-icon w-inline-block" href="#"><img src="images/facebook-icon.svg">
+              <a class="social-icon w-inline-block" href="#"><img src="../images/facebook-icon.svg">
               </a>
-              <a class="social-icon w-inline-block" href="#"><img src="images/twitter-icon.svg">
+              <a class="social-icon w-inline-block" href="#"><img src="../images/twitter-icon.svg">
               </a>
-              <a class="social-icon w-inline-block" href="#"><img src="images/linkdin-icon-white.svg">
+              <a class="social-icon w-inline-block" href="#"><img src="../images/linkdin-icon-white.svg">
               </a>
-              <a class="social-icon w-inline-block" href="#"><img src="images/email-icon-white.svg">
+              <a class="social-icon w-inline-block" href="#"><img src="../images/email-icon-white.svg">
               </a>
             </div>
           </div>
@@ -131,7 +152,7 @@
     </div>
   </div>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js" type="text/javascript"></script>
-  <script src="js/webflow.js" type="text/javascript"></script>
+  <script src="../js/webflow.js" type="text/javascript"></script>
   <!-- [if lte IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/placeholders/3.0.2/placeholders.min.js"></script><![endif] -->
 </body>
 </html>

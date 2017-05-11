@@ -16,7 +16,7 @@ abstract class BaseDeDatos {
  	public function __construct() {
  		$this->mysqli = new mysqli ( self::DB_LINK, self::DB_LOGIN, self::DB_PASSWORD, self::DB_NAME );
  		if ($this->mysqli->connect_errno)
- 			throw new errorWithDatabaseException ( "Error connecting with database" );
+ 			throw new errorConBaseDeDatos( "Error connecting with database" );
  		$this->mysqli->set_charset("utf8");
  	}
  	

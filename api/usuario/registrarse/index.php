@@ -4,9 +4,9 @@ require_once dirname(__FILE__)."/../../../modelo/Usuario.php";
 
 header('Content-Type: text/html; charset=utf8');
 
-	if (!isset($_POST['nombreUsuario']) || !isset($_POST['nombre']) || !isset($_POST['primerApellido'])
-		|| !isset($_POST['telefono']) || !isset($_POST['celular'])
-		|| !isset($_POST['email']) || !isset($_POST['contrasenia']) || !isset($_POST['fechaDeNacimiento'])) {
+	if (!isset($_POST['nombreUsuario']) || !isset($_POST['nombre']) || !isset($_POST['apellidos'])
+		|| !isset($_POST['fechaNacimiento']) || !isset($_POST['email'])
+		|| !isset($_POST['contrasenia']) || !isset($_POST['contrasenia']) || !isset($_POST['fechaDeNacimiento'])) {
 			die(json_encode(array("Status"=>"ERROR missing values")));
 		}
 
