@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<!--  This site was created in Webflow. http://www.webflow.com -->
+<!--  Last Published: Thu Jun 01 2017 21:56:28 GMT+0000 (UTC)  -->
+<html data-wf-page="58c2f2e2d0997b47336ac5ae" data-wf-site="58ab5c2f4cb75faf155e5221">
+<head>
+  <meta charset="utf-8">
+  <title>Registro</title>
+  <meta content="Registro" property="og:title">
+  <meta content="width=device-width, initial-scale=1" name="viewport">
+  <meta content="Webflow" name="generator">
+  <link href="../css/normalize.css" rel="stylesheet" type="text/css">
+  <link href="../css/webflow.css" rel="stylesheet" type="text/css">
+  <link href="../css/dreamcloud.webflow.css" rel="stylesheet" type="text/css">
+  <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js"></script>
+  <script type="text/javascript">
+    WebFont.load({
+      google: {
+        families: ["Vollkorn:400,400italic,700,700italic","Roboto:300,regular,500","Roboto Condensed:300,regular,700","Roboto Slab:300,regular,700","Arbutus Slab:regular"]
+      }
+    });
+  </script>
+  <script src="../js/modernizr.js" type="text/javascript"></script>
+  <link href="../images/New-icon.ico" rel="shortcut icon" type="image/x-icon">
+  <link href="../images/metric-webclip.png" rel="apple-touch-icon">
+</head>
+<body>
+  <div class="navigation w-nav" data-animation="default" data-collapse="medium" data-duration="400">
+    <div class="w-container">
+      <a class="brand-link w-nav-brand" href="../index.html">
+        <div class="logo-text">DreamCloud</div>
+      </a>
+      <nav class="nav-menu w-nav-menu" role="navigation"><a class="nav-link w-nav-link" href="../index.html">Inicio</a><a class="nav-link w-nav-link" href="../index.html">Como Funciona</a><a class="nav-link w-nav-link" href="../index.html">Beneficios</a><a class="nav-link w-nav-link" href="../cuenta-usuario/registro.html">Registrarse</a><a class="nav-link w-nav-link" href="../cuenta-usuario/iniciar-sesion.html">Iniciar Sesion</a>
+      </nav>
+      <div class="menu nav-link w-nav-button">
+        <div class="w-icon-nav-menu"></div>
+      </div>
+    </div>
+  </div>
+  <div class="section">
+    <div class="w-container">
+      <div class="form-wrapper-2 w-form">
+        <form action="javascript:void(0);" data-name="Email Form" id="forma" name="email-form">
+          <label for="nombre-usuario">Nombre de Usuario</label>
+          <input class="w-input" data-name="Name 5" id="nombre-usuario" maxlength="256" name="name-5" required="required" type="text">
+          <label for="email">Email</label>
+          <input class="w-input" data-name="Name 6" id="email" maxlength="256" name="Name-6" required="required" type="email">
+          <label for="nombre">Nombre (s)</label>
+          <input class="w-input" data-name="Name 2" id="nombre" maxlength="256" name="name-2" required="required" type="text">
+          <label for="apellido">Apellidos</label>
+          <input class="w-input" data-name="Name 8" id="apellido" maxlength="256" name="name-8" required="required" type="text">
+          <label for="field">Fecha de Nacimiento</label>
+          <div class="w-clearfix">
+            <select class="date-dropdown w-select" id="dia-nacimiento" name="field">
+              <option value="">dd</option>
+              <option value="01">01</option>
+              <option value="02">02</option>
+              <option value="03">03</option>
+            </select>
+            <select class="date-dropdown w-select" data-name="Field 3" id="mes-nacimiento" name="field-3">
+              <option value="">mm</option>
+              <option value="01">01</option>
+              <option value="02">02</option>
+              <option value="03">03</option>
+            </select>
+            <select class="date-dropdown w-select" data-name="Field 2" id="anio-nacimiento" name="field-2">
+              <option value="">yyyy</option>
+              <option value="1990">1990</option>
+              <option value="1991">1991</option>
+              <option value="1992">1992</option>
+            </select>
+          </div>
+          <label for="contrasenia">Contraseña</label>
+          <input class="w-input" data-name="Email 2" id="contrasenia" maxlength="256" name="email" required="required" type="password">
+          <label for="contrasenia2">Repetir Contraseña</label>
+          <input class="w-input" data-name="Email 2" id="contrasenia2" maxlength="256" name="email" required="required" type="password">
+          <div class="w-checkbox">
+            <input class="w-checkbox-input" data-name="Checkbox 2" id="checkbox-2" name="checkbox-2" type="checkbox">
+            <label class="w-form-label" for="checkbox-2">Acepto los <a href="#">Términos y Condiciones</a> y la <a href="#">Política de Privacidad</a>
+            </label>
+          </div>
+          <input class="w-button" data-wait="Please wait..." id="forma-boton" type="submit" value="Registrarse">
+        </form>
+        <div class="w-form-done" id="mensaje-exito">
+          <div>Tu cuenta ha sido creada con éxito.
+            <br>Te hemos enviado un correo de confirmación revisa tu correo (en caso de no encontrarlo revisa en spam).</div>
+        </div>
+        <div class="w-form-fail" id="mensaje-error">
+          <div id="mensaje-error-texto">Oops! Something went wrong while submitting the form</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="footer section">
+    <div class="w-container">
+      <div class="w-row">
+        <div class="w-col w-col-6">
+          <div class="footer logo-text">DreamCloud</div>
+          <div class="footer-slogan">Sign up for our newsletter</div>
+          <div class="newsletter-form w-form">
+            <form class="w-clearfix" data-name="Newsletter" id="wf-form-newsletter" name="wf-form-newsletter">
+              <input class="newsletter-field w-input" data-name="Email" id="email" maxlength="256" name="email" placeholder="Email Address" required="required" type="email">
+              <input class="newsletter-button w-button" data-wait="Wait..." type="submit" value="Subscribe" wait="Wait...">
+            </form>
+            <div class="success-message w-form-done">
+              <p>Thank you! You’ll receive an email shortly.</p>
+            </div>
+            <div class="w-form-fail">
+              <p>Oops! Something went wrong while submitting the form :(</p>
+            </div>
+          </div>
+          <div class="social-icon-group">
+            <a class="social-icon w-inline-block" href="#"><img src="../images/facebook-icon.svg">
+            </a>
+            <a class="social-icon w-inline-block" href="#"><img src="../images/twitter-icon.svg">
+            </a>
+            <a class="social-icon w-inline-block" href="#"><img src="../images/linkdin-icon-white.svg">
+            </a>
+            <a class="social-icon w-inline-block" href="#"><img src="../images/email-icon-white.svg">
+            </a>
+          </div>
+        </div>
+        <div class="w-col w-col-2">
+          <h4 class="footer-title">Company</h4><a class="in-footer page-link" href="#">Home</a><a class="in-footer page-link" href="#">Features</a><a class="in-footer page-link" href="#">Clients</a><a class="in-footer page-link" href="#">Pricing</a><a class="in-footer page-link" href="#">Sign Up</a>
+        </div>
+        <div class="w-col w-col-2">
+          <h4 class="footer-title">Product</h4><a class="in-footer page-link" href="#">Analytics</a><a class="in-footer page-link" href="#">Businesses</a><a class="in-footer page-link" href="#">Testimonials</a><a class="in-footer page-link" href="#">Integrations</a>
+        </div>
+        <div class="w-col w-col-2">
+          <h4 class="footer-title">Legal</h4><a class="in-footer page-link" href="#">Privacy Policy</a><a class="in-footer page-link" href="#">Terms of Use</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js" type="text/javascript"></script>
+  <script src="../js/webflow.js" type="text/javascript"></script>
+  <!-- [if lte IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/placeholders/3.0.2/placeholders.min.js"></script><![endif] -->
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+  <script src="../jsf/usuario/registro.js" type="text/javascript"></script>
+</body>
+</html>
