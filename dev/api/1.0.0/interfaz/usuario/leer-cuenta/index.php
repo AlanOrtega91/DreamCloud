@@ -4,34 +4,25 @@ require_once dirname(__FILE__)."/../../../modelo/Usuario.php";
 
 header('Content-Type: text/html; charset=utf8');
 
-if (!isset($_POST['token']) && !isset($_POST['id'])) {
-			die(json_encode(array("Status"=>"ERROR missing values")));
-		}
 
 	try{
 		if (isset($_POST['token'])) 
 		{
-			
+			$token = SafeString::safe($_POST['token']);
+			$informacion = (new Usuario())->leerCuentaPropia($token);
+			$calificacion = (new Usuario())->calcularCalificacionPropia($token);
+			echo json_encode(array("status"=>"ok", "cuenta"=>$informacion, "calificacion"=>$calificacion));
 		} elseif (isset($_POST['id']))
 		{
-			
+			$id = SafeString::safe($_POST['id']);
 		} else 
 		{
 			die(json_encode(array("Status"=>"ERROR missing values")));
 		}
-		$token = SafeString::safe($_POST['token']);
-		$nombre = SafeString::safe($_POST['nombre']);
-		$primerApellido = SafeString::safe($_POST['primerApellido']);
-
-		echo json_encode(array("Status"=>"OK"));
 		
-	} catch(errorWithDatabaseException $e) {
-		echo json_encode(array("Status"=>"ERROR DB"));
-	} catch(errorMakingPaymentException $e) {
-		echo json_encode(array("Status"=>"ERROR PAGO"));
- 	} catch(Conekta\ErrorList $e) {
- 		echo json_encode(array("Status"=>"ERROR Datos".$e->getMessage()));
- 	} catch (Exception $e) {
- 		echo json_encode(array("Status"=>"ERROR Desconocido"));
+	} catch(tokenInvalido $e) {
+		echo json_encode(array("status"=>"error","clave"=>"token","explicacion"=>"Token invalido"));
+	} catch (Exception $e) {
+		echo json_encode(array("status"=>"error","clave"=>"desconocido","explicacion"=>$e->getMessage()));
  	}
 ?>

@@ -2608,6 +2608,9 @@
 
     function render(i, el) {
       var data = $.data(el, namespace);
+      if (!data) {
+        return;
+      }
       if (maskChanged(data)) return layout(data);
       if (designer && slidesChanged(data)) layout(data);
     }

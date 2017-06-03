@@ -43,6 +43,14 @@
 		  mostrarError('Error de Servidor intentalo mas tarde');
 	  }
 	  
+	  var inicioSesionTokenRespondio = function(datos) {
+		  console.log(datos);
+	        if(datos.status == "ok"){
+	        	guardarToken(datos.token);
+	        	window.location.replace("http://dclouding.com/dev/cuenta-usuario/cuenta.html");
+	        } 
+	  }
+	  
 	  function guardarToken(token){
 		  if (typeof(Storage) !== "undefined") {
 			  //HTML5 Web Storage
@@ -64,7 +72,7 @@
 	  
 	  if(token != null){
 		  var parametros = {token: token};
-		  $.post(direccion, parametros, inicioSesionRespondio, "json").fail(inicioSesionError);
+		  $.post(direccion, parametros, inicioSesionTokenRespondio, "json");
 	  }
 	  
 	  function leerToken(){

@@ -1305,6 +1305,18 @@ p {
   font-weight: 700;
 }
 
+.text-field {
+  text-transform: lowercase;
+}
+
+.text-field-2 {
+  text-transform: lowercase;
+}
+
+.text-field-3 {
+  text-transform: lowercase;
+}
+
 html.w-mod-js *[data-ix="fade-in-on-load"] {
   opacity: 0;
   -webkit-transform: translate(0px, 24px);

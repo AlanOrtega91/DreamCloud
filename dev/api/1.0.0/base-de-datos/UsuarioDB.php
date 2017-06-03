@@ -3,19 +3,38 @@ require_once dirname ( __FILE__ ) . "/BaseDeDatos.php";
 
 class UsuarioDB extends BaseDeDatos{
 	
-	const LEER_NOMBRE_DE_USUARIO = "SELECT * FROM Usuario WHERE nombreDeUsuario = '%s';";
-	const LEER_USUARIO_POR_NOMBRE = "SELECT * FROM Usuario WHERE nombreDeUsuario = '%s';";
+	const LEER_NOMBRE_DE_USUARIO = "SELECT nombreDeUsuario AS nombreDeUsuario FROM Usuario WHERE nombreDeUsuario = '%s';";
+	const LEER_EMAIL = "SELECT email AS email FROM Usuario WHERE email = '%s';";
+	const LEER_USUARIO_POR_NOMBRE = "SELECT email AS email FROM Usuario WHERE nombreDeUsuario = '%s';";
 	
-	const AGREGAR_USUARIO = "INSERT INTO Usuario (nombreDeUsuario, nombre, apellido, fechaDeNacimiento, email, contrasenia) 
+	const AGREGAR_USUARIO = "INSERT INTO Usuario (nombreDeUsuario, nombre, apellido, fechaDeNacimiento, email, contrasena) 
 			VALUES ('%s', '%s', '%s', '%s', '%s', '%s');";
 	
-	const REVISAR_CLAVES = "SELECT * FROM Usuario WHERE (nombreDeUsuario = '%s' OR email = '%s') AND (contrasenia = '%s');";
+	const REVISAR_CLAVES = "SELECT * FROM Usuario WHERE (nombreDeUsuario = '%s' OR email = '%s') AND (contrasena = '%s');";
 	const CREAR_SESION= "INSERT INTO Sesion_Usuario (token, fecha, email)
 			VALUES ('%s', NOW(), '%s');";
 	
-	const REVISAR_TOKEN = "SELECT * FROM Sesion_Usuario WHERE token = '%s';";
+	const REVISAR_TOKEN = "SELECT token AS token FROM Sesion_Usuario WHERE token = '%s';";
 	
 	const ACTUALIZAR_TOKEN = "UPDATE Sesion_Usuario SET fecha = NOW() WHERE token = '%s'";
+	
+	const LEER_CUENTA_PROPIA = "SELECT nombre AS nombre, apellido AS apellido, nombreDeUsuario AS nombreDeUsuario, descripcion AS descripcion 
+			FROM Sesion_Usuario LEFT JOIN Usuario 
+			ON Sesion_Usuario.email = Usuario.email
+			WHERE token = '%s'";
+	
+	const LEER_CALIFICACION_PROPIA = "SELECT AVG(calificacion) AS calificacionUsuario 
+			FROM Sesion_Usuario LEFT JOIN Usuario 
+			ON Sesion_Usuario.email = Usuario.email
+			LEFT JOIN Usuario_tiene_Proyecto
+			ON Usuario_tiene_Proyecto.idUsuario = Usuario.id
+			LEFT JOIN Proyecto
+			ON Proyecto.id = Usuario_tiene_Proyecto.idProyecto
+			LEFT JOIN Trabajo
+			ON Trabajo.idProyecto = Proyecto.id
+			LEFT JOIN Resena
+			ON Resena.idTrabajo = Trabajo.id
+			WHERE token = '%s'";
 	
 	const ELIMINAR_SESION= "DELETE FROM Sesion_Usuario WHERE token = '%s';";
 	
@@ -28,7 +47,7 @@ class UsuarioDB extends BaseDeDatos{
 	
 	function existeUsuarioEmail($email)
 	{
-		$query = sprintf(self::LEER_USUARIO, $email);
+		$query = sprintf(self::LEER_EMAIL, $email);
 		$resultado = $this->ejecutarQuery($query);		
 		return $this->resultadoTieneValores($resultado);
 	}
@@ -75,6 +94,20 @@ class UsuarioDB extends BaseDeDatos{
 	{
 		$query = sprintf(self::ACTUALIZAR_TOKEN, $token);
 		$this->ejecutarQuery($query);
+	}
+	
+	function leerCuentaPropia($token)
+	{
+		$query = sprintf(self::LEER_CUENTA_PROPIA, $token);
+		$resultado = $this->ejecutarQuery($query);
+		return $resultado->fetch_assoc();
+	}
+	
+	function leerCalificacionPropia($token)
+	{
+		$query = sprintf(self::LEER_CALIFICACION_PROPIA, $token);
+		$resultado = $this->ejecutarQuery($query);
+		return $resultado->fetch_assoc();
 	}
 	
 	function eliminarSesion($token)

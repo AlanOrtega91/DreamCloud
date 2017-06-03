@@ -56,6 +56,20 @@ class Usuario {
 		}
 	}
 	
+	function leerCuentaPropia($token)
+	{
+		$usuarioDB = new UsuarioDB();
+		$this->iniciarSesionConToken($token);
+		return $usuarioDB->leerCuentaPropia($token);
+	}
+	
+	function calcularCalificacionPropia($token)
+	{
+		$usuarioDB = new UsuarioDB();
+		$this->iniciarSesionConToken($token);
+		return $usuarioDB->leerCalificacionPropia($token);
+	}
+	
 	function cerrarSesion($token)
 	{
 		$usuarioDB = new UsuarioDB();
