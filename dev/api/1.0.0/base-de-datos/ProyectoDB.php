@@ -23,6 +23,10 @@ class ProyectoDB extends BaseDeDatos {
 			LEFT JOIN Genero
 			ON Genero.id = Categoria_tiene_Genero.idGenero
 			WHERE Categoria.id = '%s'";
+	const NUEVO_PROYECTO = "INSERT INTO Proyecto (idGenero, idSubCategoria, titulo, sinopsis, proposito, fecha)
+			VALUES ('%s', '%s', '%s', '%s', '%s', NOW())";
+	const NUEVO_TRABAJO= "INSERT INTO Trabajo (idProyecto, direccion, direccionCertificado, fecha, idEstado)
+			VALUES ('%s', '%s', '%s', NOW(), '%s')";
 	
 	function buscarProyectos($token)
 	{
@@ -50,6 +54,19 @@ class ProyectoDB extends BaseDeDatos {
 		$query = sprintf(self::LEER_GENEROS, $idCategoria);
 		$resultado = $this->ejecutarQuery($query);
 		return $resultado;
+	}
+	
+	function guardarProyectoNuevo($idGenero, $idSubcategoria, $titulo, $sinopsis, $proposito)
+	{
+		$query = sprintf(self::NUEVO_PROYECTO, $idGenero, $idSubcategoria, $titulo, $sinopsis, $proposito);
+		$this->ejecutarQuery($query);
+		return $this->mysqli->insert_id;
+	}
+	
+	function guardarTrabajoNuevo($idProyecto, $ubicacionDestinoTrabajo, $ubicacionDestinoCertificado, $idEstado)
+	{
+		$query = sprintf(self::NUEVO_TRABAJO, $idProyecto, $ubicacionDestinoTrabajo, $ubicacionDestinoCertificado, $idEstado);
+		$this->ejecutarQuery($query);
 	}
 }
 ?>

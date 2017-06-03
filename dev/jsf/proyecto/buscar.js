@@ -15,7 +15,8 @@
 		  console.log(datos);
 		  mostrarError("Error con el servidor");
 	  }
-	  var parametrosBuscar = {token: leerToken()};
+	  var token = leerToken();
+	  var parametrosBuscar = {token: token};
 	  $.post(direccionBuscar,parametrosBuscar, buscarRespondio,"json").fail(buscarError);
 
 	  function llenarProyectos(proyectos) {
@@ -25,6 +26,8 @@
 		  });
 		  $('#proyectos').html(proyectosHTML);
 	  }
+	  
+	  $('#token').val(token);
 	  
 	  
 	  function leerToken(){

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <!--  This site was created in Webflow. http://www.webflow.com -->
-<!--  Last Published: Sat Jun 03 2017 04:42:43 GMT+0000 (UTC)  -->
+<!--  Last Published: Sat Jun 03 2017 06:25:00 GMT+0000 (UTC)  -->
 <html data-wf-page="58b9b6992cef619e6673e783" data-wf-site="58ab5c2f4cb75faf155e5221">
 <head>
   <meta charset="utf-8">
@@ -45,9 +45,9 @@
     <div class="section">
       <div class="w-container">
         <div class="w-form">
-          <form action="http://dclouding.com/dev/api/1.0.0/interfaz/proyecto/subir-nuevo/" data-name="Email Form" id="email-form" method="post" name="email-form" enctype="multipart/form-data">
-            <label for="idProyecto">Proyecto</label>
-            <select class="w-select" data-name="idProyecto" id="idProyecto" name="idProyecto" required="required">
+          <form action="http://dclouding.com/dev/api/1.0.0/interfaz/proyecto/subir-nuevo/" data-name="Email Form" enctype="multipart/form-data" id="email-form" method="post" name="email-form">
+            <label for="proyectos">Proyecto</label>
+            <select class="w-select" data-name="idProyecto" id="proyectos" name="idProyecto" required="required">
               <option value=""></option>
               <option value="nuevo">Nuevo Proyecto</option>
             </select>
@@ -60,7 +60,7 @@
               <option value=""></option>
               <option value="no">Fuera de Convocatoria</option>
             </select>
-            <label for="categorias">Categoria</label>
+            <label for="node">Categoria</label>
             <select class="w-select" id="categorias" required="required">
               <option value=""></option>
             </select>
@@ -99,6 +99,9 @@
                   </div>
                 </div>
               </div>
+            </div>
+            <div class="w-embed">
+              <input class="w-input" type="hidden" id="token" name="token" required="required">
             </div>
             <div class="w-checkbox">
               <input class="w-checkbox-input" data-name="Checkbox" id="checkbox" name="checkbox" required="required" type="checkbox">

@@ -32,5 +32,14 @@ class Proyecto {
 		for ($generosLista = array(); $fila = $generos->fetch_assoc(); $generosLista[] = $fila);
 		return $generosLista;
 	}
+	
+	function nuevoProyecto($token, $ubicacionDestinoTrabajo, $ubicacionDestinoCertificado, $titulo, $sinopsis, $idConvocatoria, $idSubcategoria, $idGenero, $proposito, $idEstado)
+	{
+		(new Usuario())->iniciarSesionConToken($token);
+		$proyectoDB = new ProyectoDB();
+		$idProyecto = $proyectoDB->guardarProyectoNuevo($idGenero, $idSubcategoria, $titulo, $sinopsis, $proposito);
+		echo $idProyecto;
+		$proyectoDB->guardarTrabajoNuevo($idProyecto, $ubicacionDestinoTrabajo, $ubicacionDestinoCertificado, $idEstado);
+	}
 }
 ?>
