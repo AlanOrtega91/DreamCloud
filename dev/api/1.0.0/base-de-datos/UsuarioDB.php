@@ -8,9 +8,9 @@ class UsuarioDB extends BaseDeDatos{
 	const LEER_USUARIO_POR_NOMBRE = "SELECT email AS email FROM Usuario WHERE nombreDeUsuario = '%s';";
 	
 	const AGREGAR_USUARIO = "INSERT INTO Usuario (nombreDeUsuario, nombre, apellido, fechaDeNacimiento, email, contrasena) 
-			VALUES ('%s', '%s', '%s', '%s', '%s', '%s');";
+			VALUES ('%s', '%s', '%s', '%s', '%s', SHA2(MD5(('%s')),512))";
 	
-	const REVISAR_CLAVES = "SELECT * FROM Usuario WHERE (nombreDeUsuario = '%s' OR email = '%s') AND (contrasena = '%s');";
+	const REVISAR_CLAVES = "SELECT * FROM Usuario WHERE (nombreDeUsuario = '%s' OR email = '%s') AND (contrasena = SHA2(MD5(('%s')),512));";
 	const CREAR_SESION= "INSERT INTO Sesion_Usuario (token, fecha, email)
 			VALUES ('%s', NOW(), '%s');";
 	
@@ -18,8 +18,9 @@ class UsuarioDB extends BaseDeDatos{
 	
 	const ACTUALIZAR_TOKEN = "UPDATE Sesion_Usuario SET fecha = NOW() WHERE token = '%s'";
 	
-	const LEER_CUENTA_PROPIA = "SELECT nombre AS nombre, apellido AS apellido, nombreDeUsuario AS nombreDeUsuario, descripcion AS descripcion 
-			FROM Sesion_Usuario LEFT JOIN Usuario 
+	const LEER_CUENTA_PROPIA = "SELECT nombre AS nombre, apellido AS apellido, nombreDeUsuario AS nombreDeUsuario, descripcion AS descripcion, Usuario.id AS id
+			FROM Sesion_Usuario 
+			LEFT JOIN Usuario 
 			ON Sesion_Usuario.email = Usuario.email
 			WHERE token = '%s'";
 	
@@ -69,7 +70,6 @@ class UsuarioDB extends BaseDeDatos{
 	
 	function clavesCoinciden($emailONombre, $contraseña)
 	{
-		$hashContraseña = hash("sha512", md5($contraseña));
 		sleep(1);
 		$query = sprintf(self::REVISAR_CLAVES, $emailONombre, $emailONombre, $hashContraseña);
 		$resultado = $this->ejecutarQuery($query);

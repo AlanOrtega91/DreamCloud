@@ -1,7 +1,7 @@
 (function ($){
   jQuery("document").ready(function(){
 	  var VERSION = "1.0.0";
-	  var BASE_API = "http://dclouding.com/dev/api/" + VERSION + "/interfaz/usuario/";
+	  var BASE_API = "../api/" + VERSION + "/interfaz/usuario/";
 	  var enviando = false;
 	  $('#forma').submit(function afiliarse(event){
 

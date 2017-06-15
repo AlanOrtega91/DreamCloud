@@ -1,6 +1,6 @@
 (function ($){
   jQuery("document").ready(function(){
-	  var baseAPI = "http://dclouding.com/dev/api/1.0.0/interfaz/";
+	  var baseAPI = "../api/1.0.0/interfaz/";
 	  var direccionCuenta = baseAPI + "usuario/leer-cuenta/";
 	  var PERSONAL = 1;
 	  var EXTERNO = 2;
@@ -78,7 +78,7 @@
 			  return localStorage.getItem('token');
 			} else {
 				// Save as Cookie
-				return leerCookie("token");
+				return leerCookie("dreamcloudtoken");
 			}
 	  }
 	  

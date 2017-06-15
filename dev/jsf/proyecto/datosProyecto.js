@@ -1,12 +1,16 @@
 (function ($){
   jQuery("document").ready(function(){
 	  //Categoria-----------------------------------------------------------------
-	  var categoriasBuscar = "http://dclouding.com/dev/api/1.0.0/interfaz/proyecto/categorias/";	  
+	  var categoriasBuscar = "../api/1.0.0/interfaz/proyecto/categorias/";
+	  var categorias = [];
+	  var subcategorias = [];
+	  var generos = [];
 	  
 	  var categoriaRespondio = function (datos){
 		  console.log(datos);
 	        if(datos.status == "ok"){
-	        	llenarCategorias(datos.categorias);
+	        	categorias = datos.categorias;
+	        	llenarCategorias();
 	        } else{
 	        	
 	        }
@@ -16,8 +20,8 @@
 		  console.log(datos);
 	  }
 	  
-	  function llenarCategorias(categorias) {
-		  var categoriasHTML = "<option value=no>Selecciona una Categoría</option>";
+	  function llenarCategorias() {
+		  var categoriasHTML = "<option value='-1'>Selecciona una Categoría</option>";
 		  $.each(categorias, function(index, value) {
 			  categoriasHTML += "<option value=" + value.id + ">" + value.nombreESP + "</option>";
 		  });
@@ -29,12 +33,13 @@
 	  
 	  
 	  //SubCategoria--------------------------------------------------------------
-	  var subcategoriasBuscar = "http://dclouding.com/dev/api/1.0.0/interfaz/proyecto/subcategorias/";	  
+	  var subcategoriasBuscar = "../api/1.0.0/interfaz/proyecto/subcategorias/";	  
 	  
 	  var subcategoriasRespondio = function (datos){
 		  console.log(datos);
 	        if(datos.status == "ok"){
-	        	llenarSubategorias(datos.subcategorias);
+	        	subcategorias = datos.subcategorias;
+	        	llenarSubcategorias();
 	        } else{
 	        	
 	        }
@@ -44,8 +49,8 @@
 		  console.log(datos);
 	  }
 	  
-	  function llenarSubategorias(subcategorias) {
-		  var subcategoriasHTML = "<option value=no>Selecciona una Subcategoría</option>";
+	  function llenarSubcategorias() {
+		  var subcategoriasHTML = "<option value=n'-1'>Selecciona una Subcategoría</option>";
 		  $.each(subcategorias, function(index, value) {
 			  subcategoriasHTML += "<option value=" + value.id + ">" + value.nombreESP + "</option>";
 		  });
@@ -60,12 +65,13 @@
 	  });
 	  
 	  //Generos--------------------------------------------------------------
-	  var generosBuscar = "http://dclouding.com/dev/api/1.0.0/interfaz/proyecto/generos/";	  
+	  var generosBuscar = "../api/1.0.0/interfaz/proyecto/generos/";	  
 	  
 	  var generosRespondio = function (datos){
 		  console.log(datos);
 	        if(datos.status == "ok"){
-	        	llenarGeneros(datos.generos);
+	        	generos = datos.generos;
+	        	llenarGeneros();
 	        } else{
 	        	
 	        }
@@ -75,14 +81,21 @@
 		  console.log(datos);
 	  }
 	  
-	  function llenarGeneros(generos) {
-		  var generosHTML = "<option value=no>Selecciona un Genero</option>";
+	  function llenarGeneros() {
+		  var generosHTML = "<option value='-1'>Selecciona un Genero</option>";
 		  $.each(generos, function(index, value) {
 			  generosHTML += "<option value=" + value.id + ">" + value.nombreESP + "</option>";
 		  });
 		  $('#generos').html(generosHTML);
 	  }
 
-	  
+	  $('#proyectos').change(function (){
+		  var idProyectoSeleccionado = $(this).val();
+		  if (idProyectoSeleccionado == '-1') {
+			  llenarCategorias();
+			  llenarSubcategorias();
+			  llenarGeneros();
+		  }
+	  });
   });
 })(jQuery);

@@ -6,8 +6,8 @@ class Proyecto {
 
 	function buscarProyectos($token)
 	{
-		(new Usuario())->iniciarSesionConToken($token);
-		$proyectos = (new ProyectoDB)->buscarProyectos($token);
+		$usuario = (new Usuario())->leerCuentaPropia($token);
+		$proyectos = (new ProyectoDB)->buscarProyectos($usuario['id']);
 		for ($proyectosLista= array(); $fila = $proyectos->fetch_assoc(); $proyectosLista[] = $fila);
 		return $proyectosLista;
 	}
@@ -35,11 +35,23 @@ class Proyecto {
 	
 	function nuevoProyecto($token, $ubicacionDestinoTrabajo, $ubicacionDestinoCertificado, $titulo, $sinopsis, $idConvocatoria, $idSubcategoria, $idGenero, $proposito, $idEstado)
 	{
-		(new Usuario())->iniciarSesionConToken($token);
+		$usuario = (new Usuario())->leerCuentaPropia($token);
 		$proyectoDB = new ProyectoDB();
-		$idProyecto = $proyectoDB->guardarProyectoNuevo($idGenero, $idSubcategoria, $titulo, $sinopsis, $proposito);
-		echo $idProyecto;
+		if ($idConvocatoria === '-1')
+		{
+			$idConvocatoria = 'NULL';
+		}
+		$idProyecto = $proyectoDB->guardarProyectoNuevo($idGenero, $idSubcategoria, $titulo, $sinopsis, $proposito, $idConvocatoria);
 		$proyectoDB->guardarTrabajoNuevo($idProyecto, $ubicacionDestinoTrabajo, $ubicacionDestinoCertificado, $idEstado);
+		$proyectoDB->guardarReferenciaUsuarioProyecto($usuario['id'], $idProyecto);
+	}
+	
+	function nuevoTrabajo($token, $idProyecto, $ubicacionDestinoTrabajo, $ubicacionDestinoCertificado, $proposito, $idEstado)
+	{
+		$usuario = (new Usuario())->leerCuentaPropia($token);
+		$proyectoDB = new ProyectoDB();
+		$proyectoDB->guardarTrabajoNuevo($idProyecto, $ubicacionDestinoTrabajo, $ubicacionDestinoCertificado, $idEstado);
+		$proyectoDB->cambiarProposito($idProyecto, $proposito);
 	}
 }
 ?>

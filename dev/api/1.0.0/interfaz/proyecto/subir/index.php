@@ -11,6 +11,18 @@ if (!isset($_POST['idProyecto']) || !isset($_POST['titulo']) || !isset($_POST['s
 		}
 
 try{
+	
+	
+	$idProyecto = SafeString::safe($_POST['idProyecto']);
+	$titulo = SafeString::safe($_POST['titulo']);
+	$sinopsis = SafeString::safe($_POST['sinopsis']);
+	$idConvocatoria = SafeString::safe($_POST['idConvocatoria']);
+	$idSubcategoria = SafeString::safe($_POST['idSubcategoria']);
+	$idGenero= SafeString::safe($_POST['idGenero']);
+	$proposito = SafeString::safe($_POST['proposito']);
+	$idEstado = SafeString::safe($_POST['idEstado']);
+	$token = SafeString::safe($_POST['token']);
+	
 	$trabajo = $_FILES['trabajo'];
 	$certificado = $_FILES['certificado'];
 	$nombreTrabajo = uniqid('',true).'.pdf';
@@ -20,24 +32,24 @@ try{
 	agregarArchivo($trabajo, $ubicacionDestinoTrabajo, "pdf");
 	agregarArchivo($certificado, $ubicacionDestinoCertificado, "pdf");
 	
-	$titulo = SafeString::safe($_POST['titulo']);
-	$sinopsis = SafeString::safe($_POST['sinopsis']);
-	$idConvocatoria = SafeString::safe($_POST['idConvocatoria']);
-	$idSubcategoria = SafeString::safe($_POST['idSubcategoria']);
-	$idGenero= SafeString::safe($_POST['idGenero']);
-	$proposito = SafeString::safe($_POST['proposito']);
-	$idEstado = SafeString::safe($_POST['idEstado']);
 	
-	$token = SafeString::safe($_POST['token']);
+	if ($idProyecto === "-1") {
+		(new Proyecto())->nuevoProyecto($token, $nombreTrabajo, $nombreCertificado, $titulo, $sinopsis, $idConvocatoria, $idSubcategoria, $idGenero, $proposito, $idEstado);
+	} else {
+		(new Proyecto())->nuevoTrabajo($token, $idProyecto, $nombreTrabajo, $nombreCertificado, $proposito, $idEstado);
+	}
 	
-	(new Proyecto())->nuevoProyecto($token, $nombreTrabajo, $nombreCertificado, $titulo, $sinopsis, $idConvocatoria, $idSubcategoria, $idGenero, $proposito, $idEstado);
+	header('Location: ../../../../../dreams/subir/exito.html');
 		
 } catch (tokenInvalido$e) {
 	echo json_encode(array("status"=>"error","clave"=>"nombreUsuario","explicacion"=>$e->getMessage()));
+	header('Location: ' . $_SERVER['HTTP_REFERER']);
 }  catch (errorConBaseDeDatos $e) {
 	echo json_encode(array("status"=>"error","clave"=>"db","explicacion"=>$e->getMessage()));
+	header('Location: ' . $_SERVER['HTTP_REFERER']);
 } catch (Exception $e) {
 	echo json_encode(array("status"=>"error","clave"=>"desconocido","explicacion"=>$e->getMessage()));
+	header('Location: ' . $_SERVER['HTTP_REFERER']);
 }
  	
  function agregarArchivo($archivo, $ubicacionDestino, $terminacion) {
@@ -47,14 +59,13 @@ try{
  			if (move_uploaded_file($archivo['tmp_name'],$ubicacionDestino)) {
  				
  			} else {
- 				echo $archivo['tmp_name'];
- 				echo "No pudo mover";
+ 				
  			}
  		} else {
- 			echo "Error";
+ 			
  		}
  	} else {
- 		echo "Termina diferente";
+ 		
  	}
  }
 ?>

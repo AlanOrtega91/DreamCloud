@@ -1,11 +1,13 @@
 (function ($){
   jQuery("document").ready(function(){
-	  var direccionBuscar = "http://dclouding.com/dev/api/1.0.0/interfaz/proyecto/buscar/";	  
+	  var direccionBuscar = "../api/1.0.0/interfaz/proyecto/buscar/";
+	  var proyectos = [];
 	  
 	  var buscarRespondio = function (datos){
 		  console.log(datos);
 	        if(datos.status == "ok"){
-	        	llenarProyectos(datos.proyectos);
+	        	proyectos = datos.proyectos;
+	        	llenarProyectos();
 	        } else{
 	        	
 	        }
@@ -19,15 +21,42 @@
 	  var parametrosBuscar = {token: token};
 	  $.post(direccionBuscar,parametrosBuscar, buscarRespondio,"json").fail(buscarError);
 
-	  function llenarProyectos(proyectos) {
-		  var proyectosHTML = "<option value=nuevo>Nuevo Proyecto</option>";
+	  function llenarProyectos() {
+		  var proyectosHTML = "<option value='-1'>Nuevo Proyecto</option>";
 		  $.each(proyectos, function(index, value) {
-			  proyectosHTML += "<option value=" + value.id + ">" + value.titulo + "</option>";
+			  if (value.id != null) {
+				  proyectosHTML += "<option value='" + value.id + "'>" + value.titulo + "</option>";
+			  }
 		  });
 		  $('#proyectos').html(proyectosHTML);
 	  }
 	  
 	  $('#token').val(token);
+	  
+	  $('#proyectos').change(function (){
+		  var idProyectoSeleccionado = $(this).val();
+		  if (idProyectoSeleccionado != '-1') {
+			  var proyectoSeleccionado = $.grep(proyectos,function (proyecto){
+				  return proyecto.id == idProyectoSeleccionado;
+			  })[0]
+			  console.log(proyectoSeleccionado);
+			  $('#titulo').val(proyectoSeleccionado.titulo);
+			  $("#titulo").prop('readonly', true);
+			  $('#sinopsis').val(proyectoSeleccionado.sinopsis);
+			  $("#sinopsis").prop('readonly', true);
+			  //Seleccionar ninguna
+			  $('#convocatorias').html("<option value='-1'>Fuera de Convocatoria</option>");
+			  //Seleccionar cuales
+			  $('#categorias').html("<option value='-1'>" + proyectoSeleccionado.categoria + "</option>");
+			  $('#subcategorias').html("<option value='-1'>" + proyectoSeleccionado.subcategoria + "</option>");
+			  $('#generos').html("<option value='-1'>" + proyectoSeleccionado.genero + "</option>");
+		  } else {
+			  $('#titulo').val('');
+			  $("#titulo").prop('readonly', false);
+			  $('#sinopsis').val('');
+			  $("#sinopsis").prop('readonly', false);
+		  }
+	  });
 	  
 	  
 	  function leerToken(){
@@ -36,7 +65,7 @@
 			  return localStorage.getItem('token');
 			} else {
 				// Save as Cookie
-				return leerCookie("token");
+				return leerCookie("dreamcloudtoken");
 			}
 	  }
 	  

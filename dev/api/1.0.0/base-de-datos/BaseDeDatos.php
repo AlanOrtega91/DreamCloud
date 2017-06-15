@@ -2,9 +2,9 @@
 abstract class BaseDeDatos {
  	
  	const DB_LINK = 'localhost';
- 	const DB_LOGIN = 'dcDB';
+ 	const DB_LOGIN = 'dcloudin_userDB';
  	const DB_PASSWORD ='DreamCloudAdm0n!';
- 	const DB_NAME = 'dream_cloud';
+ 	const DB_NAME = 'dcloudin_main';
 
  	var $mysqli;
  	

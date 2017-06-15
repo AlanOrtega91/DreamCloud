@@ -1,7 +1,7 @@
 (function ($){
   jQuery("document").ready(function(){
 	  var VERSION = "1.0.0";
-	  var BASE_API = "http://dclouding.com/dev/api/" + VERSION + "/interfaz/proyecto/subir-nuevo/";
+	  var BASE_API = "../api/" + VERSION + "/interfaz/proyecto/subir-nuevo/";
 	  var enviando = false;
 	  
 	  //$("forma").attr("action",BASE_API + "?token=" + leerToken());

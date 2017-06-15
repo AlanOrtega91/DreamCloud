@@ -50,7 +50,7 @@ class Usuario {
 		$usuarioDB = new UsuarioDB();
 		if ($usuarioDB->existeToken($token)) 
 		{
-			$usuarioDB->actualizaToken($token);
+			$usuarioDB->actualizaToken($token);		
 		} else {
 			throw new tokenInvalido();
 		}

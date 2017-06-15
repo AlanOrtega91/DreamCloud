@@ -1,11 +1,13 @@
 (function ($){
   jQuery("document").ready(function(){
-	  var direccionBuscar = "http://dclouding.com/dev/api/1.0.0/interfaz/convocatoria/buscar-activas/";	  
+	  var direccionBuscar = "../api/1.0.0/interfaz/convocatoria/buscar-activas/";
+	  var convocatorias = [];
 	  
 	  var buscarRespondio = function (datos){
 		  console.log(datos);
 	        if(datos.status == "ok"){
-	        	llenarConvocatorias(datos.convocatorias);
+	        	convocatorias = datos.convocatorias;
+	        	llenarConvocatorias();
 	        } else{
 	        	
 	        }
@@ -18,12 +20,21 @@
 	  
 	  $.post(direccionBuscar, buscarRespondio,"json").fail(buscarError);
 
-	  function llenarConvocatorias(convocatorias) {
-		  var convocatoriasHTML = "<option value=no>Fuera de Convocatoria</option>";
+	  function llenarConvocatorias() {
+		  var convocatoriasHTML = "<option value='-1'>Fuera de Convocatoria</option>";
 		  $.each(convocatorias, function(index, value) {
-			  convocatoriasHTML += "<option value=" + value.id + ">" + value.nombre + "</option>";
+			  if (value.id != null) {
+				  convocatoriasHTML += "<option value=" + value.id + ">" + value.nombre + "</option>";
+			  }
 		  });
 		  $('#convocatorias').html(convocatoriasHTML);
 	  }
+	  
+	  $('#proyectos').change(function (){
+		  var idProyectoSeleccionado = $(this).val();
+		  if (idProyectoSeleccionado == '-1') {
+			  llenarConvocatorias();
+		  }
+	  });
   });
 })(jQuery);

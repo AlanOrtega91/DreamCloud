@@ -82,7 +82,7 @@
 			  return localStorage.getItem('token');
 			} else {
 				// Save as Cookie
-				return leerCookie("token");
+				return leerCookie("dreamcloudtoken");
 			}
 	  }
 	  

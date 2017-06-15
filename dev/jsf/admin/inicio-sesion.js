@@ -2,7 +2,7 @@
   jQuery("document").ready(function(){
 	  
 	  var VERSION = "1.0.0";
-	  var direccion = "../api/" + VERSION + "/interfaz/usuario/inicio-sesion/";
+	  var direccion = "../api/" + VERSION + "/interfaz/admin/inicio-sesion/";
 	  var enviando = false;
 	  var token = leerToken();
 	  
@@ -26,7 +26,7 @@
 		  console.log(datos);
 	        if(datos.status == "ok"){
 	        	guardarToken(datos.token);
-	        	window.location.replace("../dreamer/cuenta.html");
+	        	window.location.replace("../administracion/dreams.html");
 	        } else{
 	        	if(datos.clave == "noExiste") {	
 	        		mostrarError("El nombre de Usuario/Email o la clave son incorrectos");
@@ -54,10 +54,10 @@
 	  function guardarToken(token){
 		  if (typeof(Storage) !== "undefined") {
 			  //HTML5 Web Storage
-			  localStorage.setItem('token',token);
+			  localStorage.setItem('tokenAdmin',token);
 			} else {
 				// Save as Cookie
-				document.cookie = 'dreamcloudtoken=' + token;
+				document.cookie = 'dreamcloudAdmin=' + token;
 			}
 	  }
 	  
@@ -78,10 +78,10 @@
 	  function leerToken(){
 		  if (typeof(Storage) !== "undefined") {
 			  //HTML5 Web Storage
-			  return localStorage.getItem('token');
+			  return localStorage.getItem('tokenAdmin');
 			} else {
 				// Save as Cookie
-				return leerCookie("dreamcloudtoken");
+				return leerCookie("dreamcloudAdmin");
 			}
 	  }
 	  
