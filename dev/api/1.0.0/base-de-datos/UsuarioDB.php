@@ -37,7 +37,51 @@ class UsuarioDB extends BaseDeDatos{
 			ON Resena.idTrabajo = Trabajo.id
 			WHERE token = '%s'";
 	
-	const ELIMINAR_SESION= "DELETE FROM Sesion_Usuario WHERE token = '%s';";
+	const ELIMINAR_SESION = "DELETE FROM Sesion_Usuario WHERE token = '%s';";
+	
+	const LEER_NEWSFEED = "(SELECT * FROM (SELECT Proyecto.id AS proyecto, Proyecto.titulo, Proyecto.sinopsis, 
+			Genero.nombreESP AS genero, SubCategoria.nombreESP AS subcategoria, Categoria.nombreESP AS categoria, 
+			aprobado, revisando, Trabajo.id AS idDream FROM 
+			Usuario AS u1
+			LEFT JOIN Usuario_sigue_Usuario
+			ON u1.id = Usuario_sigue_Usuario.idUsuarioSeguidor
+			LEFT JOIN Usuario AS u2
+			ON Usuario_sigue_Usuario.idUsuarioSeguido = u2.id
+			LEFT JOIN Usuario_tiene_Proyecto
+			ON u2.id = Usuario_tiene_Proyecto.idUsuario
+			LEFT JOIN Proyecto
+			ON Usuario_tiene_Proyecto.idProyecto = Proyecto.id
+			LEFT JOIN Genero
+			ON Proyecto.idGenero = Genero.id
+			LEFT JOIN SubCategoria
+			ON Proyecto.idSubCategoria = SubCategoria.id
+			LEFT JOIN Categoria
+			ON SubCategoria.idCategoria = Categoria.id
+			LEFT JOIN Trabajo
+			ON Proyecto.id = Trabajo.idProyecto
+			WHERE u1.id = '%s' AND Proyecto.id IS NOT NULL
+			ORDER BY Trabajo.fecha DESC) AS help
+			GROUP BY proyecto)
+			UNION
+			(SELECT * FROM (SELECT Proyecto.id AS proyecto, Proyecto.titulo, Proyecto.sinopsis, 
+			Genero.nombreESP AS genero, SubCategoria.nombreESP AS subcategoria, Categoria.nombreESP AS categoria, 
+			aprobado, revisando, Trabajo.id AS idDream FROM 
+			Usuario 
+			LEFT JOIN Usuario_sigue_Proyecto
+			ON Usuario.id = Usuario_sigue_Proyecto.idUsuario
+			LEFT JOIN Proyecto
+			ON Usuario_sigue_Proyecto.idProyecto = Proyecto.id
+			LEFT JOIN Genero
+			ON Proyecto.idGenero = Genero.id
+			LEFT JOIN SubCategoria
+			ON Proyecto.idSubCategoria = SubCategoria.id
+			LEFT JOIN Categoria
+			ON SubCategoria.idCategoria = Categoria.id
+			LEFT JOIN Trabajo
+			ON Proyecto.id = Trabajo.idProyecto
+			WHERE Usuario.id = '%s' AND Proyecto.id IS NOT NULL
+			ORDER BY Trabajo.fecha DESC) AS help
+			GROUP BY proyecto)";
 	
 	function existeNombreDeUsuario($nombreUsuario)
 	{
@@ -55,8 +99,7 @@ class UsuarioDB extends BaseDeDatos{
 	
 	function agregarUsuario($nombreUsuario, $nombre, $apellido, $fechaNacimiento, $email, $contraseña)
 	{
-		$hashContraseña = hash("sha512", md5($contraseña));
-		$query = sprintf(self::AGREGAR_USUARIO, $nombreUsuario, $nombre, $apellido, $fechaNacimiento, $email, $hashContraseña);
+		$query = sprintf(self::AGREGAR_USUARIO, $nombreUsuario, $nombre, $apellido, $fechaNacimiento, $email, $contraseña);
 		$this->ejecutarQuery($query);
 	}
 	
@@ -71,7 +114,7 @@ class UsuarioDB extends BaseDeDatos{
 	function clavesCoinciden($emailONombre, $contraseña)
 	{
 		sleep(1);
-		$query = sprintf(self::REVISAR_CLAVES, $emailONombre, $emailONombre, $hashContraseña);
+		$query = sprintf(self::REVISAR_CLAVES, $emailONombre, $emailONombre, $contraseña);
 		$resultado = $this->ejecutarQuery($query);
 		return $this->resultadoTieneValores($resultado);
 	}
@@ -114,6 +157,13 @@ class UsuarioDB extends BaseDeDatos{
 	{
 		$query = sprintf(self::ELIMINAR_SESION, $token);
 		$result = $this->ejecutarQuery($query);
+	}
+	
+	function leerNewsFeed($id)
+	{
+		$query = sprintf(self::LEER_NEWSFEED, $id, $id);
+		$resultado = $this->ejecutarQuery($query);
+		return $resultado;
 	}
 }
 ?>

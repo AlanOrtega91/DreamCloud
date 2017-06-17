@@ -1,52 +1,19 @@
 (function ($){
   jQuery("document").ready(function(){
-	  var direccionDreams = "../api/1.0.0/interfaz/usuario/leer-dreams/";
-
+	  var direccionDreams = "../api/1.0.0/interfaz/usuario/newsfeed/";
+	  var news = [];
+	  var newsfeed = false;
 	  var PERSONAL = 1;
 	  var EXTERNO = 2;
 	  var tipo = PERSONAL;
-	  var mios = true;
-
-	  
-	  $.urlParam = function(name){
-		    var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
-		    if (results==null){
-		       return null;
-		    }
-		    else{
-		       return decodeURI(results[1]) || 0;
-		    }
-		}
-	  
-	  var id = $.urlParam('usuario');
-	  if (id)
-	  {
-		  tipo = EXTERNO;
-		  var parametrosDreams = {idUsuario: id};
-		  $.post(direccionDreams,parametrosDreams, leerDreamsRespondio,"json").fail(leerDreamsError);
-	  } else {
-		  tipo = PERSONAL;
-	  }
-	  
-	  $("#opcion1").click(function (event){
-		  if(tipo == EXTERNO) {
-			  
-		  } else if (mios){
-			  var token = leerToken();
-			  var parametrosDreams = {token: token};
-			  $.post(direccionDreams,parametrosDreams, leerDreamsRespondio,"json").fail(leerDreamsError);
-			  mios = false;
-			  $(this).html('NewsFeed');
-		  } else {
-			  mios = true;
-		  }
-	  });
+	  var parametrosDreams = {token: leerToken()};
 	  
 	  
 	  var leerDreamsRespondio = function (datos){
 		  console.log(datos);
 	        if(datos.status == "ok"){
-	        	llenarDreams(datos.proyectos);
+	        	news = datos.news;
+	        	llenarNewsFeed();
 	        } else{
 	        	
 	        }
@@ -56,12 +23,25 @@
 		  console.log(datos);
 		  mostrarError("Error con el servidor");
 	  }
-
 	  
-	  function llenarDreams(dreams)
+	  $.post(direccionDreams,parametrosDreams, leerDreamsRespondio,"json").fail(leerDreamsError);
+
+	  $("#opcion1").click(function (event){
+		  if(tipo == EXTERNO) {
+			  
+		  } else if (newsfeed){
+			  $.post(direccionDreams,parametrosDreams, leerDreamsRespondio,"json").fail(leerDreamsError);
+			  newsfeed = false;
+			  $(this).html('Mis Proyectos');
+		  } else {
+			  newsfeed = true;
+		  }
+	  });
+	  
+	  function llenarNewsFeed()
 	  {
         var dreamsHTML = "";
-		  $.each(dreams, function(index, dream) {
+		  $.each(news, function(index, dream) {
 			  
 			  dreamsHTML += "<li id='" + dream.idDream + "' class='list-item' onclick='dreamSeleccionado(this)' style='cursor: pointer; cursor: hand;'>";
 			  switch (dream.categoria) 
@@ -98,9 +78,9 @@
 			  }
 			  dreamsHTML += "</div>";
 			  dreamsHTML += "<div class='w-clearfix w-col w-col-2'>";
-			  if (tipo == EXTERNO) {
-				  dreamsHTML += "<img class='dream-list-bookmark' src='../images/bookmark.png' width='45'>";
-			  }
+			  //TODO: Poner bookmark marcado
+			dreamsHTML += "<img class='dream-list-bookmark' src='../images/bookmark.png' width='45'>";
+			  
 			  dreamsHTML +="</div></div>";
 			  dreamsHTML += "<p class='dream-list-description'>"+ dream.sinopsis +"</p>";
 			  

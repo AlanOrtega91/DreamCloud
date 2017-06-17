@@ -50,7 +50,7 @@
 	  }
 	  
 	  function llenarSubcategorias() {
-		  var subcategoriasHTML = "<option value=n'-1'>Selecciona una Subcategoría</option>";
+		  var subcategoriasHTML = "<option value='-1'>Selecciona una Subcategoría</option>";
 		  $.each(subcategorias, function(index, value) {
 			  subcategoriasHTML += "<option value=" + value.id + ">" + value.nombreESP + "</option>";
 		  });

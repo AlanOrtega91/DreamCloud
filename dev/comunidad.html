@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <!--  This site was created in Webflow. http://www.webflow.com -->
-<!--  Last Published: Thu Jun 15 2017 16:12:34 GMT+0000 (UTC)  -->
+<!--  Last Published: Sat Jun 17 2017 08:52:09 GMT+0000 (UTC)  -->
 <html data-wf-page="5906272f3c6c844c055b1d9d" data-wf-site="58ab5c2f4cb75faf155e5221">
 <head>
   <meta charset="utf-8">
@@ -33,7 +33,7 @@
         <a class="brand-link w-nav-brand" href="index.html">
           <div class="logo-text">DreamCloud</div>
         </a>
-        <nav class="nav-menu w-nav-menu" role="navigation"><a class="nav-link w-nav-link" href="comunidad.html">Comunidad</a><a class="nav-link w-nav-link" href="#pricing">Guiones</a><a class="nav-link w-nav-link" href="/buscar">Literatura</a><a class="nav-link w-nav-link" href="#">Periodismo</a><a class="nav-link w-nav-link" href="dreamer/cuenta.html">Cuenta</a>
+        <nav class="nav-menu w-nav-menu" role="navigation"><a class="nav-link w-nav-link" href="comunidad.html">Comunidad</a><a class="nav-link w-nav-link" href="dreams/guiones.html">Guiones</a><a class="nav-link w-nav-link" href="dreams/literatura.html">Literatura</a><a class="nav-link w-nav-link" href="dreams/periodismo.html">Periodismo</a><a class="nav-link w-nav-link" href="dreamer/cuenta.html">Cuenta</a>
         </nav>
         <div class="menu nav-link w-nav-button">
           <div class="w-icon-nav-menu"></div>
@@ -42,63 +42,38 @@
     </div>
     <div class="section">
       <div class="w-container">
-        <div class="w-form">
-          <form action="javascript:void(0);" class="forma-biblioteca" data-name="Email Form" id="email-form" name="email-form">
-            <input class="search-box w-input" data-name="claves" id="claves" maxlength="256" name="claves" placeholder="Buscar" type="text">
-            <input class="submit-button w-button" data-wait="Filtrando..." type="submit" value="Filtrar">
-          </form>
-          <div class="w-form-done">
-            <div>Thank you! Your submission has been received!</div>
+        <div class="w-row">
+          <div class="w-col w-col-9">
+            <ul class="w-list-unstyled">
+              <li class="comunidad-item w-clearfix">
+                <div class="row-2 w-row">
+                  <div class="w-col w-col-3"><img sizes="(max-width: 767px) 45vw, (max-width: 991px) 129.25px, 169px" src="images/netflix_logo.png" srcset="images/netflix_logo-p-500x334.png 500w, images/netflix_logo-p-800x534.png 800w, images/netflix_logo-p-1080x721.png 1080w, images/netflix_logo.png 1280w" width="600">
+                  </div>
+                  <div class="column-4 w-col w-col-9">
+                    <p class="comunidad-descripcion-corta">Netflix acaba de sacar la nueva convocatoria para sus series</p>
+                  </div>
+                </div>
+                <p class="comunidad-tema">El tema será de super heroes aprovecha!
+                  <br>BLa
+                  <br>Bla
+                  <br>BLa</p>
+                <div class="comunidad-fecha">Fecha límite: 22/06/2017</div>
+              </li>
+            </ul>
           </div>
-          <div class="w-form-fail">
-            <div>Oops! Something went wrong while submitting the form</div>
+          <div class="w-col w-col-3">
+            <div class="w-form">
+              <form data-name="Email Form" id="email-form" name="email-form">
+                <input class="w-input" data-name="Name" id="name" maxlength="256" name="name" type="text">
+              </form>
+              <div class="w-form-done">
+                <div>Thank you! Your submission has been received!</div>
+              </div>
+              <div class="w-form-fail">
+                <div>Oops! Something went wrong while submitting the form</div>
+              </div>
+            </div>
           </div>
-        </div>
-        <div>
-          <ul class="w-list-unstyled">
-            <li class="list-item">
-              <div class="green list-row w-row">
-                <div class="green list-colum-left w-col w-col-2">
-                  <div class="dream-list-profile-image"><img class="dream-list-profile-image" src="images/default_profile.png" width="90">
-                  </div>
-                  <h5 class="name-account">Juan Perez (1522)</h5>
-                  <h5 class="name-username">@jp (juan@gmail.com)</h5>
-                </div>
-                <div class="green list-colum-left w-col w-col-8">
-                  <div class="rating-div"><img sizes="30px" src="images/star.png" srcset="images/star-p-500.png 500w, images/star-p-800.png 800w, images/star-p-1080.png 1080w, images/star.png 1211w" width="30"><img sizes="30px" src="images/star.png" srcset="images/star-p-500.png 500w, images/star-p-800.png 800w, images/star-p-1080.png 1080w, images/star.png 1211w" width="30"><img sizes="30px" src="images/star.png" srcset="images/star-p-500.png 500w, images/star-p-800.png 800w, images/star-p-1080.png 1080w, images/star.png 1211w" width="30"><img sizes="30px" src="images/star.png" srcset="images/star-p-500.png 500w, images/star-p-800.png 800w, images/star-p-1080.png 1080w, images/star.png 1211w" width="30"><img sizes="30px" src="images/star.png" srcset="images/star-p-500.png 500w, images/star-p-800.png 800w, images/star-p-1080.png 1080w, images/star.png 1211w" width="30">
-                  </div>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique. Duis cursus, mi quis viverra ornare, eros dolor interdum nulla, ut commodo diam libero vitae erat. Aenean faucibus nibh et justo cursus id rutrum lorem imperdiet. Nunc ut sem vitae risus tristique posuere.</p>
-                </div>
-                <div class="w-col w-col-2">
-                  <div><img src="images/bookmark.png" width="50">
-                  </div>
-                  <div><a class="w-button" href="#">Perfil</a>
-                  </div>
-                </div>
-              </div>
-            </li>
-            <li class="list-item">
-              <div class="green list-row w-row">
-                <div class="green list-colum-left w-col w-col-2">
-                  <div class="dream-list-profile-image"><img class="dream-list-profile-image" src="images/default_profile.png" width="90">
-                  </div>
-                  <h5 class="name-account">Juan Perez&nbsp;</h5>
-                  <h5 class="name-username">@jp</h5>
-                </div>
-                <div class="green list-colum-left w-col w-col-8">
-                  <div class="rating-div"><img sizes="30px" src="images/star.png" srcset="images/star-p-500.png 500w, images/star-p-800.png 800w, images/star-p-1080.png 1080w, images/star.png 1211w" width="30"><img sizes="30px" src="images/star.png" srcset="images/star-p-500.png 500w, images/star-p-800.png 800w, images/star-p-1080.png 1080w, images/star.png 1211w" width="30"><img sizes="30px" src="images/star.png" srcset="images/star-p-500.png 500w, images/star-p-800.png 800w, images/star-p-1080.png 1080w, images/star.png 1211w" width="30"><img sizes="30px" src="images/star.png" srcset="images/star-p-500.png 500w, images/star-p-800.png 800w, images/star-p-1080.png 1080w, images/star.png 1211w" width="30"><img sizes="30px" src="images/star.png" srcset="images/star-p-500.png 500w, images/star-p-800.png 800w, images/star-p-1080.png 1080w, images/star.png 1211w" width="30">
-                  </div>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique. Duis cursus, mi quis viverra ornare, eros dolor interdum nulla, ut commodo diam libero vitae erat. Aenean faucibus nibh et justo cursus id rutrum lorem imperdiet. Nunc ut sem vitae risus tristique posuere.</p>
-                </div>
-                <div class="w-col w-col-2">
-                  <div><img src="images/bookmark.png" width="50">
-                  </div>
-                  <div><a class="w-button" href="#">Perfil</a>
-                  </div>
-                </div>
-              </div>
-            </li>
-          </ul>
         </div>
       </div>
     </div>

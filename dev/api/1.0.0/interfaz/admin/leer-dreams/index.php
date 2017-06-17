@@ -3,18 +3,17 @@ require_once dirname(__FILE__)."/../../../modelo/SafeString.php";
 require_once dirname(__FILE__)."/../../../modelo/Administrador.php";
 
 header('Content-Type: text/html; charset=utf8');
-if (!isset($_POST['usuario']) || !isset($_POST['contrasenia'])) {
+if (!isset($_POST['token'])) {
 	die(json_encode(array("status"=>"error","clave"=>"valores","explicacion"=>"Faltan valores")));
 }
 
-try{
-	$email = SafeString::safe($_POST['usuario']);
-	$contraseña = SafeString::safe($_POST['contrasenia']);
-	$token = (new Administrador())->iniciarSesion($email, $contraseña);
-	echo json_encode(array("status"=>"ok","token"=>$token));
-	
-} catch (usuarioNoExisteAdmin $e) {
-	echo json_encode(array("status"=>"error","clave"=>"noExiste","explicacion"=>"El nombre de Usuario/Email o la clave son incorrectos"));
+try {
+	$token = SafeString::safe($_POST['token']);
+	$proyectos = (new Administrador())->buscarProyectosNoAutorizados($token);
+	echo json_encode(array("status"=>"ok","proyectos"=>$proyectos));
+		
+} catch (tokenInvalidoAdmin $e) {
+	echo json_encode(array("status"=>"error","clave"=>"token","explicacion"=>"Token invalido"));
 } catch (errorConBaseDeDatos $e) {
 	echo json_encode(array("status"=>"error","clave"=>"db","explicacion"=>$e->getMessage()));
 } catch (Exception $e) {

@@ -1,10 +1,6 @@
 (function ($){
   jQuery("document").ready(function(){
-	  var baseAPI = "../api/1.0.0/interfaz/";
-	  var direccionCuenta = baseAPI + "usuario/leer-cuenta/";
-	  var PERSONAL = 1;
-	  var EXTERNO = 2;
-	  var tipo = PERSONAL;
+	  var direccionDream = "../api/1.0.0/interfaz/proyecto/leer/";
 	  
 	  $.urlParam = function(name){
 		    var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
@@ -16,49 +12,59 @@
 		    }
 		}
 	  
-	  var id = $.urlParam('cuenta');
-	  if (id)
-	  {
-		  tipo = EXTERNO;
-	  } else {
-		  tipo = PERSONAL
-	  }
+	  var id = $.urlParam('dream');
+	  var admin = $.urlParam('admin');
 	  
-	  
-	  var leerCuentaRespondio = function (datos){
+	  var leerDreamRespondio = function (datos){
 		  console.log(datos);
 	        if(datos.status == "ok"){
-	        	llenarCuenta(datos.cuenta);
+	        	llenarDream(datos.dream);
 	        } else{
-	        	if(datos.clave == "email") {	
-	        		mostrarError("El email no existe");
-	        	} else {
-	        		mostrarError("Error al leer");
-	        	}
+
 	        }
 	  }
 	  
-	  var leerCuentaError = function (datos) {
+	  var leerDreamError = function (datos) {
 		  console.log(datos);
 		  mostrarError("Error con el servidor");
 	  }
 	  
+	  if(admin == 1) {
+		  var parametrosDream = {token: leerTokenAdmin(), idDream: id, admin: 1};
+	  } else {
+		  var parametrosDream = {token: leerToken(), idDream: id, admin: 0};
+	  }
+	  $.post(direccionDream,parametrosDream, leerDreamRespondio,"json").fail(leerDreamError);
 	  
 
 	  
-	  function llenarCuenta(cuenta)
+	  function llenarDream(dream)
 	  {
-		  $('#nombre').text(cuenta.nombre + " " + cuenta.apellido);
-		  $('#nombreDeUsuario').text("@" + cuenta.nombreDeUsuario);
-		  
-		  if (cuenta.descripcion) 
-		  {
-			  $('#descripcion').html(cuenta.descripcion);
-		  } 
-		  else {
-			  $('#descripcion').html("");
+		  $('#frameDream').attr('src', '../recursos/trabajos/' + dream.direccion);
+		  $('#frameCertificado').attr('src', '../recursos/certificados/' + dream.direccionCertificado);
+		  $('#sinopsis').html(dream.sinopsis);
+		  if(admin == 1) {
+			  $('#certificadoDiv').show();
+			  $('#divAdmin').show();
+			  if(dream.revisando == 1) {
+				  $('#revision').hide();
+			  }
+			  if (dream.aprobado == 1) {
+				  $('#aprobar').hide();
+			  }
+			  $('#titulo').html(dream.titulo + " (" + dream.idTrabajo + ")");
+			  $('#nombre').html(dream.nombre + " " + dream.apellido + " (" + dream.idUsuario + ")");
+			  $('#nombreUsuario').html("@" + dream.nombreDeUsuario + " (" + dream.email + ")");
+		  } else {
+			  $('#certificadoDiv').hide();
+			  $('#divAdmin').hide();
+			  $('#titulo').html(dream.titulo);
+			  $('#nombre').html(dream.nombre + " " + dream.apellido);
+			  $('#nombreUsuario').html("@" + dream.nombreDeUsuario);
 		  }
-		  switch (Math.round(cuenta.calificacion)) 
+		  
+		  
+		  switch (Math.round(dream.calificacion)) 
 		  {
 		  	case 1:
 		  		$('#estrella1').show();
@@ -105,6 +111,15 @@
 		  }
 	  }
 	  
+	  function leerTokenAdmin(){
+		  if (typeof(Storage) !== "undefined") {
+			  //HTML5 Web Storage
+			  return localStorage.getItem('tokenAdmin');
+			} else {
+				// Save as Cookie
+				return leerCookie("dreamcloudAdmin");
+			}
+	  }
 	  
 	  function leerToken(){
 		  if (typeof(Storage) !== "undefined") {
@@ -131,23 +146,6 @@
 		    }
 		    return "";
 		}
-	  
-
-	  if (tipo == EXTERNO) {
-		  
-	  } else {
-		  var token = leerToken();
-		  var parametrosCuenta = {token: token};
-		  $.post(direccionCuenta,parametrosCuenta, leerCuentaRespondio,"json").fail(leerCuentaError);
-		  configuraCuentaPersonal();
-	  }
-	  
-	  function configuraCuentaPersonal() 
-	  {
-		  $('#opcion1').html("Mis Proyectos");
-		  $('#opcion2').html("Editar");
-		  $('#opcion3').html("Cerrar Sesión");
-	  }
 	  
   });
 })(jQuery);

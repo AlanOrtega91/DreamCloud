@@ -75,6 +75,14 @@ class Usuario {
 		$usuarioDB = new UsuarioDB();
 		$usuarioDB->eliminarSesion($token);
 	}
+	
+	function leerNewsFeed($token)
+	{
+		$usuario = $this->leerCuentaPropia($token);
+		$news = (new UsuarioDB)->leerNewsFeed($usuario['id']);
+		for ($newsLista = array(); $fila = $news->fetch_assoc(); $newsLista[] = $fila);
+		return $newsLista;
+	}
 }
 
 class usuarioExiste extends Exception{

@@ -9,7 +9,17 @@ class Proyecto {
 		$usuario = (new Usuario())->leerCuentaPropia($token);
 		$proyectos = (new ProyectoDB)->buscarProyectos($usuario['id']);
 		for ($proyectosLista= array(); $fila = $proyectos->fetch_assoc(); $proyectosLista[] = $fila);
+		for ($i = 0; $i < count($proyectosLista); $i++)
+		{
+			$calificacion = $this->leerCalificacionProyecto($proyectosLista[$i]['id']);
+			$proyectosLista[$i]['calificacion'] = $calificacion;
+		}
 		return $proyectosLista;
+	}
+	
+	function leerCalificacionProyecto($id)
+	{
+		return (new ProyectoDB)->leerCalificacionProyecto($id);
 	}
 	
 	function buscarCategorias()
@@ -52,6 +62,18 @@ class Proyecto {
 		$proyectoDB = new ProyectoDB();
 		$proyectoDB->guardarTrabajoNuevo($idProyecto, $ubicacionDestinoTrabajo, $ubicacionDestinoCertificado, $idEstado);
 		$proyectoDB->cambiarProposito($idProyecto, $proposito);
+	}
+	
+	function buscarTrabajo($idDream)
+	{
+		return (new ProyectoDB)->buscarTrabajo($idDream);
+	}
+	
+	function filtrarProyectos($categoria, $subcategoria, $genero, $extra, $texto)
+	{
+		$proyectos = (new ProyectoDB)->filtrarProyectos($categoria, $subcategoria, $genero, $extra, $texto);
+		for ($proyectosLista= array(); $fila = $proyectos->fetch_assoc(); $proyectosLista[] = $fila);
+		return $proyectosLista;
 	}
 }
 ?>

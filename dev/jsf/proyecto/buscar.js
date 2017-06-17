@@ -24,9 +24,7 @@
 	  function llenarProyectos() {
 		  var proyectosHTML = "<option value='-1'>Nuevo Proyecto</option>";
 		  $.each(proyectos, function(index, value) {
-			  if (value.id != null) {
-				  proyectosHTML += "<option value='" + value.id + "'>" + value.titulo + "</option>";
-			  }
+			  proyectosHTML += "<option value='" + value.proyecto + "'>" + value.titulo + "</option>";
 		  });
 		  $('#proyectos').html(proyectosHTML);
 	  }
@@ -37,7 +35,7 @@
 		  var idProyectoSeleccionado = $(this).val();
 		  if (idProyectoSeleccionado != '-1') {
 			  var proyectoSeleccionado = $.grep(proyectos,function (proyecto){
-				  return proyecto.id == idProyectoSeleccionado;
+				  return proyecto.proyecto == idProyectoSeleccionado;
 			  })[0]
 			  console.log(proyectoSeleccionado);
 			  $('#titulo').val(proyectoSeleccionado.titulo);

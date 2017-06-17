@@ -11,7 +11,8 @@ header('Content-Type: text/html; charset=utf8');
 			$token = SafeString::safe($_POST['token']);
 			$informacion = (new Usuario())->leerCuentaPropia($token);
 			$calificacion = (new Usuario())->calcularCalificacionPropia($token);
-			echo json_encode(array("status"=>"ok", "cuenta"=>$informacion, "calificacion"=>$calificacion));
+			$informacion['calificacion'] = $calificacion['calificacionUsuario'];
+			echo json_encode(array("status"=>"ok", "cuenta"=>$informacion));
 		} elseif (isset($_POST['id']))
 		{
 			$id = SafeString::safe($_POST['id']);
