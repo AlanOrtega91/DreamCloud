@@ -2,9 +2,7 @@
   jQuery("document").ready(function(){
 	  var baseAPI = "../api/1.0.0/interfaz/";
 	  var direccionCuenta = baseAPI + "usuario/leer-cuenta/";
-	  var PERSONAL = 1;
-	  var EXTERNO = 2;
-	  var tipo = PERSONAL;
+	  var propio = true;
 	  
 	  $.urlParam = function(name){
 		    var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
@@ -16,13 +14,6 @@
 		    }
 		}
 	  
-	  var id = $.urlParam('cuenta');
-	  if (id)
-	  {
-		  tipo = EXTERNO;
-	  } else {
-		  tipo = PERSONAL
-	  }
 	  
 	  
 	  var leerCuentaRespondio = function (datos){
@@ -30,18 +21,14 @@
 	        if(datos.status == "ok"){
 	        	llenarCuenta(datos.cuenta);
 	        } else{
-	        	if(datos.clave == "email") {	
-	        		mostrarError("El email no existe");
-	        	} else {
-	        		mostrarError("Error al leer");
-	        	}
+
 	        }
 	  }
 	  
 	  var leerCuentaError = function (datos) {
 		  console.log(datos);
-		  mostrarError("Error con el servidor");
 	  }
+	  
 	  
 	  
 
@@ -106,6 +93,22 @@
 	  }
 	  
 	  
+	  var id = $.urlParam('cuenta');
+	  if (id)
+	  {
+		  propio = false;
+		  $('#opcion1').html('Contactar');
+		  $('#opcion2').html('Seguir');
+		  $('#opcion3').hide();
+	  } else {
+		  propio = true;
+		  var token = leerToken();
+		  var parametrosCuenta = {token: token};
+		  $.post(direccionCuenta,parametrosCuenta, leerCuentaRespondio,"json").fail(leerCuentaError);
+		  configuraCuentaPersonal();
+	  }
+	  
+	  
 	  function leerToken(){
 		  if (typeof(Storage) !== "undefined") {
 			  //HTML5 Web Storage
@@ -132,21 +135,48 @@
 		    return "";
 		}
 	  
-
-	  if (tipo == EXTERNO) {
-		  
-	  } else {
-		  var token = leerToken();
-		  var parametrosCuenta = {token: token};
-		  $.post(direccionCuenta,parametrosCuenta, leerCuentaRespondio,"json").fail(leerCuentaError);
-		  configuraCuentaPersonal();
-	  }
 	  
 	  function configuraCuentaPersonal() 
 	  {
 		  $('#opcion1').html("Mis Proyectos");
 		  $('#opcion2').html("Editar");
 		  $('#opcion3').html("Cerrar Sesión");
+	  }
+	  
+	  var direccionCerrar = baseAPI + "usuario/cerrar-sesion/";
+	  
+	  var cerrarRespondio = function (datos){
+		  console.log(datos);
+	        if(datos.status == "ok"){
+	        	borrarToken();
+	        } else{
+	        	borrarToken();
+	        }
+	        window.location.replace("../");
+	  }
+	  
+	  var cerrarError = function (datos) {
+		  console.log(datos);
+		  borrarToken();
+		  window.location.replace("../");
+	  }
+	  
+	  
+	  $('#opcion3').click(function(){
+		  if(propio) {
+			  var parametrosCerrar = {token: token};
+			  $.post(direccionCerrar,parametrosCerrar, cerrarRespondio,"json").fail(cerrarError);
+		  }
+	  });
+	  
+	  function borrarToken() {
+		  if (typeof(Storage) !== "undefined") {
+			  //HTML5 Web Storage
+			  localStorage.removeItem('token');
+			} else {
+				// Save as Cookie
+				document.cookie = 'dreamcloudtoken=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+			}
 	  }
 	  
   });

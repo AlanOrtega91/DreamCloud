@@ -1138,6 +1138,7 @@ p {
 .edit-account-input-field {
   width: 350px;
   float: left;
+  text-transform: lowercase;
 }
 
 .edit-account-input-field.long-text {

@@ -18,7 +18,8 @@ class UsuarioDB extends BaseDeDatos{
 	
 	const ACTUALIZAR_TOKEN = "UPDATE Sesion_Usuario SET fecha = NOW() WHERE token = '%s'";
 	
-	const LEER_CUENTA_PROPIA = "SELECT nombre AS nombre, apellido AS apellido, nombreDeUsuario AS nombreDeUsuario, descripcion AS descripcion, Usuario.id AS id
+	const LEER_CUENTA_PROPIA = "SELECT nombre AS nombre, apellido AS apellido, nombreDeUsuario AS nombreDeUsuario, descripcion AS descripcion, Usuario.id AS id,
+			Usuario.telefono, Usuario.celular, Usuario.fechaDeNacimiento, Usuario.email
 			FROM Sesion_Usuario 
 			LEFT JOIN Usuario 
 			ON Sesion_Usuario.email = Usuario.email
@@ -36,8 +37,6 @@ class UsuarioDB extends BaseDeDatos{
 			LEFT JOIN Resena
 			ON Resena.idTrabajo = Trabajo.id
 			WHERE token = '%s'";
-	
-	const ELIMINAR_SESION = "DELETE FROM Sesion_Usuario WHERE token = '%s';";
 	
 	const LEER_NEWSFEED = "(SELECT * FROM (SELECT Proyecto.id AS proyecto, Proyecto.titulo, Proyecto.sinopsis, 
 			Genero.nombreESP AS genero, SubCategoria.nombreESP AS subcategoria, Categoria.nombreESP AS categoria, 
@@ -83,6 +82,13 @@ class UsuarioDB extends BaseDeDatos{
 			ORDER BY Trabajo.fecha DESC) AS help
 			GROUP BY proyecto)";
 	
+	const CAMBIAR_DATOS_USUARIO = "UPDATE Usuario SET nombre = '%s', apellido = '%s',email = '%s', telefono = '%s', celular = '%s', 
+			descripcion = '%s',
+			fechaDeNacimiento = '%s' 
+			WHERE id = '%s'";
+	
+	const CERRAR_SESION = "DELETE FROM Sesion_Usuario WHERE token = '%s'";
+			
 	function existeNombreDeUsuario($nombreUsuario)
 	{
 		$query = sprintf(self::LEER_NOMBRE_DE_USUARIO, $nombreUsuario);
@@ -153,17 +159,23 @@ class UsuarioDB extends BaseDeDatos{
 		return $resultado->fetch_assoc();
 	}
 	
-	function eliminarSesion($token)
-	{
-		$query = sprintf(self::ELIMINAR_SESION, $token);
-		$result = $this->ejecutarQuery($query);
-	}
 	
 	function leerNewsFeed($id)
 	{
 		$query = sprintf(self::LEER_NEWSFEED, $id, $id);
 		$resultado = $this->ejecutarQuery($query);
 		return $resultado;
+	}
+	
+	function cambiarDatosUsuario($id, $nombre, $apellido, $email, $telefono, $celular, $descripcion, $fechaNacimiento)
+	{
+		$query = sprintf(self::CAMBIAR_DATOS_USUARIO, $nombre, $apellido, $email, $telefono, $celular, $descripcion, $fechaNacimiento, $id);
+		$this->ejecutarQuery($query);
+	}
+	function cerrarSesion($token)
+	{
+		$query = sprintf(self::CERRAR_SESION, $token);
+		$this->ejecutarQuery($query);
 	}
 }
 ?>

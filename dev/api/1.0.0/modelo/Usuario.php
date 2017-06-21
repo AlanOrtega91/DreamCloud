@@ -70,18 +70,23 @@ class Usuario {
 		return $usuarioDB->leerCalificacionPropia($token);
 	}
 	
-	function cerrarSesion($token)
-	{
-		$usuarioDB = new UsuarioDB();
-		$usuarioDB->eliminarSesion($token);
-	}
-	
 	function leerNewsFeed($token)
 	{
 		$usuario = $this->leerCuentaPropia($token);
 		$news = (new UsuarioDB)->leerNewsFeed($usuario['id']);
 		for ($newsLista = array(); $fila = $news->fetch_assoc(); $newsLista[] = $fila);
 		return $newsLista;
+	}
+	
+	function cambiarDatosUsuario($token, $nombre, $apellido, $email, $telefono, $celular, $descripcion, $fechaNacimiento)
+	{
+		$usuario = $this->leerCuentaPropia($token);
+		(new UsuarioDB)->cambiarDatosUsuario($usuario['id'], $nombre, $apellido, $email, $telefono, $celular, $descripcion, $fechaNacimiento);
+	}
+	
+	function cerrarSesion($token)
+	{
+		(new UsuarioDB)->cerrarSesion($token);
 	}
 }
 
