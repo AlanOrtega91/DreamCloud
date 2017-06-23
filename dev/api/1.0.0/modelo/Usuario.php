@@ -1,5 +1,6 @@
 <?php
 require_once dirname ( __FILE__ ) . "/../base-de-datos/UsuarioDB.php";
+require_once dirname ( __FILE__ ) . "/Mail.php";
 
 class Usuario {
 
@@ -27,6 +28,9 @@ class Usuario {
 		$this->buscaNombreDeUsuarioLibre($nombreUsuario);
 		$this->buscaEmailDeUsuarioLibre($email);
 		$usuarioDB->agregarUsuario($nombreUsuario, $nombre, $apellido, $fechaNacimiento, $email, $contraseña);
+		
+		
+		Mail::enviarEmail("Bienvenido a DreamCloud","Prueba",$email);
 	}
 	
 	function iniciarSesion($emailONombre, $contraseña)
@@ -87,6 +91,13 @@ class Usuario {
 	function cerrarSesion($token)
 	{
 		(new UsuarioDB)->cerrarSesion($token);
+	}
+	
+	function buscarUsuarios($nombreUsuario)
+	{
+		$usuarios = (new UsuarioDB)->buscarUsuarios($nombreUsuario);
+		for ($usuariosLista = array(); $fila = $usuarios->fetch_assoc(); $usuariosLista[] = $fila);
+		return $usuariosLista;
 	}
 }
 

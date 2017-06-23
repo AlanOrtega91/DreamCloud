@@ -1426,6 +1426,23 @@ p {
   border-radius: 15px;
 }
 
+.text-field-4 {
+  margin-bottom: 0px;
+}
+
+.comunidad-buscar-item {
+  padding-left: 15px;
+  border-style: solid;
+  border-width: 1px;
+  border-color: rgba(99, 144, 223, .67);
+  text-align: left;
+}
+
+.link-block {
+  color: #333;
+  text-decoration: none;
+}
+
 html.w-mod-js *[data-ix="fade-in-on-load"] {
   opacity: 0;
   -webkit-transform: translate(0px, 24px);

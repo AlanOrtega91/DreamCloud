@@ -88,6 +88,7 @@ class UsuarioDB extends BaseDeDatos{
 			WHERE id = '%s'";
 	
 	const CERRAR_SESION = "DELETE FROM Sesion_Usuario WHERE token = '%s'";
+	const BUSCAR_USUARIOS = "SELECT id, nombreDeUsuario From Usuario WHERE nombreDeUsuario LIKE '%s'";
 			
 	function existeNombreDeUsuario($nombreUsuario)
 	{
@@ -176,6 +177,12 @@ class UsuarioDB extends BaseDeDatos{
 	{
 		$query = sprintf(self::CERRAR_SESION, $token);
 		$this->ejecutarQuery($query);
+	}
+	function buscarUsuarios($nombreUsuario)
+	{
+		$query = "SELECT id, nombreDeUsuario From Usuario WHERE nombreDeUsuario LIKE '%$nombreUsuario%'";
+		$resultado = $this->ejecutarQuery($query);
+		return $resultado;
 	}
 }
 ?>
