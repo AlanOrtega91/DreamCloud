@@ -80,6 +80,18 @@ class ProyectoDB extends BaseDeDatos {
 			LEFT JOIN Resena
 			ON Resena.id = Comentario.idResena
 			WHERE Resena.idTrabajo = %s";
+	const USUARIO_SIGUE_PROYECTO = "SELECT * FROM Usuario 
+			LEFT JOIN Usuario_sigue_Proyecto
+			ON Usuario_sigue_Proyecto.idUsuario = Usuario.id
+			LEFT JOIN Proyecto
+			ON Proyecto.id = Usuario_sigue_Proyecto.idProyecto
+			LEFT JOIN Trabajo 
+			ON Trabajo.idProyecto = Proyecto.id
+			WHERE Usuario.id = %s AND Trabajo.id = %s";
+	const LEER_PROYECTO_POR_TRABAJO = "SELECT Proyecto.id FROM Proyecto LEFT JOIN Trabajo ON Proyecto.id = Trabajo.idProyecto WHERE Trabajo.id = %s";
+	const SEGUIR_PROYECTO = "INSERT INTO Usuario_sigue_Proyecto (idUsuario, idProyecto) 
+			VALUES (%s, %s)";
+	const DEJAR_SEGUIR_PROYECTO = "DELETE FROM Usuario_sigue_Proyecto WHERE idusuario = %s AND idProyecto = %s";
 	
 	function buscarProyectos($id)
 	{
@@ -207,6 +219,28 @@ class ProyectoDB extends BaseDeDatos {
 		$query = sprintf(self::LEER_SUBCOMENTARIOS, $id);
 		$resultado = $this->ejecutarQuery($query);
 		return $resultado;
+	}
+	function usuarioSigueProyecto($id, $idDream)
+	{
+		$query = sprintf(self::USUARIO_SIGUE_PROYECTO, $id, $idDream);
+		$resultado = $this->ejecutarQuery($query);
+		return $this->resultadoTieneValores($resultado);
+	}
+	function buscarProyectoDeTrabajo($idDream)
+	{
+		$query = sprintf(self::LEER_PROYECTO_POR_TRABAJO, $idDream);
+		$resultado = $this->ejecutarQuery($query);
+		return $resultado->fetch_assoc();
+	}
+	function seguir($id, $idProyecto)
+	{
+		$query = sprintf(self::SEGUIR_PROYECTO, $id, $idProyecto);
+		$resultado = $this->ejecutarQuery($query);
+	}
+	function dejarDeSeguir($id, $idProyecto)
+	{
+		$query = sprintf(self::DEJAR_SEGUIR_PROYECTO, $id, $idProyecto);
+		$resultado = $this->ejecutarQuery($query);
 	}
 }
 ?>

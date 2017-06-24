@@ -17,6 +17,24 @@ class Proyecto {
 		return $proyectosLista;
 	}
 	
+	function buscarProyectosId($id)
+	{
+		$proyectos = (new ProyectoDB)->buscarProyectos($id);
+		for ($proyectosLista= array(); $fila = $proyectos->fetch_assoc(); $proyectosLista[] = $fila);
+		for ($i = 0; $i < count($proyectosLista); $i++)
+		{
+			$calificacion = $this->leerCalificacionProyecto($proyectosLista[$i]['proyecto']);
+			$proyectosLista[$i]['calificacion'] = $calificacion;
+		}
+		foreach ($proyectosLista as $key => $proyecto)
+		{
+			if ($proyecto['aprobado'] != '1') {
+				unset($proyectosLista[$key]);
+			}
+		}
+		return $proyectosLista;
+	}
+	
 	function leerCalificacionProyecto($id)
 	{
 		return (new ProyectoDB)->leerCalificacionProyecto($id);
@@ -101,6 +119,19 @@ class Proyecto {
 		$subcomentarios = (new ProyectoDB)->leerSubcomentarios($id);
 		for ($subcomentariosLista= array(); $fila = $subcomentarios->fetch_assoc(); $subcomentariosLista[] = $fila);
 		return $subcomentariosLista;
+	}
+	function revisarSiguiendo($id, $idDream)
+	{
+		return (new ProyectoDB)->usuarioSigueProyecto($id, $idDream);
+	}
+	function seguir($id, $idDream,$seguir)
+	{
+		$proyecto = (new ProyectoDB)->buscarProyectoDeTrabajo($idDream);
+		if ($seguir == "true") {
+			(new ProyectoDB)->seguir($id, $proyecto['id']);
+		} else {
+			(new ProyectoDB)->dejarDeSeguir($id, $proyecto['id']);
+		}
 	}
 }
 ?>

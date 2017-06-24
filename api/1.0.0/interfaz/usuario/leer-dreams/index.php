@@ -9,8 +9,12 @@ try {
 		$token = SafeString::safe($_POST['token']);
 		$proyectos = (new Proyecto())->buscarProyectos($token);
 		echo json_encode(array("status"=>"ok","proyectos"=>$proyectos));
+	} elseif (isset($_POST['idUsuario'])){
+		$id = SafeString::safe($_POST['idUsuario']);
+		$proyectos = (new Proyecto())->buscarProyectosId($id);
+		echo json_encode(array("status"=>"ok","proyectos"=>$proyectos));
 	} else {
-		echo json_encode(array("status"=>"error","clave"=>"token","explicacion"=>"No existe token"));
+		echo json_encode(array("status"=>"error","clave"=>"parametros","explicacion"=>"Faltan parametros"));
 	}
 } catch (tokenInvalido $e) {
 	echo json_encode(array("status"=>"error","clave"=>"token","explicacion"=>"Token invalido"));

@@ -11,7 +11,8 @@ header('Content-Type: text/html; charset=utf8');
 			$id = SafeString::safe($_POST['id']);
 			$token = SafeString::safe($_POST['token']);
 			$infoPropia = (new Usuario())->leerCuenta($token, null, 0);
-			$informacion = (new Usuario())->leerCuenta($token = null, $id, $modo = 1);
+			
+			$informacion = (new Usuario())->leerCuenta(null, $id, 1);
 			
 			$calificacion = (new Usuario())->calcularCalificacion($id);
 			

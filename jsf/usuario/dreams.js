@@ -8,25 +8,7 @@
 	  var mios = true;
 	  $('#lista-proyectos').html('');
 	  
-	  $.urlParam = function(name){
-		    var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
-		    if (results==null){
-		       return null;
-		    }
-		    else{
-		       return decodeURI(results[1]) || 0;
-		    }
-		}
 	  
-	  var id = $.urlParam('usuario');
-	  if (id)
-	  {
-		  tipo = EXTERNO;
-		  var parametrosDreams = {idUsuario: id};
-		  $.post(direccionDreams,parametrosDreams, leerDreamsRespondio,"json").fail(leerDreamsError);
-	  } else {
-		  tipo = PERSONAL;
-	  }
 	  
 	  $("#opcion1").click(function (event){
 		  if(tipo != EXTERNO && mios){
@@ -104,6 +86,26 @@
 
 		  });
 		  $('#lista-proyectos').html(dreamsHTML);
+	  }
+	  
+	  $.urlParam = function(name){
+		    var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+		    if (results==null){
+		       return null;
+		    }
+		    else{
+		       return decodeURI(results[1]) || 0;
+		    }
+		}
+	  
+	  var id = $.urlParam('usuario');
+	  if (id)
+	  {
+		  tipo = EXTERNO;
+		  var parametrosDreams = {idUsuario: id};
+		  $.post(direccionDreams,parametrosDreams, leerDreamsRespondio,"json").fail(leerDreamsError);
+	  } else {
+		  tipo = PERSONAL;
 	  }
 	  
 	  
