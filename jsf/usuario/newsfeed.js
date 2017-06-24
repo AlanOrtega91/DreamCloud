@@ -75,9 +75,6 @@
 			  }
 			  dreamsHTML += "</div>";
 			  dreamsHTML += "<div class='w-clearfix w-col w-col-2'>";
-			  //TODO: Poner bookmark marcado
-			dreamsHTML += "<img class='dream-list-bookmark' src='../images/bookmark.png' width='45'>";
-			  
 			  dreamsHTML +="</div></div>";
 			  dreamsHTML += "<p class='dream-list-description'>"+ dream.sinopsis +"</p>";
 			  

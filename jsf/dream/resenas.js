@@ -4,6 +4,7 @@
 	  var direccionEnviarResena = "../api/1.0.0/interfaz/proyecto/enviar-resena/";
 	  var enviandoCalificacion = false;
 	  var calificacion = 1;
+	  var resenaId = 0;
 	  $('#comentarios').html('');
 	  
 	  $.urlParam = function(name){
@@ -57,12 +58,12 @@
 			  	
 			  resenasHTML += "<p class='comment-opinion'>" + resena.comentario + "</p>" +
 			  		"</div>" +
-			  		"<ul class='w-list-unstyled'>" +
+			  		"<ul class='subcomentarios-lista w-list-unstyled' id='sub" + resena.id + "'>" +
 			  		"</ul>" +
 			  		"<div class='w-clearfix'>" +
-			  		"<p class='subcomment-opinion'><a href='#'>Leer Mas...</a>" +
+			  		"<p class='subcomment-opinion'><a href='#' id='op" + resena.id + "'>Leer Mas...</a>" +
 			  		"</p>" +
-			  		"<p class='subcomment-add'><a href='#'>Comentar</a>" +
+			  		"<p class='subcomment-add'><a href='#' id='com" + resena.id + "'>Comentar</a>" +
 			  		"</p>" +
 			  		"</div>" +
 			  		"<div class='form-block-2 w-form'>" +
@@ -77,8 +78,74 @@
 		  });
 		  $('#comentarios').html(resenasHTML);
 		  $('.form-block-2').hide();
+		  
+		  
+		  $('.subcomment-opinion > a').click(function(){
+			  $('.subcomentarios-lista').hide();
+			  resenaId = $(this).attr('id').replace('op','');
+			  $(this).hide();
+			  var direccionLeerSubcomentarios = "../api/1.0.0/interfaz/proyecto/leer-subcomentarios/";
+			  var parametrosLeerSubcomentarios = {token: leerToken(), id: resenaId};
+			  $.post(direccionLeerSubcomentarios, parametrosLeerSubcomentarios, leerSubcomentariosRespondio,"json").fail(leerSubcomentariosError);
+		  });
+		  $('.subcomment-add > a').click(function(){
+			  $('.form-block-2').hide();
+			  $(this).parent().parent().parent().children('.form-block-2').show();
+			  resenaId = $(this).attr('id').replace('com','');
+		  });
+		  $('.form-subcomment').submit(function tokenizar(event){
+			  var direccionEnviarSubcomentario = "../api/1.0.0/interfaz/proyecto/enviar-subcomentario/";
+			  var subcomentario = $('.form-subcomment > .w-input').val();
+			  var parametrosSubcomentario = {subcomentario: subcomentario, token: leerToken(), id: resenaId};
+			  $.post(direccionEnviarSubcomentario, parametrosSubcomentario, enviarSubcomentarioRespondio,"json").fail(enviarSubcomentarioError);
+		  });
 	  }
 	  
+	  
+	  var enviarSubcomentarioRespondio = function (datos){
+		  console.log(datos);
+	        if(datos.status == "ok"){
+	        	$('.form-block-2').hide();
+	        } else{
+
+	        }
+	  }
+	  
+	  var enviarSubcomentarioError = function (datos) {
+		  console.log(datos);
+	  }
+	  
+	  
+	  var leerSubcomentariosRespondio = function (datos){
+		  console.log(datos);
+	        if(datos.status == "ok"){
+	        	llenarSubcomentarios(datos.subcomentarios);
+	        } else{
+
+	        }
+	  }
+	  
+	  var leerSubcomentariosError = function (datos) {
+		  console.log(datos);
+	  }
+	  
+	  
+	  function llenarSubcomentarios(subcomentarios)
+	  {
+		  var subcomentariosHTML = "";
+		  $.each(subcomentarios, function(index, subcomentario) {
+			  subcomentariosHTML += "<li>" +
+			  		"<div class='sub-comment w-clearfix'>" +
+			  		"<h6 class='subcomment-user'>@" + subcomentario.nombreDeUsuario + "</h6>" +
+			  		"<p class='subcomment-opinion'>" + subcomentario.comentario + "</p>" +
+			  		"</div>" +
+			  		"</li>";
+			  
+		  });
+		  $("#sub"+resenaId).html(subcomentariosHTML);
+		  $(".subcomentarios-lista").hide();
+		  $("#sub"+resenaId).show();
+	  }
 	  
 	  
 	  var enviarResenaRespondio = function (datos){

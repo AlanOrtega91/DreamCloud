@@ -1451,6 +1451,72 @@ p {
   display: block;
 }
 
+.popup-contactar {
+  position: fixed;
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  z-index: 1000;
+  display: block;
+  width: 100%;
+  height: 200px;
+  margin-top: 150px;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: stretch;
+  -webkit-align-items: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
+}
+
+.forma-contacto {
+  width: 50%;
+  padding: 15px;
+  -webkit-box-flex: 0;
+  -webkit-flex: 0 0 auto;
+  -ms-flex: 0 0 auto;
+  flex: 0 0 auto;
+  border-radius: 15px;
+  background-color: #8d99a1;
+}
+
+.contenedor-forma {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+
+.div-block-5 {
+  position: fixed;
+  z-index: 10;
+  width: 100%;
+  height: 100%;
+  background-color: hsla(0, 7%, 42%, .3);
+}
+
+.boton-autorizar {
+  margin-left: 15px;
+  border-radius: 5px;
+}
+
+.boton-rechazar {
+  margin-bottom: 15px;
+  margin-left: 15px;
+  border-radius: 5px;
+}
+
 html.w-mod-js *[data-ix="fade-in-on-load"] {
   opacity: 0;
   -webkit-transform: translate(0px, 24px);

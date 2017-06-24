@@ -20,10 +20,12 @@
 		  console.log(datos);
 	        if(datos.status == "ok"){
 	        	llenarCuenta(datos.cuenta);
-	        	if (datos.siguiendo == 1) {
-	        		$('#opcion2').html('Dejar de Seguir');
-	        	} else {
-	        		$('#opcion2').html('Seguir');
+	        	if (id) {
+		        	if (datos.siguiendo == 1) {
+		        		$('#opcion2').html('Dejar de Seguir');
+		        	} else {
+		        		$('#opcion2').html('Seguir');
+		        	}
 	        	}
 	        } else{
 
@@ -159,7 +161,7 @@
 	  
 	  $('#opcion3').click(function(){
 		  if(propio) {
-			  var parametrosCerrar = {token: token};
+			  var parametrosCerrar = {token: leerToken()};
 			  $.post(direccionCerrar,parametrosCerrar, cerrarRespondio,"json").fail(cerrarError);
 		  }
 	  });

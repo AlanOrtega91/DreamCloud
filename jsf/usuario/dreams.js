@@ -96,9 +96,6 @@
 			  }
 			  dreamsHTML += "</div>";
 			  dreamsHTML += "<div class='w-clearfix w-col w-col-2'>";
-			  if (tipo == EXTERNO) {
-				  dreamsHTML += "<img class='dream-list-bookmark' src='../images/bookmark.png' width='15'>";
-			  }
 			  dreamsHTML +="</div></div>";
 			  dreamsHTML += "<p class='dream-list-description'>"+ dream.sinopsis +"</p>";
 			  

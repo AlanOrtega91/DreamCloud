@@ -12,6 +12,8 @@
 		  $('#opcion2').html("Editar");
 		  $('#opcion3').html("Cerrar Sesión");
 	  }
+	  $('#forma').parent().parent().parent().hide();
+	  $('#opacador').hide();
 
 
 	  $("#opcion2").click(function (event) {
@@ -49,6 +51,42 @@
 	  var seguirError = function (datos) {
 		  console.log(datos);
 	  }
+	  
+	  
+	  $("#opcion1").click(function (event) {
+		  if(usuario) {
+			  $('#forma').parent().parent().parent().show('slow');
+			  $('#opacador').show('slow');
+		  } 
+	  });
+	  
+	  $('#opacador').click(function(){
+		  $('#forma').parent().parent().parent().hide('slow');
+		  $('#opacador').hide('slow');
+	  });
+	  
+	  $('#forma').submit(function (event){
+		  var direccionContactar = "../api/1.0.0/interfaz/comunidad/contactar/";
+		  var token = leerToken();
+		  var mensaje = $('#mensaje').val();
+		  var parametrosContactar = {token: token, usuario: usuario, mensaje: mensaje};
+		  $.post(direccionContactar,parametrosContactar, contactarRespondio,"json").fail(contactarError);
+	  });
+	  
+	  var contactarRespondio = function (datos){
+		  console.log(datos);
+	        if(datos.status == "ok"){
+	        	$('#forma').parent().parent().parent().hide('slow');
+	        	$('#opacador').hide('slow');
+	        } else{
+
+	        }
+	  }
+	  
+	  var contactarError = function (datos) {
+		  console.log(datos);
+	  }
+	  
 	  
 	  
 	  function leerToken(){

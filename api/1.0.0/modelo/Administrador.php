@@ -1,5 +1,6 @@
 <?php
 require_once dirname ( __FILE__ ) . "/../base-de-datos/AdministradorDB.php";
+require_once dirname ( __FILE__ ) . "/Mail.php";
 
 class Administrador {
 
@@ -46,6 +47,25 @@ class Administrador {
 			default:
 				throw new errorCambiandoEstado();
 		}
+	}
+	
+	function buscarContactosNoAutorizados($token)
+	{
+		$this->iniciarSesionConToken($token);
+		$contactos = (new AdministradorDB())->buscarContactosNoAutorizados();
+		for ($contactosLista= array(); $fila = $contactos->fetch_assoc(); $contactosLista[] = $fila);
+		return $contactosLista;
+	}
+	
+	function autorizarContacto($id)
+	{
+		$contacto = (new AdministradorDB())->leerContacto($id);
+		Mail::enviarEmail("Solicitud de contacto",$contacto['mensaje'],$contacto['email']);
+		(new AdministradorDB())->autorizarContacto($id);
+	}
+	function rechazarContacto($id)
+	{
+		(new AdministradorDB())->rechazarContacto($id);
 	}
 }
 class usuarioNoExisteAdmin extends Exception{

@@ -102,9 +102,6 @@
 			  {
 				  dreamsHTML += "<img height='25' sizes='(max-width: 767px) 25px, (max-width: 991px) 3vw, 25px' src='../images/star.png' srcset='../images/star-p-500.png 500w, ../images/star-p-800.png 800w, ../images/star-p-1080.png 1080w, ../images/star.png 1211w' width='25'>";
 			  }
-			  
-			  dreamsHTML += "<img class='dream-list-bookmark' src='../images/bookmark.png' width='15'>";
-
 
       
 			  //TODO: Agregar la imagen correcta

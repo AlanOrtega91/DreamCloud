@@ -99,6 +99,8 @@ class UsuarioDB extends BaseDeDatos{
 	const SEGUIR = "INSERT INTO Usuario_sigue_Usuario (idUsuarioSeguido, idUsuarioSeguidor)
 			VALUES (%s, %s)";
 	const DEJAR_DE_SEGUIR = "DELETE FROM Usuario_sigue_Usuario WHERE idUsuarioSeguido = %s AND idUsuarioSeguidor = %s";
+	const CONTACTAR = "INSERT INTO Contacto (idUsuarioAContactar, idUsuarioContactando, idEmpresaContactando, mensaje, fecha)
+			VALUES (%s, %s, %s, '%s', NOW())";
 	
 	function existeNombreDeUsuario($nombreUsuario)
 	{
@@ -216,6 +218,12 @@ class UsuarioDB extends BaseDeDatos{
 	function dejarDeSeguir($id, $usuario)
 	{
 		$query = sprintf(self::DEJAR_DE_SEGUIR, $usuario, $id);
+		$this->ejecutarQuery($query);
+	}
+	
+	function contactar($idUsuario, $idEmpresa, $usuario, $mensaje)
+	{
+		$query = sprintf(self::CONTACTAR, $usuario, $idUsuario, $idEmpresa, $mensaje);
 		$this->ejecutarQuery($query);
 	}
 }

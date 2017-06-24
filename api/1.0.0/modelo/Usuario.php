@@ -30,7 +30,7 @@ class Usuario {
 		$usuarioDB->agregarUsuario($nombreUsuario, $nombre, $apellido, $fechaNacimiento, $email, $contraseña);
 		
 		
-		Mail::enviarEmail("Bienvenido a DreamCloud","Prueba",$email);
+		Mail::enviarEmail("Bienvenido a DreamCloud","$nombre $apellido queremos darte la bienvenida",$email);
 	}
 	
 	function iniciarSesion($emailONombre, $contraseña)
@@ -121,6 +121,11 @@ class Usuario {
 		} else {
 			(new UsuarioDB)->dejarDeSeguir($id, $usuario);
 		}
+	}
+	
+	function contactar($id, $usuario, $mensaje)
+	{
+		(new UsuarioDB)->contactar($id, 'null',$usuario, $mensaje);
 	}
 }
 

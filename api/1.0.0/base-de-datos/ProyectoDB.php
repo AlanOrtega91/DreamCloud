@@ -72,6 +72,14 @@ class ProyectoDB extends BaseDeDatos {
 	
 	CONST GUARDAR_RESENA = "INSERT INTO Resena (idUsuario, idTrabajo, titulo, comentario, calificacion) 
 			VALUES (%s, %s, '%s', '%s', '%s')";
+	const GUARDAR_SUBCOMENTARIO = "INSERT INTO Comentario (idUsuario, comentario, idResena) 
+			VALUES (%s, '%s', %s)";
+	const LEER_SUBCOMENTARIOS = "Select Comentario.id, Usuario.nombreDeUsuario, Comentario.comentario
+			FROM Comentario LEFT JOIN Usuario
+			ON Comentario.idUsuario = Usuario.id 
+			LEFT JOIN Resena
+			ON Resena.id = Comentario.idResena
+			WHERE Resena.idTrabajo = %s";
 	
 	function buscarProyectos($id)
 	{
@@ -187,6 +195,18 @@ class ProyectoDB extends BaseDeDatos {
 	{
 		$query = sprintf(self::GUARDAR_RESENA, $id, $idDream, $titulo, $comentario, $calificacion);
 		$this->ejecutarQuery($query);
+	}
+	
+	function guardarSubcomentario($idUsuario, $subcomentario, $idResena)
+	{
+		$query = sprintf(self::GUARDAR_SUBCOMENTARIO, $idUsuario, $subcomentario, $idResena);
+		$this->ejecutarQuery($query);
+	}
+	function leerSubcomentarios($id)
+	{
+		$query = sprintf(self::LEER_SUBCOMENTARIOS, $id);
+		$resultado = $this->ejecutarQuery($query);
+		return $resultado;
 	}
 }
 ?>

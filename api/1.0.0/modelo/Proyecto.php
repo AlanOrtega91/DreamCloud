@@ -92,5 +92,15 @@ class Proyecto {
 	{
 		(new ProyectoDB)->guardarResena($id, $idDream, $titulo, $comentario, $calificacion);
 	}
+	function enviarSubcomentario($idUsuario, $subcomentario, $idResena)
+	{
+		(new ProyectoDB)->guardarSubcomentario($idUsuario, $subcomentario, $idResena);
+	}
+	function buscarSubcomentarios($id)
+	{
+		$subcomentarios = (new ProyectoDB)->leerSubcomentarios($id);
+		for ($subcomentariosLista= array(); $fila = $subcomentarios->fetch_assoc(); $subcomentariosLista[] = $fila);
+		return $subcomentariosLista;
+	}
 }
 ?>

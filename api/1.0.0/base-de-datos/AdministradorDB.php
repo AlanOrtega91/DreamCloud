@@ -31,6 +31,22 @@ class AdministradorDB extends BaseDeDatos{
 	const APROBAR_TRABAJO= "UPDATE Trabajo SET aprobado = 1, revisando = 0 WHERE id = %s";
 	const RECHAZAR_TRABAJO= "UPDATE Trabajo SET rechazado = 1 WHERE id = %s";
 	
+	const LEER_CONTACTOS = "SELECT Emisor.nombre AS emisorNombre, Emisor.apellido AS emisorApellido, Emisor.id AS emisorId, Emisor.nombreDeUsuario AS emisorNombreDeUsuario, Emisor.email AS emisorEmail,
+			Remisor.nombre AS remisorNombre, Remisor.apellido AS remisorApellido, Remisor.id AS remisorId, Remisor.nombreDeUsuario AS remisorNombreDeUsuario, Remisor.email AS remisorEmail,
+			Contacto.mensaje AS mensaje, Contacto.id AS id
+			FROM Usuario AS Remisor
+			LEFT JOIN Contacto
+			ON Remisor.id = Contacto.idUsuarioAContactar
+			LEFT JOIN Usuario AS Emisor
+			ON Contacto.idUsuarioContactando = Emisor.id
+			WHERE autorizado = 0 AND rechazado = 0";
+	const LEER_CONTACTO = "SELECT * FROM Contacto
+			LEFT JOIN Usuario
+			ON Contacto.idUsuarioAContactar = Usuario.id
+			WHERE Contacto.id = %s";
+	const AUTORIZAR_CONTACTO = "UPDATE Contacto SET autorizado = 1";
+	const RECHAZAR_CONTACTO = "UPDATE Contacto SET rechazado = 0";
+	
 	function clavesCoinciden($email, $contraseña)
 	{
 		sleep(1);
@@ -56,7 +72,7 @@ class AdministradorDB extends BaseDeDatos{
 	
 	function buscarProyectosNoAutorizados()
 	{
-		$query = sprintf(self::LEER_PROYECTOS, $id);
+		$query = sprintf(self::LEER_PROYECTOS);
 		$resultado = $this->ejecutarQuery($query);
 		return $resultado;
 	}
@@ -78,6 +94,27 @@ class AdministradorDB extends BaseDeDatos{
 		$query = sprintf(self::RECHAZAR_TRABAJO, $id);
 		$this->ejecutarQuery($query);
 	}
-	
+	function buscarContactosNoAutorizados()
+	{
+		$query = sprintf(self::LEER_CONTACTOS);
+		$resultado = $this->ejecutarQuery($query);
+		return $resultado;
+	}
+	function leerContacto($id)
+	{
+		$query = sprintf(self::LEER_CONTACTO, $id);
+		$resultado = $this->ejecutarQuery($query);
+		return $resultado->fetch_assoc();
+	}
+	function autorizarContacto($id)
+	{
+		$query = sprintf(self::AUTORIZAR_CONTACTO, $id);
+		$this->ejecutarQuery($query);
+	}
+	function rechazarContacto($id)
+	{
+		$query = sprintf(self::RECHAZAR_CONTACTO, $id);
+		$this->ejecutarQuery($query);
+	}
 }
 ?>
