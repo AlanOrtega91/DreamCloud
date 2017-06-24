@@ -6,7 +6,7 @@
 		  $('#navBarAdmin').show();
 		  $('#navBarUsuario').hide();
 		  
-	  } else if(leerToken("tokenEmpresa", "dreamcloudtokenEmpresa")) {
+	  } else if(leerToken("tokenSocio", "dreamcloudtokenSocio")) {
 		  $('#navBarAdmin').hide();
 		  $('#navBarUsuario').show();
 		  $('#navBarCuentaLink').prop("href","http://dclouding.com/empresa/cuenta.html");

@@ -24,6 +24,11 @@
 		  $('#anio-nacimiento').append("<option value='" + i + "'>" + i + "</option>");
 	  }
 	  
+	  $('#anio-limite').html("<option value=''>yyyy</option>");
+	  for (var i = new Date().getFullYear() ; i < new Date().getFullYear() + 1 ; i++) {
+		  $('#anio-limite').append("<option value='" + i + "'>" + i + "</option>");
+	  }
+	  
 	  llenarDias(31);
 	  
 	  function llenarDias(dias){
@@ -37,7 +42,7 @@
 		  }
 	  }
 	  
-	  $('#anio-nacimiento, #mes-nacimiento').change(function(){
+	  $('#anio-nacimiento, #mes-nacimiento, #anio-limite').change(function(){
 		  var dias = daysInMonth($('#mes-nacimiento').val(), $('#anio-nacimiento').val());
 		  llenarDias(dias);
 	  });

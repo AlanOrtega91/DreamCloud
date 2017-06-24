@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <!--  This site was created in Webflow. http://www.webflow.com -->
-<!--  Last Published: Sat Jun 24 2017 07:04:12 GMT+0000 (UTC)  -->
+<!--  Last Published: Sat Jun 24 2017 19:05:09 GMT+0000 (UTC)  -->
 <html data-wf-page="590691b79086586eadd9b2d6" data-wf-site="58ab5c2f4cb75faf155e5221">
 <head>
   <meta charset="utf-8">
@@ -26,6 +26,9 @@
   <link href="../images/New-icon.ico" rel="shortcut icon" type="image/x-icon">
   <link href="../images/metric-webclip.png" rel="apple-touch-icon">
   <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+  <script src="../jsf/socios/cuenta.js" type="text/javascript"></script>
+  <script src="../jsf/socios/convocatorias.js" type="text/javascript"></script>
+  <script src="../jsf/socios/barra.js" type="text/javascript"></script>
   <script src="../jsf/navbar.js" type="text/javascript"></script>
 </head>
 <body>
@@ -72,25 +75,25 @@
           <div>
             <div class="w-row">
               <div class="w-col w-col-3 w-col-small-small-stack">
-                <div class="cuenta-imagen"><img height="100" sizes="150px" src="../images/netflix_logo.png" srcset="../images/netflix_logo-p-500x334.png 500w, ../images/netflix_logo-p-800x534.png 800w, ../images/netflix_logo-p-1080x721.png 1080w, ../images/netflix_logo.png 1280w" width="150">
+                <div class="cuenta-imagen"><img height="150" src="../images/default_profile.png" width="150">
                 </div>
-                <h3 class="name-account">Netflix (15)</h3>
-                <h5 class="name-username">@netflix (ventas@netflix.com)</h5>
+                <h3 class="name-account" id="nombre">Netflix (15)</h3>
+                <h5 class="name-username" id="nombreDeUsuario">@netflix (ventas@netflix.com)</h5>
                 <div>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.&nbsp;</p>
+                  <p id="descripcion">Lorem ipsum dolor sit amet, consectetur adipiscing elit.&nbsp;</p>
                 </div>
               </div>
               <div class="w-col w-col-9 w-col-small-small-stack">
                 <div class="cuenta-nav w-nav" data-animation="default" data-collapse="none" data-duration="400">
                   <div class="container w-container">
-                    <nav class="w-nav-menu" role="navigation"><a class="subir-boton w-nav-link" href="#">Subir/Seguir</a><a class="subir-boton w-nav-link" href="#">Cerrar Sesión</a>
+                    <nav class="w-nav-menu" role="navigation"><a class="subir-boton w-nav-link" href="#" id="opcion1">Subir/Seguir</a><a class="subir-boton w-nav-link" href="#" id="opcion2">Cerrar Sesión</a>
                     </nav>
                     <div class="w-nav-button">
                       <div class="w-icon-nav-menu"></div>
                     </div>
                   </div>
                 </div>
-                <ul class="list w-list-unstyled">
+                <ul class="list w-list-unstyled" id="lista-convocatorias">
                   <li class="list-item">
                     <div class="list-row red w-row">
                       <div class="list-colum-left w-clearfix w-col w-col-9">

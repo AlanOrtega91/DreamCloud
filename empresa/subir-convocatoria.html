@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <!--  This site was created in Webflow. http://www.webflow.com -->
-<!--  Last Published: Sat Jun 24 2017 07:04:12 GMT+0000 (UTC)  -->
+<!--  Last Published: Sat Jun 24 2017 19:05:09 GMT+0000 (UTC)  -->
 <html data-wf-page="5906908b04a93610a48ceb75" data-wf-site="58ab5c2f4cb75faf155e5221">
 <head>
   <meta charset="utf-8">
@@ -25,6 +25,10 @@
   </script>
   <link href="../images/New-icon.ico" rel="shortcut icon" type="image/x-icon">
   <link href="../images/metric-webclip.png" rel="apple-touch-icon">
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+  <script src="../jsf/proyecto/datosProyecto.js" type="text/javascript"></script>
+  <script src="../jsf/convocatoria/subir.js" type="text/javascript"></script>
+  <script src="../jsf/fechas.js" type="text/javascript"></script>
 </head>
 <body>
   <div class="main-container">
@@ -48,22 +52,22 @@
             <input class="w-input" id="field-10" maxlength="256" name="field-10" required="required" type="text">
             <label for="field-11">Tema</label>
             <textarea class="w-input" id="field-11" maxlength="5000" name="field-11"></textarea>
-            <label for="field">Categoria</label>
-            <select class="w-select" id="field" name="field">
+            <label for="categorias">Categoria</label>
+            <select class="w-select" id="categorias" name="field">
               <option value="">Select one...</option>
               <option value="First">First Choice</option>
               <option value="Second">Second Choice</option>
               <option value="Third">Third Choice</option>
             </select>
-            <label for="field">Subcategoria</label>
-            <select class="w-select" data-name="Field 13" id="field-13" name="field-13">
+            <label for="subcategorias">Subcategoria</label>
+            <select class="w-select" data-name="Field 13" id="subcategorias" name="field-13">
               <option value="">Select one...</option>
               <option value="First">First Choice</option>
               <option value="Second">Second Choice</option>
               <option value="Third">Third Choice</option>
             </select>
-            <label for="field-2">Genero</label>
-            <select class="w-select" data-name="Field 2" id="field-2" name="field-2">
+            <label for="generos">Genero</label>
+            <select class="w-select" data-name="Field 2" id="generos" name="field-2">
               <option value="">Select one...</option>
               <option value="First">First Choice</option>
               <option value="Second">Second Choice</option>
@@ -71,21 +75,21 @@
             </select>
             <label for="field-14">Fecha Limite</label>
             <div class="w-clearfix">
-              <select class="date-dropdown w-select" data-name="Field 14" id="field-14" name="field-14">
+              <select class="date-dropdown w-select" data-name="Field 14" id="dia-nacimiento" name="field-14">
                 <option value="">Día</option>
                 <option value="First">01</option>
                 <option value="Second">Second Choice</option>
                 <option value="Third">Third Choice</option>
               </select>
               <div class="date-division">/</div>
-              <select class="date-dropdown w-select" data-name="Field 16" id="field-16" name="field-16">
+              <select class="date-dropdown w-select" data-name="Field 16" id="mes-nacimiento" name="field-16">
                 <option value="">Mes</option>
                 <option value="First">First Choice</option>
                 <option value="Second">Second Choice</option>
                 <option value="Third">Third Choice</option>
               </select>
               <div class="date-division">/</div>
-              <select class="date-dropdown w-select" data-name="Field 15" id="field-15" name="field-15">
+              <select class="date-dropdown w-select" data-name="Field 15" id="anio-limite" name="field-15">
                 <option value="">Año</option>
                 <option value="First">First Choice</option>
                 <option value="Second">Second Choice</option>

@@ -1443,6 +1443,7 @@ p {
 }
 
 .link-block {
+  width: 100%;
   color: #333;
   text-decoration: none;
 }
