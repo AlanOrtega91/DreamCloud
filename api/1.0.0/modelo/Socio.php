@@ -16,10 +16,10 @@ class Socio {
 		}
 	}
 	
-	function leerCuenta($token, $id, $modo)
+	function leerCuenta($token, $id)
 	{
 		$socioDB = new SocioDB();
-		if ($modo == 0) {
+		if ($token) {
 			return $socioDB->leerCuentaToken($token);
 		} else {
 			return $socioDB->leerCuentaId($id);

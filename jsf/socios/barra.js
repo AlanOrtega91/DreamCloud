@@ -4,7 +4,7 @@
 	  var socio = $.urlParam('socio');
 	  if (socio)
 	  {
-		  $('#opcion1').html('Seguir');
+		  $('#opcion1').hide();
 		  $('#opcion2').hide();
 	  } else {
 		  $('#opcion1').html("Subir Convocatoria");

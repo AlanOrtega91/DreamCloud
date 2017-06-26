@@ -9,7 +9,7 @@
 	  var leerConvocatoriasRespondio = function (datos){
 		  console.log(datos);
 	        if(datos.status == "ok"){
-	        	llenarDreams(datos.proyectos);
+	        	llenarConvocatorias(datos.convocatorias);
 	        } else{
 	        	
 	        }
@@ -25,6 +25,28 @@
         var convocatoriasHTML = "";
 		  $.each(convocatorias, function(index, convocatoria) {
 
+			  convocatoriasHTML += "<li class='list-item'>" +
+			  		"<div class='list-row red w-row'>" +
+			  		"<div class='list-colum-left w-clearfix w-col w-col-9'>" +
+			  		"<div class='list-left-block'>" +
+			  		"<h3>" + convocatoria.titulo + "</h3>" +
+			  		"<div class='w-clearfix'>" +
+			  		"<div class='convocatoria-dato'>" + convocatoria.categoria + "</div>" +
+			  		"<div class='convocatoria-dato'>" + convocatoria.subcategoria + "</div>" +
+			  		"<div class='convocatoria-dato'>" + convocatoria.genero + "</div>" +
+			  		"</div>" +
+			  		"<p class='convocatoria-tema'>" + convocatoria.tema + "</p>" +
+			  		"</div>" +
+			  		"</div>";
+			  		if (id) {
+			  			convocatoriasHTML += "<div class='column-3 w-col w-col-3'><a class='w-button' href='../dreams/subir-dream/index.html?convocatoria='" + convocatoria.id +">Participar</a>";
+			  		} else {
+			  			convocatoriasHTML += "<div class='column-3 w-col w-col-3'><a class='w-button' href='convocatoria/index.html?convocatoria='" + convocatoria.id +"'>Revisar</a>";
+			  		}
+			  		
+			  		convocatoriasHTML += "</div>" +
+			  		"</div>" +
+			  		"</li>";
 		  });
 		  $('#lista-convocatorias').html(convocatoriasHTML);
 	  }
@@ -42,7 +64,7 @@
 	  var id = $.urlParam('socio');
 	  if (id)
 	  {
-		  var parametrosConvocatorias = {id: id};
+		  var parametrosConvocatorias = {id: id, token: leerToken()};
 		  
 	  } else {
 		  var parametrosConvocatorias = {token: leerTokenSocio()};
@@ -58,6 +80,16 @@
 			} else {
 				// Save as Cookie
 				return leerCookie("dreamcloudtokenSocio");
+			}
+	  }
+	  
+	  function leerToken(){
+		  if (typeof(Storage) !== "undefined") {
+			  //HTML5 Web Storage
+			  return localStorage.getItem('token');
+			} else {
+				// Save as Cookie
+				return leerCookie("dreamcloudtoken");
 			}
 	  }
 	  

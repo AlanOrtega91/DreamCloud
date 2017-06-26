@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <!--  This site was created in Webflow. http://www.webflow.com -->
-<!--  Last Published: Sat Jun 24 2017 19:05:09 GMT+0000 (UTC)  -->
+<!--  Last Published: Mon Jun 26 2017 18:27:51 GMT+0000 (UTC)  -->
 <html data-wf-page="5906908b04a93610a48ceb75" data-wf-site="58ab5c2f4cb75faf155e5221">
 <head>
   <meta charset="utf-8">
@@ -47,11 +47,11 @@
     <div class="section">
       <div class="w-container">
         <div class="w-form">
-          <form action="javascript:void(0);" data-name="Email Form" id="email-form" name="email-form">
-            <label for="field-10">Nombre de Convocatoria</label>
-            <input class="w-input" id="field-10" maxlength="256" name="field-10" required="required" type="text">
-            <label for="field-11">Tema</label>
-            <textarea class="w-input" id="field-11" maxlength="5000" name="field-11"></textarea>
+          <form action="http://dclouding.com/api/1.0.0/interfaz/convocatoria/subir/" data-name="Email Form" enctype="multipart/form-data" id="email-form" method="post" name="email-form">
+            <label for="titulo-2">Nombre de Convocatoria</label>
+            <input class="w-input" data-name="titulo" id="titulo-2" maxlength="256" name="titulo" required="required" type="text">
+            <label for="tema-2">Tema</label>
+            <textarea class="w-input" data-name="tema" id="tema-2" maxlength="5000" name="tema"></textarea>
             <label for="categorias">Categoria</label>
             <select class="w-select" id="categorias" name="field">
               <option value="">Select one...</option>
@@ -60,14 +60,14 @@
               <option value="Third">Third Choice</option>
             </select>
             <label for="subcategorias">Subcategoria</label>
-            <select class="w-select" data-name="Field 13" id="subcategorias" name="field-13">
+            <select class="w-select" data-name="idSubcategoria" id="subcategorias" name="idSubcategoria">
               <option value="">Select one...</option>
               <option value="First">First Choice</option>
               <option value="Second">Second Choice</option>
               <option value="Third">Third Choice</option>
             </select>
             <label for="generos">Genero</label>
-            <select class="w-select" data-name="Field 2" id="generos" name="field-2">
+            <select class="w-select" data-name="idGenero" id="generos" name="idGenero">
               <option value="">Select one...</option>
               <option value="First">First Choice</option>
               <option value="Second">Second Choice</option>
@@ -75,30 +75,35 @@
             </select>
             <label for="field-14">Fecha Limite</label>
             <div class="w-clearfix">
-              <select class="date-dropdown w-select" data-name="Field 14" id="dia-nacimiento" name="field-14">
+              <select class="date-dropdown w-select" data-name="dia" id="dia" name="dia">
                 <option value="">Día</option>
                 <option value="First">01</option>
                 <option value="Second">Second Choice</option>
                 <option value="Third">Third Choice</option>
               </select>
               <div class="date-division">/</div>
-              <select class="date-dropdown w-select" data-name="Field 16" id="mes-nacimiento" name="field-16">
+              <select class="date-dropdown w-select" data-name="mes" id="mes" name="mes">
                 <option value="">Mes</option>
                 <option value="First">First Choice</option>
                 <option value="Second">Second Choice</option>
                 <option value="Third">Third Choice</option>
               </select>
               <div class="date-division">/</div>
-              <select class="date-dropdown w-select" data-name="Field 15" id="anio-limite" name="field-15">
+              <select class="date-dropdown w-select" data-name="ano" id="ano" name="ano">
                 <option value="">Año</option>
                 <option value="First">First Choice</option>
                 <option value="Second">Second Choice</option>
                 <option value="Third">Third Choice</option>
               </select>
             </div>
-            <div class="w-clearfix">
+            <div>
               <label for="field-14">Imagen de la Convocatoria</label>
-              <div class="upload-filename">Sube tu imagen.</div><a class="w-button" href="#">Explorar</a>
+              <div class="w-embed">
+                <input class="w-input" type="file" name="imagen" required="required" accept="image/*">
+              </div>
+              <div class="w-embed">
+                <input class="w-input" type="hidden" id="token" name="token" required="required">
+              </div>
             </div>
             <div class="w-checkbox">
               <input class="w-checkbox-input" data-name="Checkbox" id="checkbox" name="checkbox" type="checkbox">
@@ -108,7 +113,7 @@
             <input class="submit-button w-button" data-wait="Subiendo..." type="submit" value="Subir Convocatoria">
           </form>
           <div class="w-form-done">
-            <div>Tu Dream ha sido subido. Espera a que nuestro equipo lo autorice.</div>
+            <div>Tu Convocatoria se ha sido subido. Espera a que nuestro equipo lo autorice.</div>
           </div>
           <div class="w-form-fail">
             <div>Error subiendo el Dream. Revisa tus datos</div>

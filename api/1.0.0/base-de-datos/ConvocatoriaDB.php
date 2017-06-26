@@ -19,6 +19,8 @@ class ConvocatoriaDB extends BaseDeDatos{
 			WHERE Empresa.id = %s 
 			AND Convocatoria.id IS NOT NULL
 			ORDER BY Convocatoria.fechaLimite DESC";
+	const GUARDAR_CONVOCATORIA = "INSERT INTO Convocatoria (titulo, fechaLimite, tema, idEmpresa, idSubCategoria, idGenero, imagen)
+			VALUES ('%s', '%s-%s-%s 00:00:00', '%s', %s, %s, %s, '%s')";
 	
 	function buscarConvocatoriasActivas()
 	{
@@ -32,6 +34,11 @@ class ConvocatoriaDB extends BaseDeDatos{
 		$query = sprintf(self::LEER_CONVOCATORIAS, $id);
 		$resultado = $this->ejecutarQuery($query);
 		return $resultado;
+	}
+	function guardarConvocatoriaNueva($id, $titulo, $tema, $idSubcategoria, $idGenero, $dia, $mes, $ano, $ubicacionDestinoImagen)
+	{
+		$query = sprintf(self::GUARDAR_CONVOCATORIA, $titulo, $ano, $mes, $dia, $tema, $id, $idSubcategoria, $idGenero, $ubicacionDestinoImagen);
+		$this->ejecutarQuery($query);
 	}
 }
 ?>

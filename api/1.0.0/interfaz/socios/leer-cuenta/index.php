@@ -13,8 +13,7 @@ header('Content-Type: text/html; charset=utf8');
 			$token = SafeString::safe($_POST['token']);
 			$infoPropia = (new Usuario())->leerCuenta($token, null, 0);
 			
-			$informacion = (new Socio())->leerCuenta(null, $id, 1);
-			
+			$informacion = (new Socio())->leerCuenta(null, $id);
 			
 			$siguiendo = (new Usuario())->revisarSiSeSiguen($id, $infoPropia['id']);
 			
@@ -22,7 +21,7 @@ header('Content-Type: text/html; charset=utf8');
 		} elseif (isset($_POST['token']))
 		{
 			$token = SafeString::safe($_POST['token']);
-			$informacion = (new Socio())->leerCuenta($token, null, $modo = "propia");
+			$informacion = (new Socio())->leerCuenta($token, null);
 			
 			
 			echo json_encode(array("status"=>"ok", "cuenta"=>$informacion));

@@ -13,7 +13,7 @@ class Convocatoria {
 	
 	function buscarConvocatorias($token)
 	{
-		$usuario = (new Socio())->leerCuenta($token, null, 0);
+		$usuario = (new Socio())->leerCuenta($token, null);
 		$convocatorias = (new ConvocatoriaDB())->buscarConvocatorias($usuario['id']);
 		for ($convocatoriasLista= array(); $fila = $convocatorias->fetch_assoc(); $convocatoriasLista[] = $fila);
 		return $convocatoriasLista;
@@ -30,6 +30,13 @@ class Convocatoria {
 			}
 		}
 		return $convocatoriasLista;
+	}
+	
+	function nuevaConvocatoria($token, $titulo, $tema, $idSubcategoria, $idGenero, $dia, $mes, $ano, $ubicacionDestinoImagen)
+	{
+		$usuario = (new Socio())->leerCuenta($token, null, 0);
+		$convocatoriaDB = new ConvocatoriaDB();
+		$convocatoriaDB->guardarConvocatoriaNueva($usuario['id'], $titulo, $tema, $idSubcategoria, $idGenero, $dia, $mes, $ano, $ubicacionDestinoImagen);
 	}
 
 }
