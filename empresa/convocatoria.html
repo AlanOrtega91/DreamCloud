@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <!--  This site was created in Webflow. http://www.webflow.com -->
-<!--  Last Published: Mon Jun 26 2017 18:27:51 GMT+0000 (UTC)  -->
+<!--  Last Published: Mon Jun 26 2017 21:06:54 GMT+0000 (UTC)  -->
 <html data-wf-page="5906a0892540264c16566059" data-wf-site="58ab5c2f4cb75faf155e5221">
 <head>
   <meta charset="utf-8">
@@ -27,6 +27,7 @@
   <link href="../images/metric-webclip.png" rel="apple-touch-icon">
   <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
   <script src="../jsf/convocatoria/leer.js" type="text/javascript"></script>
+  <script src="../jsf/convocatoria/proyectos.js" type="text/javascript"></script>
   <script src="../jsf/navbar.js" type="text/javascript"></script>
 </head>
 <body>
@@ -60,29 +61,29 @@
         <div>
           <div class="list-row w-row">
             <div class="w-col w-col-9">
-              <h1>Nueva Súper Serie (83)</h1>
+              <h1 id="titulo">Nueva Súper Serie (83)</h1>
               <div class="w-clearfix">
-                <div class="convocatoria-dato">Categoría</div>
-                <div class="convocatoria-dato">Subcategoría</div>
-                <div class="convocatoria-dato">Género</div>
+                <div class="convocatoria-dato" id="categoria">Categoría</div>
+                <div class="convocatoria-dato" id="subcategoria">Subcategoría</div>
+                <div class="convocatoria-dato" id="genero">Género</div>
               </div>
-              <p class="convocatoria-tema">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique. Duis cursus, mi quis viverra ornare, eros dolor interdum nulla, ut commodo diam libero vitae erat. Aenean faucibus nibh et justo cursus id rutrum lorem imperdiet. Nunc ut sem vitae risus tristique posuere.</p>
+              <p class="convocatoria-tema" id="tema">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique. Duis cursus, mi quis viverra ornare, eros dolor interdum nulla, ut commodo diam libero vitae erat. Aenean faucibus nibh et justo cursus id rutrum lorem imperdiet. Nunc ut sem vitae risus tristique posuere.</p>
             </div>
             <div class="dream-list-profile-column w-col w-col-3">
-              <div class="dream-list-profile-image"><img class="dream-list-profile-image" sizes="150px" src="../images/netflix_logo.png" srcset="../images/netflix_logo-p-500x334.png 500w, ../images/netflix_logo-p-800x534.png 800w, ../images/netflix_logo-p-1080x721.png 1080w, ../images/netflix_logo.png 1280w" width="150">
+              <div class="dream-list-profile-image"><img class="dream-list-profile-image" src="../images/default_profile.png" width="150">
               </div>
               <div class="dream-list-right-block">
-                <h3 class="name-account">Netflix (15)</h3>
-                <h5 class="name-username">@netflix (ventas@netflix.com)</h5>
+                <h3 class="name-account" id="nombre">Netflix (15)</h3>
+                <h5 class="name-username" id="nombreUsuario">@netflix (ventas@netflix.com)</h5>
               </div>
             </div>
           </div>
         </div>
-        <div class="dream"><img sizes="(max-width: 767px) 98vw, 600px" src="../images/ejemplo-convocatoria.png" srcset="../images/ejemplo-convocatoria-p-500.png 500w, ../images/ejemplo-convocatoria-p-800.png 800w, ../images/ejemplo-convocatoria-p-1080.png 1080w, ../images/ejemplo-convocatoria.png 1200w" width="600">
+        <div class="dream"><img class="image-7" id="imagen" sizes="(max-width: 767px) 78vw, (max-width: 991px) 574.390625px, 600px" src="../images/ejemplo-convocatoria.png" srcset="../images/ejemplo-convocatoria-p-500.png 500w, ../images/ejemplo-convocatoria-p-800.png 800w, ../images/ejemplo-convocatoria-p-1080.png 1080w, ../images/ejemplo-convocatoria.png 1200w" width="600">
         </div>
-        <div class="w-clearfix"><a class="participar-boton w-button" href="#">Participar</a>
+        <div class="w-clearfix"><a class="participar-boton w-button" href="#" id="participar">Participar</a>
         </div>
-        <ul class="list w-list-unstyled">
+        <ul class="list w-list-unstyled" id="proyectos">
           <li class="list-item">
             <div class="blue list-row w-row">
               <div class="blue list-colum-left w-clearfix w-col w-col-9">
@@ -132,8 +133,6 @@
             </div>
           </li>
         </ul>
-        <div class="div-right"><a class="submit-button w-button" href="#">Iniciar Revisión</a><a class="submit-button w-button" href="#">Autorizar</a><a class="submit-button w-button" href="#">Rechazar</a>
-        </div>
       </div>
     </div>
     <div class="footer section">

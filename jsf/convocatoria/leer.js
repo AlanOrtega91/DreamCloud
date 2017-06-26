@@ -1,6 +1,6 @@
 (function ($){
   jQuery("document").ready(function(){
-	  var direccionDream = "../api/1.0.0/interfaz/convocatorias/leer/";
+	  var direccionDream = "../api/1.0.0/interfaz/convocatoria/leer/";
 	  
 	  $.urlParam = function(name){
 		    var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
@@ -12,13 +12,13 @@
 		    }
 		}
 	  
-	  var id = $.urlParam('dream');
+	  var id = $.urlParam('convocatoria');
 	  var admin = $.urlParam('admin');
 	  
 	  var leerDreamRespondio = function (datos){
 		  console.log(datos);
 	        if(datos.status == "ok"){
-	        	llenarDream(datos.dream);
+	        	llenarConvocatoria(datos.convocatoria);
 	        } else{
 
 	        }
@@ -29,76 +29,29 @@
 		  mostrarError("Error con el servidor");
 	  }
 	  
-	  if(admin == 1) {
-		  var parametrosDream = {token: leerTokenAdmin(), idDream: id, admin: 1};
-	  } else {
-		  var parametrosDream = {token: leerToken(), idDream: id, admin: 0};
-	  }
+	  var parametrosDream = {id: id};
 	  $.post(direccionDream,parametrosDream, leerDreamRespondio,"json").fail(leerDreamError);
 	  
 
 	  
-	  function llenarDream(dream)
+	  function llenarConvocatoria(convocatoria)
 	  {
-		  $('#frameDream').attr('src', '../recursos/trabajos/' + dream.direccion);
-		  $('#frameCertificado').attr('src', '../recursos/certificados/' + dream.direccionCertificado);
-		  $('#sinopsis').html(dream.sinopsis);
+		  $('#tema').html(convocatoria.tema);
 		  if(admin == 1) {
-			  $('#certificadoDiv').show();
-			  $('#divAdmin').show();
-			  if(dream.revisando == 1) {
-				  $('#revision').hide();
-			  }
-			  if (dream.aprobado == 1) {
-				  $('#aprobar').hide();
-			  }
-			  $('#titulo').html(dream.titulo + " (" + dream.idTrabajo + ")");
-			  $('#nombre').html(dream.nombre + " " + dream.apellido + " (" + dream.idUsuario + ")");
-			  $('#nombreUsuario').html("@" + dream.nombreDeUsuario + " (" + dream.email + ")");
+			  $('#titulo').html(convocatoria.titulo + " (" + convocatoria.idConvocatoria + ")");
+			  $('#nombre').html(convocatoria.nombre + " " + convocatoria.apellido + " (" + convocatoria.idUsuario + ")");
+			  $('#nombreUsuario').html("@" + convocatoria.nombreDeUsuario + " (" + convocatoria.email + ")");
 		  } else {
-			  $('#certificadoDiv').hide();
-			  $('#divAdmin').hide();
-			  $('#titulo').html(dream.titulo);
-			  $('#nombre').html(dream.nombre + " " + dream.apellido);
-			  $('#nombreUsuario').html("@" + dream.nombreDeUsuario);
+			  $('#titulo').html(convocatoria.titulo);
+			  $('#nombre').html(convocatoria.nombre);
+			  $('#nombreUsuario').html("@" + convocatoria.nombreDeUsuario);
 		  }
-	  }
-	  
-	  function leerTokenAdmin(){
-		  if (typeof(Storage) !== "undefined") {
-			  //HTML5 Web Storage
-			  return localStorage.getItem('tokenAdmin');
-			} else {
-				// Save as Cookie
-				return leerCookie("dreamcloudAdmin");
-			}
-	  }
-	  
-	  function leerToken(){
-		  if (typeof(Storage) !== "undefined") {
-			  //HTML5 Web Storage
-			  return localStorage.getItem('token');
-			} else {
-				// Save as Cookie
-				return leerCookie("dreamcloudtoken");
-			}
-	  }
-	  
-	  function leerCookie(cname) {
-		    var name = cname + "=";
-		    var decodedCookie = decodeURIComponent(document.cookie);
-		    var ca = decodedCookie.split(';');
-		    for(var i = 0; i <ca.length; i++) {
-		        var c = ca[i];
-		        while (c.charAt(0) == ' ') {
-		            c = c.substring(1);
-		        }
-		        if (c.indexOf(name) == 0) {
-		            return c.substring(name.length, c.length);
-		        }
-		    }
-		    return "";
-		}
-	  
+		  $('#categoria').html(convocatoria.categoria);
+		  $('#subcategoria').html(convocatoria.subcategoria);
+		  $('#genero').html(convocatoria.genero);
+		  $('#imagen').prop('src','../recursos/convocatorias/' + convocatoria.imagen);
+		  $('#imagen').prop('srcset','');
+		  $('#participar').prop('href','../dreams/subir.html')
+	  }	  
   });
 })(jQuery);

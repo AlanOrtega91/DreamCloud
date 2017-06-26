@@ -1518,6 +1518,11 @@ p {
   border-radius: 5px;
 }
 
+.image-7 {
+  max-height: 400px;
+  max-width: 80%;
+}
+
 html.w-mod-js *[data-ix="fade-in-on-load"] {
   opacity: 0;
   -webkit-transform: translate(0px, 24px);

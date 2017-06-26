@@ -35,6 +35,18 @@ class Proyecto {
 		return $proyectosLista;
 	}
 	
+	function buscarProyectosConvocatoria($id)
+	{
+		$proyectos = (new ProyectoDB)->buscarProyectosConvocatoria($id);
+		for ($proyectosLista= array(); $fila = $proyectos->fetch_assoc(); $proyectosLista[] = $fila);
+		for ($i = 0; $i < count($proyectosLista); $i++)
+		{
+			$calificacion = $this->leerCalificacionProyecto($proyectosLista[$i]['proyecto']);
+			$proyectosLista[$i]['calificacion'] = $calificacion;
+		}
+		return $proyectosLista;
+	}
+	
 	function leerCalificacionProyecto($id)
 	{
 		return (new ProyectoDB)->leerCalificacionProyecto($id);

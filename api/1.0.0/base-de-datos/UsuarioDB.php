@@ -199,7 +199,9 @@ class UsuarioDB extends BaseDeDatos{
 	}
 	function buscarUsuarios($nombreUsuario)
 	{
-		$query = "SELECT id, nombreDeUsuario From Usuario WHERE nombreDeUsuario LIKE '%$nombreUsuario%'";
+		$query = "SELECT id AS id, nombreDeUsuario AS nombreDeUsuario, 'usuario' AS tipo From Usuario WHERE nombreDeUsuario LIKE '%$nombreUsuario%'
+			UNION
+			SELECT id AS id, nombreDeUsuario AS nombreDeUsuario, 'empresa' AS tipo From Empresa WHERE nombreDeUsuario LIKE '%$nombreUsuario%'";
 		$resultado = $this->ejecutarQuery($query);
 		return $resultado;
 	}

@@ -31,12 +31,17 @@
 	  function llenarBusqueda(usuarios)
 	  {
         var usuariosHTML = "";
-		  $.each(usuarios, function(index, usuario) {          
-	            
-			  
-			  usuariosHTML += "<li id='" + usuario.id + "' class='comunidad-buscar-item' onclick='usuarioSeleccionado(this)'  style='cursor: pointer; cursor: hand;'>" +
+		  $.each(usuarios, function(index, usuario) {     
+			  if (usuario.tipo == "usuario") {
+				  usuariosHTML += "<li id='" + usuario.id + "' class='comunidad-buscar-item' onclick='usuarioSeleccionado(this)'  style='cursor: pointer; cursor: hand;'>" +
 			  		"<div>@" + usuario.nombreDeUsuario + "</div>" +
 			  		"</li>";
+			  } else {
+				  usuariosHTML += "<li id='" + usuario.id + "' class='comunidad-buscar-item' onclick='empresaSeleccionado(this)'  style='cursor: pointer; cursor: hand;'>" +
+			  		"<div>@" + usuario.nombreDeUsuario + "</div>" +
+			  		"</li>";
+			  }
+			  
 		  });
 		  $('#usuarios-lista').html(usuariosHTML);
 	  }
@@ -47,4 +52,7 @@
 
 function usuarioSeleccionado(usuario) {
 	window.location.replace("dreamer/cuenta.html?&usuario="+usuario.id);
+}
+function empresaSeleccionado(empresa) {
+	window.location.replace("empresa/cuenta.html?&socio="+empresa.id);
 }

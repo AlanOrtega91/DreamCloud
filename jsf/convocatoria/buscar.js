@@ -24,7 +24,7 @@
 		  var convocatoriasHTML = "<option value='-1'>Fuera de Convocatoria</option>";
 		  $.each(convocatorias, function(index, value) {
 			  if (value.id != null) {
-				  convocatoriasHTML += "<option value=" + value.id + ">" + value.nombre + "</option>";
+				  convocatoriasHTML += "<option value=" + value.id + ">" + value.titulo + "</option>";
 			  }
 		  });
 		  $('#convocatorias').html(convocatoriasHTML);

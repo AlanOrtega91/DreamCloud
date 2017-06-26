@@ -38,6 +38,11 @@ class Convocatoria {
 		$convocatoriaDB = new ConvocatoriaDB();
 		$convocatoriaDB->guardarConvocatoriaNueva($usuario['id'], $titulo, $tema, $idSubcategoria, $idGenero, $dia, $mes, $ano, $ubicacionDestinoImagen);
 	}
+	
+	function buscarConvocatoria($id)
+	{
+		return (new ConvocatoriaDB)->buscarConvocatoria($id);
+	}
 
 }
 

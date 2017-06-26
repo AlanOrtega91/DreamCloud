@@ -39,9 +39,9 @@
 			  		"</div>" +
 			  		"</div>";
 			  		if (id) {
-			  			convocatoriasHTML += "<div class='column-3 w-col w-col-3'><a class='w-button' href='../dreams/subir-dream/index.html?convocatoria='" + convocatoria.id +">Participar</a>";
+			  			convocatoriasHTML += "<div class='column-3 w-col w-col-3'><a class='w-button' href='../dreams/subir.html?convocatoria=" + convocatoria.id +"'>Participar</a>";
 			  		} else {
-			  			convocatoriasHTML += "<div class='column-3 w-col w-col-3'><a class='w-button' href='convocatoria/index.html?convocatoria='" + convocatoria.id +"'>Revisar</a>";
+			  			convocatoriasHTML += "<div class='column-3 w-col w-col-3'><a class='w-button' href='convocatoria.html?convocatoria=" + convocatoria.id +"'>Revisar</a>";
 			  		}
 			  		
 			  		convocatoriasHTML += "</div>" +

@@ -22,6 +22,25 @@ class ProyectoDB extends BaseDeDatos {
 			WHERE Usuario.id = '%s' AND Proyecto.id IS NOT NULL
 			ORDER BY Trabajo.fecha DESC) AS help
 			GROUP BY proyecto";
+	const LEER_PROYECTOS_CONVOCATORIA = "SELECT * FROM (SELECT Proyecto.id AS proyecto, Proyecto.titulo, Proyecto.sinopsis,
+			Trabajo.aprobado, Trabajo.revisando, Trabajo.id AS idDream, 
+			Usuario.nombre, Usuario.apellido, Usuario.id AS idUsuario, Usuario.email, Usuario.nombreDeUsuario FROM Usuario 
+			LEFT JOIN Usuario_tiene_Proyecto
+			ON Usuario.id = Usuario_tiene_Proyecto.idUsuario
+			LEFT JOIN Proyecto
+			ON Usuario_tiene_Proyecto.idProyecto = Proyecto.id
+			LEFT JOIN SubCategoria
+			ON Proyecto.idSubCategoria = SubCategoria.id
+			LEFT JOIN Categoria
+			ON SubCategoria.idCategoria = Categoria.id
+			LEFT JOIN Trabajo
+			ON Proyecto.id = Trabajo.idProyecto
+			LEFT JOIN Convocatoria
+			ON Proyecto.idConvocatoria = Convocatoria.id 
+			WHERE Convocatoria.id = %s
+			AND Trabajo.aprobado = 1
+			ORDER BY Trabajo.fecha DESC) help
+			GROUP BY proyecto";
 	const LEER_CALIFICACION_PROYECTO = "SELECT AVG(calificacion) AS calificacion FROM Proyecto 
 			LEFT JOIN Trabajo
 			ON Proyecto.id = Trabajo.idProyecto
@@ -96,6 +115,13 @@ class ProyectoDB extends BaseDeDatos {
 	function buscarProyectos($id)
 	{
 		$query = sprintf(self::LEER_PROYECTOS, $id);
+		$resultado = $this->ejecutarQuery($query);
+		return $resultado;
+	}
+	
+	function buscarProyectosConvocatoria($id)
+	{
+		$query = sprintf(self::LEER_PROYECTOS_CONVOCATORIA, $id);
 		$resultado = $this->ejecutarQuery($query);
 		return $resultado;
 	}

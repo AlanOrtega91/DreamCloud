@@ -27,7 +27,7 @@ try{
 	agregarArchivo($imagen, $ubicacionDestinoImagen);
 	
 	
-	(new Convocatoria())->nuevaConvocatoria($token, $titulo, $tema, $idSubcategoria, $idGenero, $dia, $mes, $ano, $ubicacionDestinoImagen);
+	(new Convocatoria())->nuevaConvocatoria($token, $titulo, $tema, $idSubcategoria, $idGenero, $dia, $mes, $ano, $nombreImagen);
 	
 	header('Location: ../../../../../empresa/exito.html');
 		

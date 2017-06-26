@@ -1,19 +1,18 @@
 <?php
 require_once dirname(__FILE__)."/../../../modelo/SafeString.php";
-require_once dirname(__FILE__)."/../../../modelo/Proyecto.php";
-require_once dirname(__FILE__)."/../../../modelo/Usuario.php";
-require_once dirname(__FILE__)."/../../../modelo/Administrador.php";
+require_once dirname(__FILE__)."/../../../modelo/Convocatoria.php";
+
 
 header('Content-Type: text/html; charset=utf8');
-if (!isset($_POST['idDream']) || !isset($_POST['admin'])) {
+if (!isset($_POST['id'])) {
 	die(json_encode(array("status"=>"error","clave"=>"parametros","explicacion"=>"faltan parametros")));
 }
 
 try {
-	$idDream = SafeString::safe($_POST['idDream']);
-	$admin = SafeString::safe($_POST['admin']);
-	$trabajo = (new Proyecto())->buscarTrabajo($idDream);
-	echo json_encode(array("status"=>"ok","dream"=>$trabajo));
+	$id = SafeString::safe($_POST['id']);
+
+	$convocatoria = (new Convocatoria())->buscarConvocatoria($id);
+	echo json_encode(array("status"=>"ok","convocatoria"=>$convocatoria));
 } catch (tokenInvalido $e) {
 	echo json_encode(array("status"=>"error","clave"=>"token","explicacion"=>"Token invalido"));
 } catch (errorConBaseDeDatos $e) {
