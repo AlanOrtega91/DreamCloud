@@ -102,6 +102,8 @@ class UsuarioDB extends BaseDeDatos{
 	const CONTACTAR = "INSERT INTO Contacto (idUsuarioAContactar, idUsuarioContactando, idEmpresaContactando, mensaje, fecha)
 			VALUES (%s, %s, %s, '%s', NOW())";
 	
+	const CAMBIAR_CONTRASEÑA = "UPDATE Usuario SET contrasena =  SHA2(MD5(('%s')),512) WHERE id = %s AND contrasena =  SHA2(MD5(('%s')),512)";
+	
 	function existeNombreDeUsuario($nombreUsuario)
 	{
 		$query = sprintf(self::LEER_NOMBRE_DE_USUARIO, $nombreUsuario);
@@ -227,6 +229,13 @@ class UsuarioDB extends BaseDeDatos{
 	{
 		$query = sprintf(self::CONTACTAR, $usuario, $idUsuario, $idEmpresa, $mensaje);
 		$this->ejecutarQuery($query);
+	}
+	
+	function cambiarContraseña($id, $contraseña, $contraseñaNueva)
+	{
+		$query = sprintf(self::CAMBIAR_CONTRASEÑA, $contraseñaNueva, $id, $contraseña);
+		$this->ejecutarQuery($query);
+		return $this->mysqli->affected_rows;
 	}
 }
 ?>

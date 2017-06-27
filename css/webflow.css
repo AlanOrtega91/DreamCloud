@@ -69,9 +69,6 @@ html.w-mod-touch * {
 .w-clearfix:after {
   clear: both;
 }
-.w-preserve-3d {
-  transform-style: preserve-3d;
-}
 .w-hidden {
   display: none;
 }

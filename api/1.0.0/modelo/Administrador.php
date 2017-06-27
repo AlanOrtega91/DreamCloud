@@ -1,6 +1,8 @@
 <?php
 require_once dirname ( __FILE__ ) . "/../base-de-datos/AdministradorDB.php";
+require_once dirname ( __FILE__ ) . "/../base-de-datos/ProyectoDB.php";
 require_once dirname ( __FILE__ ) . "/Mail.php";
+
 
 class Administrador {
 
@@ -34,15 +36,21 @@ class Administrador {
 	
 	function cambiarEstadoTrabajo($id, $estado)
 	{
+		$trabajo = (new ProyectoDB())->buscarTrabajo($id);
+		$email = $trabajo['email'];
+		$titulo = $trabajo['titulo'];
 		switch ($estado) {
 			case 1:
 				(new AdministradorDB())->iniciarRevision($id);
+				Mail::enviarEmail("Tu trabajo esta en revision","Se ha iniciado la revision de $titulo",$email);
 				break;
 			case 2:
 				(new AdministradorDB())->aprobar($id);
+				Mail::enviarEmail("Tu trabajo ha sido aprobado","Se ha aprobado $titulo",$email);
 				break;
 			case 3:
 				(new AdministradorDB())->rechazar($id);
+				Mail::enviarEmail("Tu trabajo ha sido rechazado","Se ha rechazado $titulo",$email);
 				break;
 			default:
 				throw new errorCambiandoEstado();

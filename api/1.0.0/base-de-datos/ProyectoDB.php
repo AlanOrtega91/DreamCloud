@@ -201,7 +201,7 @@ class ProyectoDB extends BaseDeDatos {
 								ON SubCategoria.idCategoria = Categoria.id
 								LEFT JOIN Trabajo
 								ON Proyecto.id = Trabajo.idProyecto",
-				"where" => "WHERE Categoria.id = '$categoria' AND aprobado IN (1) AND rechazado NOT IN (1) AND revisando NOT IN (1)",
+				"where" => "WHERE Categoria.id = $categoria AND aprobado = 1",
 				"subcategoria" => "AND Proyecto.idSubCategoria = '$subcategoria'",
 				"genero" => "AND Proyecto.idGenero = '$genero'",
 				"texto" => "AND Proyecto.titulo LIKE '%$texto%' OR Proyecto.sinopsis LIKE '%$texto%'",
@@ -218,6 +218,7 @@ class ProyectoDB extends BaseDeDatos {
 			unset($queryArray["texto"]);
 		}
 		$query = implode(' ',$queryArray);
+	
 		$resultado = $this->ejecutarQuery($query);
 		return $resultado;
 	}

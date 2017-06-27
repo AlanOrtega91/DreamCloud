@@ -1523,6 +1523,10 @@ p {
   max-width: 80%;
 }
 
+.link {
+  font-size: 12px;
+}
+
 html.w-mod-js *[data-ix="fade-in-on-load"] {
   opacity: 0;
   -webkit-transform: translate(0px, 24px);

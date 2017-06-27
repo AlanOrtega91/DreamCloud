@@ -127,6 +127,13 @@ class Usuario {
 	{
 		(new UsuarioDB)->contactar($id, 'null',$usuario, $mensaje);
 	}
+	
+	function cambiarContraseña($id, $contraseña, $contraseñaNueva)
+	{
+		if ((new UsuarioDB)->cambiarContraseña($id, $contraseña, $contraseñaNueva) < 1) {
+			throw new datosInvalidos();
+		}
+	}
 }
 
 class usuarioExiste extends Exception{
@@ -136,5 +143,7 @@ class usuarioNoExiste extends Exception{
 class nombreDeUsuarioExiste extends Exception{
 }
 class tokenInvalido extends Exception{
+}
+class datosInvalidos extends Exception{
 }
 ?>

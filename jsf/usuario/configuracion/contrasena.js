@@ -1,24 +1,23 @@
 (function ($){
   jQuery("document").ready(function(){
-	  var baseAPI = "../../api/interfaz/";
 	  var token = leerToken();
-	  var direccionCambiarContrasena = baseAPI + "configuracion/contrasena/";
+	  var direccionCambiarContrasena = "../../api/1.0.0/interfaz/usuario/configuracion/contrasena/";
 	  
 	  
 	  $('#forma').submit(function afiliarse(event){
 
 		  $('#forma-boton').prop('value', 'Guardando...');
 		  
-		  var contrasenia = $('#contrasenia').val();
-		  var contraseniaNueva = $('#contraseniaNueva').val();
-		  var contraseniaNueva2 = $('#contraseniaNueva2').val();
+		  var contraseña = $('#contrasena').val();
+		  var contraseñaNueva = $('#contraseniaNueva').val();
+		  var contraseñaNueva2 = $('#contraseniaNueva2').val();
 		  
-		  if(contraseniaNueva != contraseniaNueva2) {
+		  if(contraseñaNueva != contraseñaNueva2) {
 			  mostrarError("Las contraseñas no coinciden");
 			  return;
 		  }
 		  
-		  var parametrosCambiarContrasena = {token: token, contrasenia: contrasenia, contraseniaNueva: contraseniaNueva};
+		  var parametrosCambiarContrasena = {token: leerToken(), contrasena: contraseña, contrasenaNueva: contraseñaNueva};
 		  $.post(direccionCambiarContrasena,parametrosCambiarContrasena, leerCambiarContrasenaRespondio,"json").fail(leerCambiarContrasenaError);
 	  });
 	  
@@ -34,7 +33,7 @@
 				  if(datos.clave == "claves") {
 					  mostrarError("La contraseña no coincide");
 				  } else {
-					  mostrarError("Error al cambair la contraseña");
+					  mostrarError(datos.explicacion);
 				  }
 			  }
 		  }
@@ -49,10 +48,10 @@
 	  function leerToken(){
 		  if (typeof(Storage) !== "undefined") {
 			  //HTML5 Web Storage
-			  return sessionStorage.getItem('token');
+			  return localStorage.getItem('token');
 			} else {
 				// Save as Cookie
-				return leerCookie("token");
+				return leerCookie("dreamcloudtoken");
 			}
 	  }
 	  
