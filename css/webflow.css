@@ -1382,8 +1382,7 @@ textarea.w-select {
   position: relative;
   max-width: 60%;
 }
-.w-richtext figure > div:before,
-.w-richtext figure img {
+.w-richtext figure > div:before {
   cursor: default!important;
 }
 .w-richtext figure img {

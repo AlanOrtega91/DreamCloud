@@ -21,7 +21,10 @@
 		  var apellido = $('#apellido').val();
 		  var fechaNacimiento = $('#anio-nacimiento').val() + "-" + $('#mes-nacimiento').val() + "-" + $('#dia-nacimiento').val();
 		  
-		  
+		  if(contraseña.length < 6) {
+			  mostrarError("La contraseña debe tener al menos 6 caracteres");
+			  return;
+		  }
 		  if (contraseña != contraseña2) {
 			  mostrarError("Contraseñas no coinciden");
 			  return;

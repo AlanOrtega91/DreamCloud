@@ -35,7 +35,12 @@
 		  var parametrosDream = {token: leerToken(), idDream: id, admin: 0};
 	  }
 	  $.post(direccionDream,parametrosDream, leerDreamRespondio,"json").fail(leerDreamError);
-	  
+	  var token = leerToken();
+	  var tokenAdmin = leerTokenAdmin();
+	  if(!token && !tokenAdmin) {
+		  $('#bookmark').hide();
+		  $('#forma-calificar').hide();
+	  }
 
 	  
 	  function llenarDream(dream)
@@ -43,6 +48,9 @@
 		  $('#frameDream').attr('src', '../recursos/trabajos/' + dream.direccion);
 		  $('#frameCertificado').attr('src', '../recursos/certificados/' + dream.direccionCertificado);
 		  $('#sinopsis').html(dream.sinopsis);
+		  if(dream.avatar) {
+      		$('#imagen').prop('src','../recursos/usuarios/' + dream.avatar);
+		  }
 		  if(admin == 1) {
 			  $('#certificadoDiv').show();
 			  $('#divAdmin').show();

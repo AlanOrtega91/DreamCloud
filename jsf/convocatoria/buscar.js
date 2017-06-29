@@ -24,7 +24,7 @@
 		  var convocatoriasHTML = "<option value='-1'>Fuera de Convocatoria</option>";
 		  $.each(convocatorias, function(index, value) {
 			  if (value.id != null) {
-				  convocatoriasHTML += "<option value=" + value.id + ">" + value.titulo + "</option>";
+				  convocatoriasHTML += "<option value=" + value.id + ">"+ value.empresa + ' - ' + value.titulo + "</option>";
 			  }
 		  });
 		  $('#convocatorias').html(convocatoriasHTML);
@@ -34,6 +34,21 @@
 		  var idProyectoSeleccionado = $(this).val();
 		  if (idProyectoSeleccionado == '-1') {
 			  llenarConvocatorias();
+		  }
+	  });
+	  
+	  $('#convocatorias').change(function (){
+		  var idConvocatoria = $(this).val();
+		  if (idConvocatoria != "-1") {
+			  for(var i = 0 ; i < convocatorias.length ; i++) {
+				  if(convocatorias[i].id == idConvocatoria) {
+					  $('#proyectos').html("<option value='-1'>Nuevo Proyecto</option>");
+					  $('#categorias').html("<option>"+ convocatorias[i].categoria + "</option>");
+					  $('#subcategorias').html("<option value='" + convocatorias[i].idSubcategoria + "'>"+ convocatorias[i].subcategoria + "</option>");
+					  $('#generos').html("<option value='" + convocatorias[i].idGenero + "'>"+ convocatorias[i].genero + "</option>");
+					  break;
+				  }
+			  }
 		  }
 	  });
   });

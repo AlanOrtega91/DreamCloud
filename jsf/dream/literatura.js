@@ -104,13 +104,19 @@
 			  }
 			  
       
-			  //TODO: Agregar la imagen correcta
+			  
 			  dreamsHTML += "<p class='dream-list-description'>"+ dream.sinopsis +"</p>" +
 			  		"</div>" +
 			  		"</div>" +
 			  		"<div class='dream-list-profile-column w-col w-col-3'>" + 
-			  		"<div class='dream-list-profile-image'><img class='dream-list-profile-image' src='../images/default_profile.png' width='90'>" +
-			  		"</div><h3 class='name-account'>" + dream.nombre + " " + dream.apellido + "</h3>" +
+			  		"<div class='dream-list-profile-image'>";
+			  
+			  if(dream.avatar) {
+				  dreamsHTML += "<img class='dream-list-profile-image' src='../../recursos/usuarios/" + dream.avatar + "' width='90'>";
+			  } else {
+				  dreamsHTML += "<img class='dream-list-profile-image' src='../images/default_profile.png' width='90'>";
+			  }
+			  dreamsHTML += "</div><h3 class='name-account'>" + dream.nombre + " " + dream.apellido + "</h3>" +
 			  		"<h5 class='name-username'>@" + dream.nombreDeUsuario + "</h5>" +
 			  		"</div>" +
 			  		"</div>" +

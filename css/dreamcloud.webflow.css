@@ -1527,6 +1527,14 @@ p {
   font-size: 12px;
 }
 
+.image-8 {
+  max-width: 150px;
+}
+
+.div-block-6 {
+  float: right;
+}
+
 html.w-mod-js *[data-ix="fade-in-on-load"] {
   opacity: 0;
   -webkit-transform: translate(0px, 24px);

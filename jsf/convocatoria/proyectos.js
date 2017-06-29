@@ -70,17 +70,75 @@
 			  		"</div>" +
 			  		"</div>" +
 			  		"<div class='dream-list-profile-column w-col w-col-3'>" +
-			  		"<div class='dream-list-profile-image'><img class='dream-list-profile-image' src='../images/default_profile.png' width='90'>" +
-			  		"</div>" +
+			  		"<div class='dream-list-profile-image'>";
+			  
+			  if(dream.avatar) {
+				  dreamsHTML += "<img class='dream-list-profile-image' src='../../recursos/usuarios/" + dream.avatar + "' width='90'>";
+			  } else {
+				  dreamsHTML += "<img class='dream-list-profile-image' src='../images/default_profile.png' width='90'>";
+			  }
+			  dreamsHTML += "</div>" +
 			  		"<h3 class='name-account'>" + dream.nombre + " " + dream.apellido + "</h3>" +
 			  		"<h5 class='name-username'>@" + dream.nombreDeUsuario + "</h5>" +
 			  		"</div>" +
 			  		"</div>" +
 			  		"</li>";
 			  
+			  dreamsHTML += "<li class='list-item w-clearfix'>" +
+			  		"<div class='div-block-6'><a class='w-button' href='#' id='dr" + dream.idDream + "'>Seleccionar como ganador</a>" +
+			  		"</div>" +
+			  		"</li>";
+			  
 		  });
 		  $('#proyectos').html(dreamsHTML);
+		  $('.w-button').click(function(){
+			 var idUsuario = $(this).attr('id').replace('dr','');
+			 if(id != "participar") {
+				 var direccionGanador = "../api/1.0.0/interfaz/convocatoria/seleccionar-ganador/";
+				 var parametrosGanador = {idUsuario: idUsuario, token: leerToken(), convocatoria: id};
+				 $.post(direccionGanador, parametrosGanador, ganadorRespondio,"json").fail(ganadorError);
+			 }
+		  });
 	  }
+	  
+	  var ganadorRespondio = function (datos){
+		  console.log(datos);
+	        if(datos.status == "ok"){
+	        	$.post(direccionLeerProyectos,parametrosProyectos, leerProyectosRespondio,"json").fail(leerProyectosError);
+	        } else{
+
+	        }
+	  }
+	  
+	  var ganadorError = function (datos) {
+		  console.log(datos);
+	  }
+	  
+	  function leerToken(){
+		  if (typeof(Storage) !== "undefined") {
+			  //HTML5 Web Storage
+			  return localStorage.getItem('tokenSocio');
+			} else {
+				// Save as Cookie
+				return leerCookie("dreamcloudtokenSocio");
+			}
+	  }
+	  
+	  function leerCookie(cname) {
+		    var name = cname + "=";
+		    var decodedCookie = decodeURIComponent(document.cookie);
+		    var ca = decodedCookie.split(';');
+		    for(var i = 0; i <ca.length; i++) {
+		        var c = ca[i];
+		        while (c.charAt(0) == ' ') {
+		            c = c.substring(1);
+		        }
+		        if (c.indexOf(name) == 0) {
+		            return c.substring(name.length, c.length);
+		        }
+		    }
+		    return "";
+		}
 	  
 	  
   });

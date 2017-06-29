@@ -69,7 +69,7 @@ class ProyectoDB extends BaseDeDatos {
 	const GUARDAR_REFERENCIA= "INSERT INTO Usuario_tiene_Proyecto (idUsuario, idProyecto)
 			VALUES ('%s', '%s')";
 	const CAMBIAR_PROPOSITO = "UPDATE Proyecto SET proposito = '%s' WHERE id = '%s'";
-	const LEER_TRABAJO = "SELECT Usuario.id AS idUsuario, Usuario.nombreDeUsuario, Usuario.email, Usuario.nombre, Usuario.apellido,
+	const LEER_TRABAJO = "SELECT Usuario.id AS idUsuario, Usuario.nombreDeUsuario, Usuario.email, Usuario.nombre, Usuario.apellido, Usuario.avatar, 
 			Proyecto.id AS idProyecto, Proyecto.titulo, Proyecto.sinopsis, 
 			Trabajo.direccion, Trabajo.direccionCertificado, Trabajo.fecha, Trabajo.aprobado, Trabajo.revisando, Trabajo.id AS idTrabajo,
 			AVG(Resena.calificacion) AS calificacion
@@ -190,7 +190,8 @@ class ProyectoDB extends BaseDeDatos {
 		$queryArray = array(
 				"select" => "SELECT * FROM (SELECT Proyecto.id AS proyecto, Proyecto.titulo, Proyecto.sinopsis,
 								aprobado, revisando, Trabajo.id AS idDream, 
-								Usuario.nombre, Usuario.apellido, Usuario.id AS idUsuario, Usuario.email, Usuario.nombreDeUsuario FROM Usuario 
+								Usuario.nombre, Usuario.apellido, Usuario.id AS idUsuario, Usuario.email, Usuario.nombreDeUsuario, Usuario.avatar AS avatar
+								FROM Usuario 
 								LEFT JOIN Usuario_tiene_Proyecto
 								ON Usuario.id = Usuario_tiene_Proyecto.idUsuario
 								LEFT JOIN Proyecto

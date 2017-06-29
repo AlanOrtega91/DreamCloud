@@ -134,6 +134,34 @@ class Usuario {
 			throw new datosInvalidos();
 		}
 	}
+	function guardarImagen($token, $nombreImagen)
+	{
+		$usuario = $this->leerCuenta($token, null, 0);
+		(new UsuarioDB())->guardarDireccionImagen($usuario['id'], $nombreImagen);
+	}
+	
+	function recuperarContraseña($email)
+	{
+		$usuarioDB = new UsuarioDB();
+		if (!$usuarioDB->existeUsuarioEmail($email))
+		{
+			throw new usuarioNoExiste();
+		}
+		$clave = rand();
+		$usuarioDB->recuperarContraseña($email, $clave);
+		Mail::enviarEmail("Solicitud de recuperacion de contraseña","Accede a este link para recuperar tu contraseña <br> 
+			http://dclouding.com/dreamer/reestablecer-contrasena.html?clave=$clave",$email);
+	}
+	
+	function reestablecerContraseña($clave, $contraseña)
+	{
+		$usuarioDB = new UsuarioDB();
+		$email = $usuarioDB->leerEmailRecuperarContraseña($clave);
+		if($email) {
+			$usuarioDB->reestablecerContraseña($contraseña, $email);
+			$usuarioDB->borrarDeReestablecer($clave, $email);
+		}
+	}
 }
 
 class usuarioExiste extends Exception{

@@ -89,7 +89,7 @@
 		  $('#generos').html(generosHTML);
 	  }
 
-	  $('#proyectos').change(function (){
+	  $('#proyectos, #convocatorias').change(function (){
 		  var idProyectoSeleccionado = $(this).val();
 		  if (idProyectoSeleccionado == '-1') {
 			  llenarCategorias();

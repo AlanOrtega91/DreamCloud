@@ -44,6 +44,9 @@
 	  {
 		  $('#nombre').text(cuenta.nombre + " " + cuenta.apellido);
 		  $('#nombreDeUsuario').text("@" + cuenta.nombreDeUsuario);
+		  if(cuenta.avatar) {
+			  $('#imagen').prop('src','../../recursos/usuarios/' + cuenta.avatar);
+		  }
 		  
 		  if (cuenta.descripcion) 
 		  {

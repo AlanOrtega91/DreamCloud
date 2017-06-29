@@ -49,8 +49,16 @@
 		  $('#categoria').html(convocatoria.categoria);
 		  $('#subcategoria').html(convocatoria.subcategoria);
 		  $('#genero').html(convocatoria.genero);
-		  $('#imagen').prop('src','../recursos/convocatorias/' + convocatoria.imagen);
-		  $('#imagen').prop('srcset','');
+		  if(convocatoria.imagen) {
+			  $('#imagen').prop('src','../recursos/convocatorias/' + convocatoria.imagen);
+			  $('#imagen').prop('srcset','');
+		  } else {
+			  $('.dream').hide();
+		  }
+		  if(convocatoria.avatar) {
+			  $('#imagen-perfil').prop('src','../recursos/socios/' + convocatoria.avatar);
+			  $('#imagen-perfil').prop('srcset','');
+		  }
 		  $('#participar').prop('href','../dreams/subir.html')
 	  }	  
   });

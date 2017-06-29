@@ -8,9 +8,9 @@ class UsuarioDB extends BaseDeDatos{
 	const LEER_USUARIO_POR_NOMBRE = "SELECT email AS email FROM Usuario WHERE nombreDeUsuario = '%s';";
 	
 	const AGREGAR_USUARIO = "INSERT INTO Usuario (nombreDeUsuario, nombre, apellido, fechaDeNacimiento, email, contrasena) 
-			VALUES ('%s', '%s', '%s', '%s', '%s', SHA2(MD5(('%s')),512))";
+			VALUES ('%s', '%s', '%s', '%s', '%s', SHA2(MD5('%s'),512))";
 	
-	const REVISAR_CLAVES = "SELECT * FROM Usuario WHERE (nombreDeUsuario = '%s' OR email = '%s') AND (contrasena = SHA2(MD5(('%s')),512));";
+	const REVISAR_CLAVES = "SELECT * FROM Usuario WHERE (nombreDeUsuario = '%s' OR email = '%s') AND (contrasena = SHA2(MD5('%s'),512));";
 	const CREAR_SESION= "INSERT INTO Sesion_Usuario (token, fecha, email)
 			VALUES ('%s', NOW(), '%s');";
 	
@@ -19,13 +19,13 @@ class UsuarioDB extends BaseDeDatos{
 	const ACTUALIZAR_TOKEN = "UPDATE Sesion_Usuario SET fecha = NOW() WHERE token = '%s'";
 	
 	const LEER_CUENTA_TOKEN = "SELECT nombre AS nombre, apellido AS apellido, nombreDeUsuario AS nombreDeUsuario, descripcion AS descripcion, Usuario.id AS id,
-			Usuario.telefono, Usuario.celular, Usuario.fechaDeNacimiento, Usuario.email
+			Usuario.telefono, Usuario.celular, Usuario.fechaDeNacimiento, Usuario.email, Usuario.avatar
 			FROM Sesion_Usuario 
 			LEFT JOIN Usuario 
 			ON Sesion_Usuario.email = Usuario.email
 			WHERE token = '%s'";
 	const LEER_CUENTA_ID = "SELECT nombre AS nombre, apellido AS apellido, nombreDeUsuario AS nombreDeUsuario, descripcion AS descripcion, Usuario.id AS id,
-			Usuario.telefono, Usuario.celular, Usuario.fechaDeNacimiento, Usuario.email
+			Usuario.telefono, Usuario.celular, Usuario.fechaDeNacimiento, Usuario.email, Usuario.avatar
 			FROM Usuario
 			WHERE id = '%s'";
 	
@@ -102,7 +102,16 @@ class UsuarioDB extends BaseDeDatos{
 	const CONTACTAR = "INSERT INTO Contacto (idUsuarioAContactar, idUsuarioContactando, idEmpresaContactando, mensaje, fecha)
 			VALUES (%s, %s, %s, '%s', NOW())";
 	
-	const CAMBIAR_CONTRASEÑA = "UPDATE Usuario SET contrasena =  SHA2(MD5(('%s')),512) WHERE id = %s AND contrasena =  SHA2(MD5(('%s')),512)";
+	const CAMBIAR_CONTRASEÑA = "UPDATE Usuario SET contrasena =  SHA2(MD5('%s'),512) WHERE id = %s AND contrasena =  SHA2(MD5('%s'),512)";
+	
+	const GUARDAR_AVATAR = "UPDATE Usuario SET avatar = '%s' WHERE id = %s";
+	
+	const GUARDAR_RECUPERAR_CONTRASEÑA = "INSERT INTO RecuperarContrasena (clave, email, fecha)
+			VALUES ('%s', '%s', NOW())";
+	const LEER_CAMBIAR_CONTRASEÑA = "SELECT email FROM RecuperarContrasena WHERE clave = '%s'";
+	const REESTABLECER_CONTRASEÑA= "UPDATE Usuario SET contrasena = SHA2(MD5('%s'),512) WHERE email = '%s'";
+	const BORRAR_REESTABLECER_CONTRASEÑA = "DELETE FROM RecuperarContrasena WHERE clave = '%s' AND email = '%s'";
+	
 	
 	function existeNombreDeUsuario($nombreUsuario)
 	{
@@ -236,6 +245,35 @@ class UsuarioDB extends BaseDeDatos{
 		$query = sprintf(self::CAMBIAR_CONTRASEÑA, $contraseñaNueva, $id, $contraseña);
 		$this->ejecutarQuery($query);
 		return $this->mysqli->affected_rows;
+	}
+	
+	function guardarDireccionImagen($id, $nombreImagen)
+	{
+		$query = sprintf(self::GUARDAR_AVATAR, $nombreImagen, $id);
+		$this->ejecutarQuery($query);
+	}
+	
+	function recuperarContraseña($email, $clave)
+	{
+		$query = sprintf(self::GUARDAR_RECUPERAR_CONTRASEÑA, $clave, $email);
+		$this->ejecutarQuery($query);
+	}
+	
+	function leerEmailRecuperarContraseña($clave)
+	{
+		$query = sprintf(self::LEER_CAMBIAR_CONTRASEÑA, $clave);
+		$resultado = $this->ejecutarQuery($query);
+		return $resultado->fetch_row()[0];
+	}
+	function reestablecerContraseña($contraseña, $email)
+	{
+		$query = sprintf(self::REESTABLECER_CONTRASEÑA, $contraseña, $email);
+		$resultado = $this->ejecutarQuery($query);
+	}
+	function borrarDeReestablecer($clave, $email)
+	{
+		$query = sprintf(self::BORRAR_REESTABLECER_CONTRASEÑA, $clave, $email);
+		$resultado = $this->ejecutarQuery($query);
 	}
 }
 ?>

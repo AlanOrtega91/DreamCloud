@@ -34,10 +34,9 @@
 		  console.log(datos);
 		  mostrarError("Error con el servidor");
 	  }
-	  
-	  var parametrosSiguiendo = {token: leerToken(), idDream: id};
+	  var token = leerToken();
+	  var parametrosSiguiendo = {token: token, idDream: id};
 	  $.post(direccionSiguiendo,parametrosSiguiendo, siguiendoRespondio,"json").fail(siguiendoError);
-	  
 	  
 	  $('#bookmark').click(function(){
 		  var direccionSeguir = "../api/1.0.0/interfaz/proyecto/seguir/";
