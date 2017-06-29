@@ -46,6 +46,19 @@ class AdministradorDB extends BaseDeDatos{
 			WHERE Contacto.id = %s";
 	const AUTORIZAR_CONTACTO = "UPDATE Contacto SET autorizado = 1";
 	const RECHAZAR_CONTACTO = "UPDATE Contacto SET rechazado = 0";
+	const LEER_CONVOCATORIAS_GANADAS = "SELECT Convocatoria.titulo AS titulo, Convocatoria.id AS idConvocatoria,
+			Empresa.nombre AS nombreEmpresa, Empresa.email AS emailEmpresa, Empresa.avatar AS avatarEmpresa, Empresa.id AS idEmpresa, 
+			Usuario.nombre AS nombreUsuario, Usuario.apellido AS apellidoUsuario, Usuario.email AS emailUsuario, Usuario.avatar AS avatarUsuario, Usuario.id AS idUsuario 
+			FROM Empresa
+			LEFT JOIN Convocatoria 
+			ON Empresa.id = Convocatoria.idEmpresa 
+			LEFT JOIN Proyecto 
+			ON Proyecto.idConvocatoria = Convocatoria.id AND Proyecto.id = Convocatoria.idProyectoGanador
+			LEFT JOIN Usuario_tiene_Proyecto 
+			ON Usuario_tiene_Proyecto.idProyecto = Proyecto.id 
+			LEFT JOIN Usuario
+			ON Usuario.id = Usuario_tiene_Proyecto.idUsuario 
+			WHERE idUsuario IS NOT NULL";
 	
 	function clavesCoinciden($email, $contraseña)
 	{
@@ -115,6 +128,12 @@ class AdministradorDB extends BaseDeDatos{
 	{
 		$query = sprintf(self::RECHAZAR_CONTACTO, $id);
 		$this->ejecutarQuery($query);
+	}
+	function buscarConvocatoriasGanadas()
+	{
+		$query = sprintf(self::LEER_CONVOCATORIAS_GANADAS);
+		$resultado = $this->ejecutarQuery($query);
+		return $resultado;
 	}
 }
 ?>

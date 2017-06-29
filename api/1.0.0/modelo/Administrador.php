@@ -75,6 +75,13 @@ class Administrador {
 	{
 		(new AdministradorDB())->rechazarContacto($id);
 	}
+	function buscarConvocatoriasGanadas($token)
+	{
+		$this->iniciarSesionConToken($token);
+		$convocatorias = (new AdministradorDB())->buscarConvocatoriasGanadas();
+		for ($convocatoriasLista = array(); $fila = $convocatorias->fetch_assoc(); $convocatoriasLista[] = $fila);
+		return $convocatoriasLista;
+	}
 }
 class usuarioNoExisteAdmin extends Exception{
 }
