@@ -17,7 +17,7 @@ class ConvocatoriaDB extends BaseDeDatos{
 			ON SubCategoria.idCategoria = Categoria.id
 			WHERE fechaLimite > NOW()
 			AND idProyectoGanador IS NULL";
-	const LEER_CONVOCATORIAS = "SELECT Convocatoria.id AS id, Convocatoria.titulo, Convocatoria.tema, 
+	const LEER_CONVOCATORIAS = "SELECT Convocatoria.id AS id, Convocatoria.titulo, Convocatoria.tema, Convocatoria.fechaLimite, Convocatoria.idProyectoGanador,
 			Genero.nombreESP AS genero, SubCategoria.nombreESP AS subcategoria, Categoria.nombreESP AS categoria, 
 			aprobado, revisando FROM 
 			Empresa 
@@ -48,6 +48,7 @@ class ConvocatoriaDB extends BaseDeDatos{
 			ON Convocatoria.idGenero = Genero.id
 			WHERE Convocatoria.id = %s";
 	const SELECCIONAR_GANADOR = "UPDATE Convocatoria SET idProyectoGanador = %s WHERE id = %s";
+	const LEER_GANADOR_CONVOCATORIA = "SELECT idProyectoGanador FROM Convocatoria WHERE id = %s";
 	
 	function buscarConvocatoriasActivas()
 	{
@@ -79,6 +80,12 @@ class ConvocatoriaDB extends BaseDeDatos{
 	{
 		$query = sprintf(self::SELECCIONAR_GANADOR, $convocatoria, $id);
 		$this->ejecutarQuery($query);
+	}
+	function buscarGanadorConvocatoria($id)
+	{
+		$query = sprintf(self::LEER_GANADOR_CONVOCATORIA, $id);
+		$resultado = $this->ejecutarQuery($query);
+		return $resultado->fetch_assoc();
 	}
 }
 ?>

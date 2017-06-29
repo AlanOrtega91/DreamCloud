@@ -3,6 +3,8 @@
 	  var direccionLeerProyectos = "../api/1.0.0/interfaz/socios/leer-dreams/";
 
 	  $('#proyectos').html('');
+	  var tokenSocio = leerToken();
+	  var ganador = "";
 	  
 	  $.urlParam = function(name){
 		    var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
@@ -19,6 +21,7 @@
 	  var leerProyectosRespondio = function (datos){
 		  console.log(datos);
 	        if(datos.status == "ok"){
+	        	ganador = datos.ganador;
 	        	llenarDreams(datos.proyectos);
 	        } else{
 
@@ -33,7 +36,7 @@
 	  
 	  var parametrosProyectos = {id: id};
 	 
-	  $.post(direccionLeerProyectos,parametrosProyectos, leerProyectosRespondio,"json").fail(leerProyectosError);
+	 $.post(direccionLeerProyectos,parametrosProyectos, leerProyectosRespondio,"json").fail(leerProyectosError);
 	  
 		  
 	  function llenarDreams(dreams) {
@@ -57,8 +60,12 @@
 			  
 			  }
 			  dreamsHTML += "<div class='blue list-colum-left w-clearfix w-col w-col-9'>" +
-			  		"<div class='list-left-block w-clearfix'>" +
-			  		"<h3 class='dream-list-title'>"+ dream.titulo + "</h3>";
+			  		"<div class='list-left-block w-clearfix'>";
+			  if (dream.proyecto == ganador) {
+				  dreamsHTML += "<h3 class='dream-list-title'>"+ dream.titulo + " (Ganador)</h3>";
+			  } else {
+				  dreamsHTML += "<h3 class='dream-list-title'>"+ dream.titulo + "</h3>";
+			  }
 			  		
 			  		var calificacion = Math.round(dream.calificacion);
 					  for (var i=0; i < calificacion; i++)
@@ -83,11 +90,12 @@
 			  		"</div>" +
 			  		"</div>" +
 			  		"</li>";
-			  
-			  dreamsHTML += "<li class='list-item w-clearfix'>" +
+			  if(!ganador && tokenSocio) {
+				  dreamsHTML += "<li class='list-item w-clearfix'>" +
 			  		"<div class='div-block-6'><a class='w-button' href='#' id='dr" + dream.idDream + "'>Seleccionar como ganador</a>" +
 			  		"</div>" +
 			  		"</li>";
+			  }
 			  
 		  });
 		  $('#proyectos').html(dreamsHTML);
@@ -99,6 +107,9 @@
 				 $.post(direccionGanador, parametrosGanador, ganadorRespondio,"json").fail(ganadorError);
 			 }
 		  });
+		  if (tokenSocio) {
+			  $('#participar').hide();
+		  }
 	  }
 	  
 	  var ganadorRespondio = function (datos){

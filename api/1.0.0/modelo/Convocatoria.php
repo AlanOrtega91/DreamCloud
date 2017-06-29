@@ -48,6 +48,11 @@ class Convocatoria {
 	{
 		(new ConvocatoriaDB)->seleccionarGanador($id, $convocatoria);
 	}
+	
+	function buscarGanadorConvocatoria($id)
+	{
+		return (new ConvocatoriaDB)->buscarGanadorConvocatoria($id);
+	}
 
 }
 

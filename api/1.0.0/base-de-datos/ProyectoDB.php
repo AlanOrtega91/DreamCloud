@@ -22,7 +22,7 @@ class ProyectoDB extends BaseDeDatos {
 			WHERE Usuario.id = '%s' AND Proyecto.id IS NOT NULL
 			ORDER BY Trabajo.fecha DESC) AS help
 			GROUP BY proyecto";
-	const LEER_PROYECTOS_CONVOCATORIA = "SELECT * FROM (SELECT Proyecto.id AS proyecto, Proyecto.titulo, Proyecto.sinopsis,
+	const LEER_PROYECTOS_CONVOCATORIA = "SELECT * FROM (SELECT Proyecto.id AS proyecto, Proyecto.titulo, Proyecto.sinopsis, Categoria.nombreESP AS categoria,
 			Trabajo.aprobado, Trabajo.revisando, Trabajo.id AS idDream, 
 			Usuario.nombre, Usuario.apellido, Usuario.id AS idUsuario, Usuario.email, Usuario.nombreDeUsuario FROM Usuario 
 			LEFT JOIN Usuario_tiene_Proyecto

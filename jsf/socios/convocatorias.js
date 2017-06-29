@@ -35,11 +35,28 @@
 			  		"<div class='convocatoria-dato'>" + convocatoria.subcategoria + "</div>" +
 			  		"<div class='convocatoria-dato'>" + convocatoria.genero + "</div>" +
 			  		"</div>" +
-			  		"<p class='convocatoria-tema'>" + convocatoria.tema + "</p>" +
-			  		"</div>" +
+			  		"<p class='convocatoria-tema'>" + convocatoria.tema + "</p>";
+			  
+			  var fechaLimite = Date.parse(convocatoria.fechaLimite);
+			  
+			  if(convocatoria.idProyectoGanador) {
+				  
+				  convocatoriasHTML += "<div><strong>Fecha Límite:</strong> Ganador Seleccionado</div>";
+			  } else if (fechaLimite < new Date()){
+				  
+				  convocatoriasHTML += "<div><strong>Fecha Límite:</strong> Vencida</div>";
+			  } else {
+				  
+				  convocatoriasHTML += "<div><strong>Fecha Límite:</strong> " + convocatoria.fechaLimite.split(' ')[0] + "</div>";
+			  }
+			  convocatoriasHTML += "</div>" +
 			  		"</div>";
 			  		if (id) {
-			  			convocatoriasHTML += "<div class='column-3 w-col w-col-3'><a class='w-button' href='../dreams/subir.html?convocatoria=" + convocatoria.id +"'>Participar</a>";
+			  			if (fechaLimite > new Date() && !(convocatoria.idProyectoGanador != null)) {
+			  				convocatoriasHTML += "<div class='column-3 w-col w-col-3'><a class='w-button' href='../dreams/subir.html?convocatoria=" + convocatoria.id +"'>Participar</a>";
+			  			} else {
+			  				convocatoriasHTML += "<div class='column-3 w-col w-col-3'><a class='w-button' href='convocatoria.html?convocatoria=" + convocatoria.id +"'>Revisar</a>";
+			  			}
 			  		} else {
 			  			convocatoriasHTML += "<div class='column-3 w-col w-col-3'><a class='w-button' href='convocatoria.html?convocatoria=" + convocatoria.id +"'>Revisar</a>";
 			  		}
