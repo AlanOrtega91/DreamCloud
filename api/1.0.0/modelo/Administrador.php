@@ -42,15 +42,18 @@ class Administrador {
 		switch ($estado) {
 			case 1:
 				(new AdministradorDB())->iniciarRevision($id);
-				Mail::enviarEmail("Tu trabajo esta en revision","Se ha iniciado la revision de $titulo",$email);
+				$mensaje = Mail::contruirMensajeProyecto($titulo, "Revision iniciada");
+				Mail::enviarEmail("Tu trabajo esta en revision", $mensaje, $email);
 				break;
 			case 2:
 				(new AdministradorDB())->aprobar($id);
-				Mail::enviarEmail("Tu trabajo ha sido aprobado","Se ha aprobado $titulo",$email);
+				$mensaje = Mail::contruirMensajeProyecto($titulo, "Aprobado");
+				Mail::enviarEmail("Tu trabajo ha sido aprobado", $mensaje, $email);
 				break;
 			case 3:
 				(new AdministradorDB())->rechazar($id);
-				Mail::enviarEmail("Tu trabajo ha sido rechazado","Se ha rechazado $titulo",$email);
+				$mensaje = Mail::contruirMensajeProyecto($titulo, "Rechazado");
+				Mail::enviarEmail("Tu trabajo ha sido rechazado", $mensaje, $email);
 				break;
 			default:
 				throw new errorCambiandoEstado();

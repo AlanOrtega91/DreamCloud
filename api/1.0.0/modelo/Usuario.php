@@ -29,8 +29,8 @@ class Usuario {
 		$this->buscaEmailDeUsuarioLibre($email);
 		$usuarioDB->agregarUsuario($nombreUsuario, $nombre, $apellido, $fechaNacimiento, $email, $contraseña);
 		
-		
-		Mail::enviarEmail("Bienvenido a DreamCloud","$nombre $apellido queremos darte la bienvenida",$email);
+		$mensaje = Mail::construirBienvenida($nombre + " " + $apellido);
+		Mail::enviarEmail("Bienvenido a DreamCloud",$mensaje,$email);
 	}
 	
 	function iniciarSesion($emailONombre, $contraseña)

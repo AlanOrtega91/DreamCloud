@@ -1536,6 +1536,32 @@ p {
   float: right;
 }
 
+.container-3 {
+  background-color: #d4d7da;
+}
+
+.brand {
+  float: left;
+}
+
+.container-4 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+
+.navbar {
+  border-color: #000;
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  background-color: #fff;
+}
+
 html.w-mod-js *[data-ix="fade-in-on-load"] {
   opacity: 0;
   -webkit-transform: translate(0px, 24px);
