@@ -1,72 +1,48 @@
 (function ($){
   jQuery("document").ready(function(){
-	  var direccionDreams = "../api/1.0.0/interfaz/admin/leer-dreams/";
-
+	  var direccionAgregarDream = "../api/1.0.0/interfaz/comunidad/agregar-dream/";
+	  var direccionBorrarDream = "../api/1.0.0/interfaz/comunidad/borrar-dream/";
+	  var direccionAgregarConvocatoria = "../api/1.0.0/interfaz/comunidad/agregar-convocatoria/";
+	  var direccionBorrarConvocatoria = "../api/1.0.0/interfaz/comunidad/borrar-convocatoria/";
+	  var token = leerToken();
 	  
-	  var leerDreamsRespondio = function (datos){
+	  var respondio = function (datos){
 		  console.log(datos);
 	        if(datos.status == "ok"){
-	        	llenarDreams(datos.proyectos);
+	        	location.reload();
 	        } else{
 	        	
 	        }
 	  }
 	  
-	  var leerDreamsError = function (datos) {
+	  var error = function (datos) {
 		  console.log(datos);
-		  mostrarError("Error con el servidor");
 	  }
-	  var parametrosDreams = {token: leerToken()};
-	  $.post(direccionDreams,parametrosDreams, leerDreamsRespondio,"json").fail(leerDreamsError);
-
 	  
-	  function llenarDreams(dreams)
-	  {
-        var dreamsHTML = "";
-		  $.each(dreams, function(index, dream) {
-			  
-			  dreamsHTML += "<li id='" + dream.idDream + "' class='list-item' onclick='dreamSeleccionado(this)' style='cursor: pointer; cursor: hand;'>";
-			  switch (dream.categoria) 
-			  {
-			  case "Guiones":
-				  dreamsHTML += "<div class='blue list-row w-row'>";
-				  break;
-			  case "Literatura":
-				  dreamsHTML += "<div class='green list-row w-row'>";
-				  break;
-			  case "Periodismo":
-				  dreamsHTML += "<div class='orange list-row w-row'>";
-				  break;
-			  default:
-				  dreamsHTML += "<div class='list-row w-row'>";
-			  
-			  }
-			  dreamsHTML += "<div class='list-colum-left w-clearfix w-col w-col-9'>" +
-			  			"<div class='list-left-block w-clearfix'>";
-			  if (dream.revisando == '1')
-			  {
-				  dreamsHTML += "<h3 class='dream-list-title'>"+ dream.titulo + " ("+ dream.idDream + ") (En revision)</h3>";
-			  } else 
-			  {
-				  dreamsHTML += "<h3 class='dream-list-title'>"+ dream.titulo + " ("+ dream.idDream + ") (En espera)</h3>";
-			  }
-			
-      
-			  //TODO: Agregar la imagen correcta
-			  dreamsHTML += "<p class='dream-list-description'>"+ dream.sinopsis +"</p>" +
-			  		"</div>" +
-			  		"</div>" +
-			  		"<div class='dream-list-profile-column w-col w-col-3'>" + 
-			  		"<div class='dream-list-profile-image'><img class='dream-list-profile-image' src='../images/default_profile.png' width='90'>" +
-			  		"</div><h3 class='name-account'>" + dream.nombre + " " + dream.apellido + "(" + dream.idUsuario + ")</h3>" +
-			  		"<h5 class='name-username'>@" + dream.nombreDeUsuario + "(" + dream.email + ")</h5>" +
-			  		"</div>" +
-			  		"</div>" +
-			  		"</li>";
-
-		  });
-		  $('#dreamsList').html(dreamsHTML);
-	  }
+	  
+	  $('#agregar-dream').click(function(){
+		  var id = $('#idDream').val();
+		  var parametros = {token: token, id: id};
+		  $.post(direccionAgregarDream, parametros, respondio,"json").fail(error);
+	  });
+	  
+	  $('#borrar-dream').click(function(){
+		  var id = $('#idDream').val();
+		  var parametros = {token: token, id: id};
+		  $.post(direccionBorrarDream, parametros, respondio,"json").fail(error);
+	  });
+	  
+	  $('#agregar-convocatoria').click(function(){
+		  var id = $('#idConvocatoria').val();
+		  var parametros = {token: token, id: id};
+		  $.post(direccionAgregarConvocatoria, parametros, respondio,"json").fail(error);
+	  });
+	  
+	  $('#borrar-convocatoria').click(function(){
+		  var id = $('#idConvocatoria').val();
+		  var parametros = {token: token, id: id};
+		  $.post(direccionBorrarConvocatoria, parametros, respondio,"json").fail(error);
+	  });
 	  
 	  
 	  function leerToken(){
@@ -97,7 +73,3 @@
 	  
   });
 })(jQuery);
-
-function dreamSeleccionado(dream) {
-	window.location.replace("../dreams/dream.html?dream="+dream.id);
-}

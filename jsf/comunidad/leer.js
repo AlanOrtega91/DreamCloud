@@ -2,7 +2,7 @@
   jQuery("document").ready(function(){
 	  var direccion = "../api/1.0.0/interfaz/comunidad/leer/";
 
-	  $('#lista-proyectos').html('');
+	  $('#comunidadLista').html('');
 	  
 	  
 	  var respondio = function (datos){
@@ -78,13 +78,12 @@
 	  
 	  convocatoriasHTML += "</div>" +
 	  		"</div>";
-	  if (convocatorias.avatar) {
+	  if (convocatoria.avatar) {
 		  convocatoriasHTML += "<div class='column-3 w-col w-col-3'><div><img class='image-9' src='../recursos/socios/" + dream.avatar + "' '>";
 	  } else {
 		  convocatoriasHTML += "<div class='column-3 w-col w-col-3'><div><img class='image-9' src='../images/default_profile.png'>";
 	  }
-	  		"<div class='column-3 w-col w-col-3'><div><img class='image-9' src='../images/default_profile.png'>" +
-	  		"<h3>" + convocatoria.nombre + "</h3>" +
+	  convocatoriasHTML += "<h3>" + convocatoria.nombre + "</h3>" +
 	  		"</div>" +
 	  		"<a class='w-button' href='empresa/convocatoria.html?convocatoria=" + convocatoria.id +"'>Revisar</a>" +
 	  		"</div>" +

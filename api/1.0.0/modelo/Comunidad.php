@@ -10,6 +10,23 @@ class Comunidad {
 		for ($entradasLista = array(); $fila = $entradas->fetch_assoc(); $entradasLista[] = $fila);
 		return $entradasLista;
 	}
+	
+	function agregarDream($id)
+	{
+		(new ComunidadDB())->agregarDream($id);
+	}
+	function borrarDream($id)
+	{
+		(new ComunidadDB())->borrarDream($id);
+	}
+	function agregarConvocatoria($id)
+	{
+		(new ComunidadDB())->agregarConvocatoria($id);
+	}
+	function borrarConvocatoria($id)
+	{
+		(new ComunidadDB())->borrarConvocatoria($id);
+	}
 
 }
 ?>
