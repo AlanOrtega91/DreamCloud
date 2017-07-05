@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <!--  This site was created in Webflow. http://www.webflow.com -->
-<!--  Last Published: Fri Jun 30 2017 22:06:44 GMT+0000 (UTC)  -->
+<!--  Last Published: Tue Jul 04 2017 23:23:19 GMT+0000 (UTC)  -->
 <html data-wf-page="594b436373350423a13f7dd2" data-wf-site="58ab5c2f4cb75faf155e5221">
 <head>
   <meta charset="utf-8">
@@ -60,12 +60,12 @@
               <div class="w-col w-col-9 w-col-small-small-stack">
                 <div class="edit-account">
                   <div class="w-form">
-                    <form action="http://dclouding.com/api/1.0.0/interfaz/usuario/configuracion/avatar/" data-name="Email Form" enctype="multipart/form-data" id="wf-form-Email-Form" method="post" name="wf-form-Email-Form">
+                    <form action="http://dclouding.com/api/1.0.0/interfaz/usuario/configuracion/avatar/" data-name="Email Form" enctype="multipart/form-data" id="forma" method="post" name="wf-form-Email-Form">
                       <div class="center-button-div"><img class="image-8" id="imagen" src="../../images/default_profile.png" width="265">
                       </div>
                       <div class="div-block-3" id="usuario">
                         <div class="w-embed">
-                          <input class="w-input" type="file" id="archivo-trabajo" name="avatar" required="required" accept=".jpg">
+                          <input class="w-input" type="file" name="avatar" required="required" accept="image/*">
                         </div>
                         <div class="w-embed">
                           <input class="w-input" type="hidden" id="token" name="token" required="required">
@@ -74,15 +74,12 @@
                       <div class="center-button-div">
                         <input class="submit-button w-button" data-wait="Guardando..." type="submit" value="Guardar">
                       </div>
-                      <div class="w-embed">
-                        <input class="w-input" type="hidden" id="token" name="token" required="required">
-                      </div>
                     </form>
                     <div class="w-form-done">
-                      <div>Thank you! Your submission has been received!</div>
+                      <div id="mensaje-exito-texto">Thank you! Your submission has been received!</div>
                     </div>
-                    <div class="w-form-fail">
-                      <div>Oops! Something went wrong while submitting the form</div>
+                    <div class="w-form-fail" id="mensaje-error">
+                      <div id="mensaje-error-texto">Oops! Something went wrong while submitting the form</div>
                     </div>
                   </div>
                 </div>

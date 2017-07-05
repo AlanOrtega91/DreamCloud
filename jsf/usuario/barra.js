@@ -7,6 +7,7 @@
 		  $('#opcion1').html('Contactar');
 		  $('#opcion2').html('Seguir');
 		  $('#opcion3').hide();
+		  $('#subir-dream').hide();
 	  } else {
 		  $('#opcion1').html("Mis Proyectos");
 		  $('#opcion2').html("Editar");

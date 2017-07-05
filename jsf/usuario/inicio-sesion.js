@@ -1,12 +1,11 @@
 (function ($){
   jQuery("document").ready(function(){
 	  
-	  var VERSION = "1.0.0";
-	  var direccion = "../api/" + VERSION + "/interfaz/usuario/inicio-sesion/";
+	  var direccion = "../api/1.0.0/interfaz/usuario/inicio-sesion/";
 	  var enviando = false;
-	  var token = leerToken();
+	  var token = leerToken('socio');
 	  
-	  $('#forma').submit(function tokenizar(event){
+	  $('#forma').submit(function (event){
 		  $('#forma-boton').prop('value', 'Enviando...');
 		  
 		  if (enviando) {
@@ -19,10 +18,10 @@
 		  var contraseña = $('#contrasenia').val();
 		  
 		  var parametros = {usuario: usuario, contrasenia: contraseña};
-		  $.post(direccion, parametros, inicioSesionRespondio, "json").fail(inicioSesionError);
+		  $.post(direccion, parametros, respondio, "json").fail(error);
 	  });
 	  
-	  var inicioSesionRespondio = function(datos) {
+	  var respondio = function(datos) {
 		  console.log(datos);
 	        if(datos.status == "ok"){
 	        	guardarToken(datos.token);
@@ -38,7 +37,7 @@
 	        }
 	  }
 	  
-	  var inicioSesionError = function (xhr, status, datos) {
+	  var error = function (datos) {
 		  console.log(datos);
 		  mostrarError('Error de Servidor intentalo mas tarde');
 	  }
@@ -54,10 +53,10 @@
 	  function guardarToken(token){
 		  if (typeof(Storage) !== "undefined") {
 			  //HTML5 Web Storage
-			  localStorage.setItem('token',token);
+			  localStorage.setItem('dreamer',token);
 			} else {
 				// Save as Cookie
-				document.cookie = 'dreamcloudtoken=' + token;
+				document.cookie = 'dreamerdreamcloud=' + token;
 			}
 	  }
 	  
@@ -75,13 +74,13 @@
 		  $.post(direccion, parametros, inicioSesionTokenRespondio, "json");
 	  }
 	  
-	  function leerToken(){
+	  function leerToken(nombre){
 		  if (typeof(Storage) !== "undefined") {
 			  //HTML5 Web Storage
-			  return localStorage.getItem('token');
+			  return localStorage.getItem(nombre);
 			} else {
 				// Save as Cookie
-				return leerCookie("dreamcloudtoken");
+				return leerCookie(nombre + "dreamcloud");
 			}
 	  }
 	  

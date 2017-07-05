@@ -35,14 +35,11 @@ try{
 	header('Location: ../../../../../empresa/exito.html');
 		
 } catch (tokenInvalido$e) {
-	echo json_encode(array("status"=>"error","clave"=>"nombreUsuario","explicacion"=>$e->getMessage()));
-	header('Location: ' . $_SERVER['HTTP_REFERER']);
+	header('Location: ' . $_SERVER['HTTP_REFERER'].'?error=1');
 }  catch (errorConBaseDeDatos $e) {
-	echo json_encode(array("status"=>"error","clave"=>"db","explicacion"=>$e->getMessage()));
-	header('Location: ' . $_SERVER['HTTP_REFERER']);
+	header('Location: ' . $_SERVER['HTTP_REFERER'].'?error=2');
 } catch (Exception $e) {
-	echo json_encode(array("status"=>"error","clave"=>"desconocido","explicacion"=>$e->getMessage()));
-	header('Location: ' . $_SERVER['HTTP_REFERER']);
+	header('Location: ' . $_SERVER['HTTP_REFERER'].'?error=3');
 }
  	
  function agregarArchivo($archivo, $ubicacionDestino) {

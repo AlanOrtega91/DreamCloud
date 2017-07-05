@@ -724,6 +724,10 @@ p {
 }
 
 .list-row.red {
+  position: static;
+  left: 0px;
+  top: 0px;
+  right: 0px;
   border-style: solid;
   border-width: 3px;
   border-color: rgba(136, 66, 66, .67);
@@ -1298,7 +1302,11 @@ p {
 }
 
 .column-3 {
-  margin-top: 160px;
+  position: relative;
+  left: 0px;
+  top: 0px;
+  right: 0px;
+  margin-top: 0px;
   text-align: center;
 }
 
@@ -1560,6 +1568,22 @@ p {
   border-bottom-style: solid;
   border-bottom-width: 1px;
   background-color: #fff;
+}
+
+.image-9 {
+  display: inline-block;
+}
+
+.unordered-list {
+  display: block;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: start;
+  -webkit-align-items: flex-start;
+  -ms-flex-align: start;
+  align-items: flex-start;
 }
 
 html.w-mod-js *[data-ix="fade-in-on-load"] {

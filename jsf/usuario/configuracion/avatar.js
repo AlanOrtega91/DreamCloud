@@ -1,10 +1,11 @@
 (function ($){
   jQuery("document").ready(function(){
-	  var baseAPI = "../../api/1.0.0/interfaz/";
-	  var direccionCuenta = baseAPI + "usuario/leer-cuenta/";
+	  
+	  var direccionCuenta = "../../api/1.0.0/interfaz/usuario/leer-cuenta/";
 	  var token = leerToken();
 	  var parametrosCuenta = {token: token};
-	  $('#token').val(token);
+	  $('#token').val(token);	  
+	  
 	  var leerCuentaRespondio = function (datos){
 		  console.log(datos);
 	        if(datos.status == "ok"){
@@ -27,10 +28,10 @@
 	  function leerToken(){
 		  if (typeof(Storage) !== "undefined") {
 			  //HTML5 Web Storage
-			  return localStorage.getItem('token');
+			  return localStorage.getItem('dreamer');
 			} else {
 				// Save as Cookie
-				return leerCookie("token");
+				return leerCookie("dreamerdreamcloud");
 			}
 	  }
 	  
@@ -62,6 +63,26 @@
 		  $('#mensaje-error').show("slow");
 		  $('#mensaje-error-texto').html(error);
 		  $('#forma-boton').prop('value', 'Guardar');
+	  }
+	  
+	  $.urlParam = function(name){
+		    var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+		    if (results==null){
+		       return null;
+		    }
+		    else{
+		       return decodeURI(results[1]) || 0;
+		    }
+		}
+	  
+	  var error = $.urlParam('error');
+
+	  if (error == '1') {
+		  mostrarError('Token invalido');
+	  } else if (error == '2') {
+		  mostrarError('Error con los datos');
+	  } else if (error == '3') {
+		  mostrarError('Error con los datos');
 	  }
 	  
   });

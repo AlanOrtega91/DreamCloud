@@ -1,8 +1,9 @@
 (function ($){
   jQuery("document").ready(function(){
-	  var baseAPI = "../api/1.0.0/interfaz/";
-	  var direccionCuenta = baseAPI + "usuario/leer-cuenta/";
+	 
+	  var direccionCuenta = "../api/1.0.0/interfaz/usuario/leer-cuenta/";
 	  var propio = true;
+	  var admin = false;
 	  
 	  $.urlParam = function(name){
 		    var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
@@ -20,7 +21,7 @@
 		  console.log(datos);
 	        if(datos.status == "ok"){
 	        	llenarCuenta(datos.cuenta);
-	        	if (id) {
+	        	if (!propio) {
 		        	if (datos.siguiendo == 1) {
 		        		$('#opcion2').html('Dejar de Seguir');
 		        	} else {
@@ -42,8 +43,14 @@
 	  
 	  function llenarCuenta(cuenta)
 	  {
-		  $('#nombre').text(cuenta.nombre + " " + cuenta.apellido);
-		  $('#nombreDeUsuario').text("@" + cuenta.nombreDeUsuario);
+		  if (admin) {
+			  $('#nombre').text(cuenta.nombre + " " + cuenta.apellido + ' (' + cuenta.id + ')');
+			  $('#nombreDeUsuario').text("@" + cuenta.nombreDeUsuario + ' (' + cuenta.email + ')');
+		  } else {
+			  $('#nombre').text(cuenta.nombre + " " + cuenta.apellido);
+			  $('#nombreDeUsuario').text("@" + cuenta.nombreDeUsuario);
+		  }
+		  
 		  if(cuenta.avatar) {
 			  $('#imagen').prop('src','../../recursos/usuarios/' + cuenta.avatar);
 		  }
@@ -102,27 +109,32 @@
 		  }
 	  }
 	  
-	  
 	  var id = $.urlParam('usuario');
-	  if (id)
-	  {
-		  propio = false;
-		  var parametrosCuenta = {id: id, token: leerToken()};
-		  $.post(direccionCuenta,parametrosCuenta, leerCuentaRespondio,"json").fail(leerCuentaError);
-	  } else {
+	  var token = '';
+	  if((token = leerToken('dreamer')) != null) {
 		  propio = true;
-		  var parametrosCuenta = {token: leerToken()};
-		  $.post(direccionCuenta,parametrosCuenta, leerCuentaRespondio,"json").fail(leerCuentaError);
+		  var parametrosCuenta = {token: token, usuario: 0};
+		  
+	  } else if ((token = leerToken('socio')) != null) {
+		  propio = false;
+		  var parametrosCuenta = {id: id, token: token, usuario: 1};
+	  } else {
+		  token = leerToken('admin');
+		  propio = false;
+		  admin = true;
+		  var parametrosCuenta = {id: id, token: token, usuario: 2};
 	  }
 	  
+	  $.post(direccionCuenta,parametrosCuenta, leerCuentaRespondio,"json").fail(leerCuentaError);
 	  
-	  function leerToken(){
+	  
+	  function leerToken(nombre){
 		  if (typeof(Storage) !== "undefined") {
 			  //HTML5 Web Storage
-			  return localStorage.getItem('token');
+			  return localStorage.getItem(nombre);
 			} else {
 				// Save as Cookie
-				return leerCookie("dreamcloudtoken");
+				return leerCookie(nombre + "dreamcloud");
 			}
 	  }
 	  
@@ -143,7 +155,7 @@
 		}
 	  
 	  
-	  var direccionCerrar = baseAPI + "usuario/cerrar-sesion/";
+	  var direccionCerrar = "../api/1.0.0/interfaz/usuario/cerrar-sesion/";
 	  
 	  var cerrarRespondio = function (datos){
 		  console.log(datos);
@@ -172,10 +184,10 @@
 	  function borrarToken() {
 		  if (typeof(Storage) !== "undefined") {
 			  //HTML5 Web Storage
-			  localStorage.removeItem('token');
+			  localStorage.removeItem('dreamer');
 			} else {
 				// Save as Cookie
-				document.cookie = 'dreamcloudtoken=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+				document.cookie = 'dreamerdreamcloud=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
 			}
 	  }
 	  

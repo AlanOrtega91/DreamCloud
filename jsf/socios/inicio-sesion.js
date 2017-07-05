@@ -1,10 +1,9 @@
 (function ($){
   jQuery("document").ready(function(){
 	  
-	  var VERSION = "1.0.0";
-	  var direccion = "../api/" + VERSION + "/interfaz/socios/inicio-sesion/";
+	  var direccion = "../api/1.0.0/interfaz/socios/inicio-sesion/";
 	  var enviando = false;
-	  var token = leerToken();
+	  var token = leerToken('dreamer');
 	  
 	  $('#forma').submit(function tokenizar(event){
 		  $('#forma-boton').prop('value', 'Enviando...');
@@ -19,10 +18,10 @@
 		  var contraseña = $('#contrasenia').val();
 		  
 		  var parametros = {email: email, contrasenia: contraseña};
-		  $.post(direccion, parametros, inicioSesionRespondio, "json").fail(inicioSesionError);
+		  $.post(direccion, parametros, respondio, "json").fail(error);
 	  });
 	  
-	  var inicioSesionRespondio = function(datos) {
+	  var respondio = function(datos) {
 		  console.log(datos);
 	        if(datos.status == "ok"){
 	        	guardarToken(datos.token);
@@ -38,7 +37,7 @@
 	        }
 	  }
 	  
-	  var inicioSesionError = function (xhr, status, datos) {
+	  var error = function (xhr, status, datos) {
 		  console.log(datos);
 		  mostrarError('Error de Servidor intentalo mas tarde');
 	  }
@@ -54,11 +53,17 @@
 	  function guardarToken(token){
 		  if (typeof(Storage) !== "undefined") {
 			  //HTML5 Web Storage
-			  localStorage.setItem('tokenSocio',token);
+			  localStorage.setItem('socio',token);
 			} else {
 				// Save as Cookie
-				document.cookie = 'dreamcloudtokenSocio=' + token;
+				document.cookie = 'socioDreamcloud=' + token;
 			}
+	  }
+	  
+	  
+	  if(token != null){
+		  var parametros = {token: token};
+		  $.post(direccion, parametros, inicioSesionTokenRespondio, "json");
 	  }
 	  
 	  function mostrarError(error){
@@ -70,18 +75,13 @@
 		  enviando = false;
 	  }
 	  
-	  if(token != null){
-		  var parametros = {token: token};
-		  $.post(direccion, parametros, inicioSesionTokenRespondio, "json");
-	  }
-	  
-	  function leerToken(){
+	  function leerToken(nombre){
 		  if (typeof(Storage) !== "undefined") {
 			  //HTML5 Web Storage
-			  return localStorage.getItem('tokenSocio');
+			  return localStorage.getItem(nombre);
 			} else {
 				// Save as Cookie
-				return leerCookie("dreamcloudtokenSocio");
+				return leerCookie(nombre + "dreamcloud");
 			}
 	  }
 	  

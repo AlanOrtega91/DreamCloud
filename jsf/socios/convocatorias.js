@@ -79,34 +79,24 @@
 		}
 	  
 	  var id = $.urlParam('socio');
-	  if (id)
-	  {
-		  var parametrosConvocatorias = {id: id, token: leerToken()};
+	  var token = '';
+	  if((token = leerToken('socio')) != null) {
+		  var parametrosConvocatorias = {token: token, usuario: 0};
 		  
 	  } else {
-		  var parametrosConvocatorias = {token: leerTokenSocio()};
+		  var parametrosConvocatorias = {id: id, usuario: 1};
 	  }
 	  
 	  $.post(direccionConvocatorias,parametrosConvocatorias, leerConvocatoriasRespondio,"json").fail(leerConvocatoriasError);
 	  
 	  
-	  function leerTokenSocio(){
+	  function leerToken(nombre){
 		  if (typeof(Storage) !== "undefined") {
 			  //HTML5 Web Storage
-			  return localStorage.getItem('tokenSocio');
+			  return localStorage.getItem(nombre);
 			} else {
 				// Save as Cookie
-				return leerCookie("dreamcloudtokenSocio");
-			}
-	  }
-	  
-	  function leerToken(){
-		  if (typeof(Storage) !== "undefined") {
-			  //HTML5 Web Storage
-			  return localStorage.getItem('token');
-			} else {
-				// Save as Cookie
-				return leerCookie("dreamcloudtoken");
+				return leerCookie(nombre + "dreamcloud");
 			}
 	  }
 	  

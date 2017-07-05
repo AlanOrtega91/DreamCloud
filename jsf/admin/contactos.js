@@ -97,10 +97,10 @@
 	  function leerToken(){
 		  if (typeof(Storage) !== "undefined") {
 			  //HTML5 Web Storage
-			  return localStorage.getItem('tokenAdmin');
+			  return localStorage.getItem('admin');
 			} else {
 				// Save as Cookie
-				return leerCookie("dreamcloudAdmin");
+				return leerCookie("admindreamcloud");
 			}
 	  }
 	  

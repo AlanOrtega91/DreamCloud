@@ -6,7 +6,7 @@
 	  var enviando = false;
 	  var token = leerToken();
 	  
-	  $('#forma').submit(function tokenizar(event){
+	  $('#forma').submit(function (event){
 		  $('#forma-boton').prop('value', 'Enviando...');
 		  
 		  if (enviando) {
@@ -54,10 +54,10 @@
 	  function guardarToken(token){
 		  if (typeof(Storage) !== "undefined") {
 			  //HTML5 Web Storage
-			  localStorage.setItem('tokenAdmin',token);
+			  localStorage.setItem('admin',token);
 			} else {
 				// Save as Cookie
-				document.cookie = 'dreamcloudAdmin=' + token;
+				document.cookie = 'admindreamcloud=' + token;
 			}
 	  }
 	  
@@ -78,10 +78,10 @@
 	  function leerToken(){
 		  if (typeof(Storage) !== "undefined") {
 			  //HTML5 Web Storage
-			  return localStorage.getItem('tokenAdmin');
+			  return localStorage.getItem('admin');
 			} else {
 				// Save as Cookie
-				return leerCookie("dreamcloudAdmin");
+				return leerCookie("admindreamcloud");
 			}
 	  }
 	  

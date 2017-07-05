@@ -1,33 +1,33 @@
 (function ($){
   jQuery("document").ready(function(){
 	  
-	  if (leerToken("tokenAdmin", "dreamcloudtokenAdmin"))
+	  if (leerToken("admin"))
 	  {
 		  $('#navBarAdmin').show();
 		  $('#navBarUsuario').hide();
 		  
-	  } else if(leerToken("tokenSocio", "dreamcloudtokenSocio")) {
+	  } else if(leerToken("socio")) {
 		  $('#navBarAdmin').hide();
 		  $('#navBarUsuario').show();
-		  $('#navBarCuentaLink').prop("href","http://dclouding.com/empresa/cuenta.html");
+		  $('#navBarCuentaLink').prop("href","../empresa/cuenta.html");
 		  
-	  } else if(leerToken("token", "dreamcloudtoken")) {
+	  } else if(leerToken("dreamer")) {
 		  $('#navBarAdmin').hide();
 		  $('#navBarUsuario').show();
-		  $('#navBarCuentaLink').prop("href","http://dclouding.com/dreamer/cuenta.html");
+		  $('#navBarCuentaLink').prop("href","../dreamer/cuenta.html");
 		  
 	  } else {
 		  window.replace("http://dclouding.com");
 	  }
 	  
 	  
-	  function leerToken(storage, cookie){
+	  function leerToken(nombre){
 		  if (typeof(Storage) !== "undefined") {
 			  //HTML5 Web Storage
-			  return localStorage.getItem(storage);
+			  return localStorage.getItem(nombre);
 			} else {
 				// Save as Cookie
-				return leerCookie(cookie);
+				return leerCookie(nombre + 'dreamcloud');
 			}
 	  }
 	  

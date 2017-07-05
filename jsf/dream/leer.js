@@ -13,7 +13,7 @@
 		}
 	  
 	  var id = $.urlParam('dream');
-	  var admin = $.urlParam('admin');
+	  var admin = false;
 	  
 	  var leerDreamRespondio = function (datos){
 		  console.log(datos);
@@ -29,18 +29,24 @@
 		  mostrarError("Error con el servidor");
 	  }
 	  
-	  if(admin == 1) {
-		  var parametrosDream = {token: leerTokenAdmin(), idDream: id, admin: 1};
-	  } else {
-		  var parametrosDream = {token: leerToken(), idDream: id, admin: 0};
-	  }
-	  $.post(direccionDream,parametrosDream, leerDreamRespondio,"json").fail(leerDreamError);
-	  var token = leerToken();
-	  var tokenAdmin = leerTokenAdmin();
-	  if(!token && !tokenAdmin) {
+	  var token = '';
+	  if((token = leerToken('dreamer')) != null) {
+		  var parametrosDream = {id: id, token: token, usuario: 0};
+		  $('#bookmark').show();
+		  
+	  } else if ((token = leerToken('socio')) != null) {
+		  var parametrosDream = {id: id, token: token, usuario: 1};
 		  $('#bookmark').hide();
-		  $('#forma-calificar').hide();
+		  
+	  } else {
+		  token = leerToken('admin');
+		  admin = true;
+		  var parametrosDream = {id: id, token: token, usuario: 2};
+		  $('#bookmark').hide();
+		  
 	  }
+	  
+	  $.post(direccionDream,parametrosDream, leerDreamRespondio,"json").fail(leerDreamError);
 
 	  
 	  function llenarDream(dream)
@@ -51,7 +57,7 @@
 		  if(dream.avatar) {
       		$('#imagen').prop('src','../recursos/usuarios/' + dream.avatar);
 		  }
-		  if(admin == 1) {
+		  if(admin) {
 			  $('#certificadoDiv').show();
 			  $('#divAdmin').show();
 			  if(dream.revisando == 1) {
@@ -59,6 +65,7 @@
 			  }
 			  if (dream.aprobado == 1) {
 				  $('#aprobar').hide();
+				  $('#revision').hide();
 			  }
 			  $('#titulo').html(dream.titulo + " (" + dream.idTrabajo + ")");
 			  $('#nombre').html(dream.nombre + " " + dream.apellido + " (" + dream.idUsuario + ")");
@@ -119,23 +126,13 @@
 		  }
 	  }
 	  
-	  function leerTokenAdmin(){
+	  function leerToken(nombre){
 		  if (typeof(Storage) !== "undefined") {
 			  //HTML5 Web Storage
-			  return localStorage.getItem('tokenAdmin');
+			  return localStorage.getItem(nombre);
 			} else {
 				// Save as Cookie
-				return leerCookie("dreamcloudAdmin");
-			}
-	  }
-	  
-	  function leerToken(){
-		  if (typeof(Storage) !== "undefined") {
-			  //HTML5 Web Storage
-			  return localStorage.getItem('token');
-			} else {
-				// Save as Cookie
-				return leerCookie("dreamcloudtoken");
+				return leerCookie(nombre + "dreamcloud");
 			}
 	  }
 	  

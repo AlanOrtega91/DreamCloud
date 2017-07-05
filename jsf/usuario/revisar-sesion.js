@@ -3,7 +3,7 @@
 	  
 	  var VERSION = "1.0.0";
 	  var direccion = "api/" + VERSION + "/interfaz/usuario/inicio-sesion/";
-	  var token = leerToken();
+	  var token = leerToken('dreamer');
 	  
 	  
 	  var inicioSesionTokenRespondio = function(datos) {
@@ -18,13 +18,13 @@
 		  $.post(direccion, parametros, inicioSesionTokenRespondio, "json");
 	  }
 	  
-	  function leerToken(){
+	  function leerToken(nombre){
 		  if (typeof(Storage) !== "undefined") {
 			  //HTML5 Web Storage
-			  return localStorage.getItem('token');
+			  return localStorage.getItem(nombre);
 			} else {
 				// Save as Cookie
-				return leerCookie("dreamcloudtoken");
+				return leerCookie(nombre + "dreamcloud");
 			}
 	  }
 	  

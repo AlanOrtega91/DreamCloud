@@ -9,8 +9,10 @@
 	        if(datos.status == "ok"){
 	        	if(estado == 1) {
 	        		$('#revision').hide();
-	        	} else if (estado == 2) {
+	        		$('#aprobar').show();
+	        	} if (estado == 2) {
 	        		$('#aprobar').hide();
+	        		$('#revision').hide();
 	        	} else if (estado == 3) {
 	        		
 	        	}
@@ -48,10 +50,10 @@
 	  function leerToken(){
 		  if (typeof(Storage) !== "undefined") {
 			  //HTML5 Web Storage
-			  return localStorage.getItem('tokenAdmin');
+			  return localStorage.getItem('admin');
 			} else {
 				// Save as Cookie
-				return leerCookie("dreamcloudAdmin");
+				return leerCookie("admindreamcloud");
 			}
 	  }
 	  

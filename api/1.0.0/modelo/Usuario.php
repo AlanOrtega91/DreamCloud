@@ -60,10 +60,10 @@ class Usuario {
 		}
 	}
 	
-	function leerCuenta($token, $id, $modo)
+	function leerCuenta($token, $id)
 	{
 		$usuarioDB = new UsuarioDB();
-		if ($modo == 0) {
+		if ($token) {
 			return $usuarioDB->leerCuentaToken($token);
 		} else {
 			return $usuarioDB->leerCuentaId($id);
@@ -79,7 +79,7 @@ class Usuario {
 	
 	function leerNewsFeed($token)
 	{
-		$usuario = $this->leerCuenta($token, null, 0);
+		$usuario = $this->leerCuenta($token, null);
 		$news = (new UsuarioDB)->leerNewsFeed($usuario['id']);
 		for ($newsLista = array(); $fila = $news->fetch_assoc(); $newsLista[] = $fila);
 		return $newsLista;
@@ -87,7 +87,7 @@ class Usuario {
 	
 	function cambiarDatosUsuario($token, $nombre, $apellido, $email, $telefono, $celular, $descripcion, $fechaNacimiento)
 	{
-		$usuario = $this->leerCuenta($token, null, 0);
+		$usuario = $this->leerCuenta($token, null);
 		(new UsuarioDB)->cambiarDatosUsuario($usuario['id'], $nombre, $apellido, $email, $telefono, $celular, $descripcion, $fechaNacimiento);
 	}
 	
@@ -136,7 +136,7 @@ class Usuario {
 	}
 	function guardarImagen($token, $nombreImagen)
 	{
-		$usuario = $this->leerCuenta($token, null, 0);
+		$usuario = $this->leerCuenta($token, null);
 		(new UsuarioDB())->guardarDireccionImagen($usuario['id'], $nombreImagen);
 	}
 	

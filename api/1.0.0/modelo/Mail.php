@@ -20,7 +20,7 @@ class Mail {
 		//Ask for HTML-friendly debug output
 		$mail->Debugoutput = 'html';
 		//Set the hostname of the mail server
-		$mail->Host = "dclouding.com";
+		$mail->Host = "as1r2063.servwingu.mx";
 		//Set the SMTP port number - likely to be 25, 465 or 587
 		$mail->Port = 26;
 		//Whether to use SMTP authentication

@@ -18,7 +18,7 @@
 		}
 	  
 	  var id = $.urlParam('dream');
-	  var admin = $.urlParam('admin');
+	  var admin = false;
 	  
 	  var leerResenaRespondio = function (datos){
 		  console.log(datos);
@@ -34,11 +34,22 @@
 		  mostrarError("Error con el servidor");
 	  }
 	  
-	  if(admin == 1) {
-		  var parametrosResena = {token: leerTokenAdmin(), idDream: id, admin: 1};
+	  
+	  var token = '';
+	  if((token = leerToken('dreamer')) != null) {
+		  var parametrosResena = {token: token, id: id, usuario: 0};
+		  $('#forma-calificar').show();
+		  
+	  } else if ((token = leerToken('socio')) != null) {
+		  var parametrosResena = {token: token, id: id, usuario: 1};
+		  $('#forma-calificar').hide();		  
 	  } else {
-		  var parametrosResena = {token: leerToken(), idDream: id, admin: 0};
+		  token = leerToken('admin');
+		  admin = true;
+		  var parametrosResena = {token: token, id: id, usuario: 2};
+		  $('#forma-calificar').hide();
 	  }
+	  
 	  $.post(direccionLeerResenas,parametrosResena, leerResenaRespondio,"json").fail(leerResenaError);
 	  
 		  
@@ -62,8 +73,9 @@
 			  		"</ul>" +
 			  		"<div class='w-clearfix'>" +
 			  		"<p class='subcomment-opinion'><a href='#' id='op" + resena.id + "'>Leer Mas...</a>" +
-			  		"</p>" +
-			  		"<p class='subcomment-add'><a href='#' id='com" + resena.id + "'>Comentar</a>" +
+			  		"</p>";
+			  if (!admin) {
+				  resenasHTML += "<p class='subcomment-add'><a href='#' id='com" + resena.id + "'>Comentar</a>" +
 			  		"</p>" +
 			  		"</div>" +
 			  		"<div class='form-block-2 w-form'>" +
@@ -71,9 +83,11 @@
 			  		"<textarea class='w-input' maxlength='5000' name='field' placeholder='Comentar' required='required'></textarea>" +
 			  		"<input class='comment-button w-button' data-wait='Please wait...' type='submit' value='Comentar'>" +
 			  		"</form>" +
-			  		"</div>" +
-			  		"</div>" +
-			  		"</li>";
+			  		"</div";
+			  }
+			  		
+			  resenasHTML += "</div>" +
+		  		"</li>";
 			  
 		  });
 		  $('#comentarios').html(resenasHTML);
@@ -85,7 +99,7 @@
 			  resenaId = $(this).attr('id').replace('op','');
 			  $(this).hide();
 			  var direccionLeerSubcomentarios = "../api/1.0.0/interfaz/proyecto/leer-subcomentarios/";
-			  var parametrosLeerSubcomentarios = {token: leerToken(), id: resenaId};
+			  var parametrosLeerSubcomentarios = {id: resenaId};
 			  $.post(direccionLeerSubcomentarios, parametrosLeerSubcomentarios, leerSubcomentariosRespondio,"json").fail(leerSubcomentariosError);
 		  });
 		  $('.subcomment-add > a').click(function(){
@@ -96,7 +110,7 @@
 		  $('.form-subcomment').submit(function tokenizar(event){
 			  var direccionEnviarSubcomentario = "../api/1.0.0/interfaz/proyecto/enviar-subcomentario/";
 			  var subcomentario = $('.form-subcomment > .w-input').val();
-			  var parametrosSubcomentario = {subcomentario: subcomentario, token: leerToken(), id: resenaId};
+			  var parametrosSubcomentario = {subcomentario: subcomentario, token: token, id: resenaId};
 			  $.post(direccionEnviarSubcomentario, parametrosSubcomentario, enviarSubcomentarioRespondio,"json").fail(enviarSubcomentarioError);
 		  });
 	  }
@@ -162,7 +176,7 @@
 		  console.log(datos);
 	  }
 	  
-	  $('#forma-calificar').submit(function tokenizar(event){
+	  $('#forma-calificar').submit(function (event){
 		  $('#forma-boton-calificar').prop('value', 'Enviando...');
 		  
 		  if (enviandoCalificacion) {
@@ -174,7 +188,7 @@
 		  var titulo = $('#titulo-comentario').val();
 		  var comentario = $('#comentario').val();
 		  
-		  var parametros = {token: leerToken(), idDream: id, titulo: titulo, comentario: comentario, calificacion: calificacion};
+		  var parametros = {token: token, idDream: id, titulo: titulo, comentario: comentario, calificacion: calificacion};
 		  $.post(direccionEnviarResena, parametros, enviarResenaRespondio, "json").fail(enviarResenaError);
 	  });
 	  
@@ -246,23 +260,13 @@
 	  });
 
 	  
-	  function leerTokenAdmin(){
+	  function leerToken(nombre){
 		  if (typeof(Storage) !== "undefined") {
 			  //HTML5 Web Storage
-			  return localStorage.getItem('tokenAdmin');
+			  return localStorage.getItem(nombre);
 			} else {
 				// Save as Cookie
-				return leerCookie("dreamcloudAdmin");
-			}
-	  }
-	  
-	  function leerToken(){
-		  if (typeof(Storage) !== "undefined") {
-			  //HTML5 Web Storage
-			  return localStorage.getItem('token');
-			} else {
-				// Save as Cookie
-				return leerCookie("dreamcloudtoken");
+				return leerCookie(nombre + "dreamcloud");
 			}
 	  }
 	  

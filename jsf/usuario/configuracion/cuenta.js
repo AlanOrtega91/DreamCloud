@@ -1,7 +1,6 @@
 (function ($){
   jQuery("document").ready(function(){
-	  var baseAPI = "../../api/1.0.0/interfaz/";
-	  var direccionCuenta = baseAPI + "usuario/leer-cuenta/";
+	  var direccionCuenta = "../../api/1.0.0/interfaz/usuario/leer-cuenta/";
 	  var token = leerToken();
 	  var parametrosCuenta = {token: token};
 	  
@@ -36,7 +35,7 @@
 		}, 1000, fecha);
 	  }
 	  
-	  var direccionCambiarCuenta = baseAPI + "usuario/configuracion/cuenta/";
+	  var direccionCambiarCuenta = "../../api/1.0.0/interfaz/usuario/configuracion/cuenta/";
 	  
 	  $('#forma').submit(function afiliarse(event){
 
@@ -77,10 +76,10 @@
 	  function leerToken(){
 		  if (typeof(Storage) !== "undefined") {
 			  //HTML5 Web Storage
-			  return localStorage.getItem('token');
+			  return localStorage.getItem('dreamer');
 			} else {
 				// Save as Cookie
-				return leerCookie("token");
+				return leerCookie("dreamerdreamcloud");
 			}
 	  }
 	  

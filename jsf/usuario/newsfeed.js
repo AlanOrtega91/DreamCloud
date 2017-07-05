@@ -89,10 +89,10 @@
 	  function leerToken(){
 		  if (typeof(Storage) !== "undefined") {
 			  //HTML5 Web Storage
-			  return localStorage.getItem('token');
+			  return localStorage.getItem('dreamer');
 			} else {
 				// Save as Cookie
-				return leerCookie("dreamcloudtoken");
+				return leerCookie("dreamerdreamcloud");
 			}
 	  }
 	  

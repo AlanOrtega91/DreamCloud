@@ -9,29 +9,27 @@ if (!isset($_POST['token']) || !isset($_FILES['avatar'])) {
 		}
 
 try{
+	
 	$token = SafeString::safe($_POST['token']);
 	
 	$imagen = $_FILES['avatar'];
 	$nombreImagen = uniqid('',true).'.'.(end(explode('.',$imagen['name'])));
-	echo $nombreImagen.'<br>';
+	
 	$ubicacionDestinoImagen = dirname(__FILE__).'/../../../../../../recursos/usuarios/'.$nombreImagen;
-	echo $ubicacionDestinoImagen.'<br>';
+	
 	agregarArchivo($imagen, $ubicacionDestinoImagen);
 	
 	
 	(new Usuario())->guardarImagen($token, $nombreImagen);
 	
-	header('Location: ' . $_SERVER['HTTP_REFERER']);
+	header('Location: ' . $_SERVER['HTTP_REFERER'].'?exito=1');
 		
 } catch (tokenInvalido$e) {
-	echo json_encode(array("status"=>"error","clave"=>"nombreUsuario","explicacion"=>$e->getMessage()));
-	header('Location: ' . $_SERVER['HTTP_REFERER']);
+	header('Location: ' . $_SERVER['HTTP_REFERER'].'?error=1');
 }  catch (errorConBaseDeDatos $e) {
-	echo json_encode(array("status"=>"error","clave"=>"db","explicacion"=>$e->getMessage()));
-	header('Location: ' . $_SERVER['HTTP_REFERER']);
+	header('Location: ' . $_SERVER['HTTP_REFERER'].'?error=2');
 } catch (Exception $e) {
-	echo json_encode(array("status"=>"error","clave"=>"desconocido","explicacion"=>$e->getMessage()));
-	header('Location: ' . $_SERVER['HTTP_REFERER']);
+	header('Location: ' . $_SERVER['HTTP_REFERER'].'?error=3');
 }
  	
 function agregarArchivo($archivo, $ubicacionDestino) {

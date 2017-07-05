@@ -6,10 +6,10 @@
 	  function leerToken(){
 		  if (typeof(Storage) !== "undefined") {
 			  //HTML5 Web Storage
-			  return localStorage.getItem('tokenSocio');
+			  return localStorage.getItem('socio');
 			} else {
 				// Save as Cookie
-				return leerCookie("dreamcloudtokenSocio");
+				return leerCookie("sociodreamcloud");
 			}
 	  }
 	  
